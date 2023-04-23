@@ -1,12 +1,12 @@
 // Variables globales
 var var_width = 1000.0;
-var var_height = 700.0;
+var var_height = 550.0;
 var var_l = 3.0;
 var var_escala_cubo = 2.0;
 var var_L = var_l * var_escala_cubo;
 var var_escala = 30.0;
 var var_origen_x = ((var_height - 100) / 2.0) + 100.0;
-var var_origen_y = var_width / 3.0;
+var var_origen_y = var_width / 3.5;
 var var_origen_text_x = ((5.0 * var_width) / 6.0) - 50;
 var var_origen_text_y = ((var_height - 100) / 2.0) + 100.0;
 var var_anchura_text = 75.0;
@@ -676,9 +676,11 @@ function RepresentacionVista() {
     context_oculto.fillStyle = var_cinf;
     context_oculto.fillText("Nivel " + var_nivel_reducido, var_origen_text_x, var_delta_alt + var_origen_text_y - 4.0 * var_espacio_text - 2.0 * var_altura_text);
 
-    context_oculto.font = "30pt Verdana";
-    context_oculto.fillStyle = ParametrizarColor(var_cc_r * 0.72, var_cc_g * 0.72, var_cc_b * 0.72);
-    context_oculto.fillText("Juego del hipercubo cuántico - Jesús Lacalle (UPM)", var_width / 2, 75);
+    //context_oculto.font = "30pt Verdana";
+    //context_oculto.font = "1pt Verdana";
+    //context_oculto.fillStyle = ParametrizarColor(var_cc_r * 0.72, var_cc_g * 0.72, var_cc_b * 0.72);
+    //context_oculto.fillText("Juego del hipercubo cuántico - Jesús Lacalle (UPM)", var_width / 2, 75);
+
 
     context_oculto.font = "16pt Verdana";
     context_oculto.fillStyle = var_cblack;
