@@ -4,9 +4,9 @@
             <h1>Descripción del juego</h1>
         </div>
         <div class="flex flex-nowrap">
-            <!-- <h2><a href="https://quantum-explore.com/es/qhcube-descripcion.html" target="_blank">Descripción del juego</a></h2> -->
             <p>
-                El hipercubo cuántico representa una <i>puerta cuántica discreta de dos cúbits</i>, es decir, una <u>matriz 4x4</u>
+                El hipercubo cuántico representa una <i>puerta cuántica discreta de dos cúbits</i>, es decir, una <u>matriz
+                4x4</u>
                 cuyas entradas son <u>números complejos</u> de la forma <b>a+bi</b> con a y b enteros.
             </p>
         </div>
@@ -16,16 +16,15 @@
                 conseguir, mediante una serie de movimientos, <b>que el hipercubo represente la matriz identidad</b>.
             </p>
         </div>
-        <div class="flex">
-            <h2>Contacto:</h2>
-            <h3>&nbsp;&nbsp;&nbsp; jesus.glopezdelacalle@upm.es</h3>
+        <div class="flex flex-nowrap flex-column" style="margin: auto">
+            <Button label="Aprende a jugar" link></Button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "DescripcionBreve"
+    name: "DescripcionBreve",
 }
 </script>
 
@@ -33,6 +32,7 @@ export default {
 p {
     line-height: 1.5em;
 }
+
 .three h1 {
     font-size: 20px;
     font-weight: 500;
