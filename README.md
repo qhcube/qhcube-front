@@ -1,7 +1,9 @@
-# Vue 3 + Vite
+# Juego del Hipercubo Cuántico
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### Creado por Jesús Lacalle (UPM)
 
-## Recommended IDE Setup
+El hipercubo cuántico representa una puerta cuántica discreta de dos cúbits, es decir, 
+una matriz 4x4 cuyas entradas son números complejos de la forma `a+bi` con _a_ y _b_ enteros.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+El objetivo del juego es conseguir, mediante una serie de movimientos, que el hipercubo 
+represente la matriz identidad.
