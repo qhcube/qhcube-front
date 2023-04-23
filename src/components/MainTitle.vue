@@ -1,7 +1,10 @@
 <template>
     <header>
-       <div class="flex two h-10rem">
-          <div class="flex flex-nowrap w-max" style="margin: auto;">
+        <div class="flex flex-nowrap max-w-fit align-items-center gap-6 py-4 px-4" style="margin: auto">
+           <div>
+               <img alt="ETSISI logo" src="/src/assets/etsisi-logo-100-sombra.png" style="width: calc(100%); opacity: 0.5"/>
+           </div>
+          <div class="two">
               <h1>Juego del Hipercubo Cuántico
                   <span>By Jesús García López de la Calle</span>
               </h1>
