@@ -263,7 +263,7 @@ var canv_oculto = document.createElement("canvas");
 var context_oculto = canv_oculto.getContext("2d");
 canv_oculto.width = var_width;
 canv_oculto.height = var_height;
-context_oculto.font = "24pt Verdana";
+context_oculto.font = "24pt Roboto";
 context_oculto.textAlign = "center";
 var var_gradient = context_oculto.createLinearGradient(0, var_height, 0, 0);
 var_gradient.addColorStop(0, var_cfondo1);
@@ -672,17 +672,17 @@ function RepresentacionVista() {
     context_oculto.lineTo(var_origen_text_x - 2.5 * var_espacio_text - 2.0 * var_anchura_text, var_delta_alt + var_origen_text_y - 2.5 * var_espacio_text - 2.0 * var_altura_text);
     context_oculto.stroke();
 
-    context_oculto.font = "24pt Verdana";
+    context_oculto.font = "24pt Roboto";
     context_oculto.fillStyle = var_cinf;
     context_oculto.fillText("Nivel " + var_nivel_reducido, var_origen_text_x, var_delta_alt + var_origen_text_y - 4.0 * var_espacio_text - 2.0 * var_altura_text);
 
-    //context_oculto.font = "30pt Verdana";
-    //context_oculto.font = "1pt Verdana";
+    //context_oculto.font = "30pt Roboto";
+    //context_oculto.font = "1pt Roboto";
     //context_oculto.fillStyle = ParametrizarColor(var_cc_r * 0.72, var_cc_g * 0.72, var_cc_b * 0.72);
     //context_oculto.fillText("Juego del hipercubo cuántico - Jesús Lacalle (UPM)", var_width / 2, 75);
 
 
-    context_oculto.font = "16pt Verdana";
+    context_oculto.font = "16pt Roboto";
     context_oculto.fillStyle = var_cblack;
     context_oculto.fillText(TextoCoordenada(var_coor[0][0][0], var_coor[1][0][0]), var_origen_text_x - 1.5 * var_espacio_text - 1.5 * var_anchura_text,
         var_delta_alt + var_origen_text_y - 1.5 * var_espacio_text - 1.0 * var_altura_text);
@@ -720,12 +720,12 @@ function RepresentacionVista() {
     // Información
 
     var_delta_alt = 150;
-    context_oculto.font = "24pt Verdana";
+    context_oculto.font = "24pt Roboto";
     context_oculto.fillStyle = var_cinf;
     context_oculto.fillText("Información", var_origen_text_x, var_delta_alt + var_origen_text_y);
 
     var_delta_alt = 200;
-    context_oculto.font = "16pt Verdana";
+    context_oculto.font = "16pt Roboto";
     context_oculto.fillStyle = var_cblack;
     context_oculto.fillText(var_mensaje, var_origen_text_x, var_delta_alt + var_origen_text_y);
     var_delta_alt = 240;
