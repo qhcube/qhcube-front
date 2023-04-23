@@ -1,5 +1,5 @@
 // Variables globales
-var var_width = 1200.0;
+var var_width = 1000.0;
 var var_height = 700.0;
 var var_l = 3.0;
 var var_escala_cubo = 2.0;
@@ -7,7 +7,7 @@ var var_L = var_l * var_escala_cubo;
 var var_escala = 30.0;
 var var_origen_x = ((var_height - 100) / 2.0) + 100.0;
 var var_origen_y = var_width / 3.0;
-var var_origen_text_x = ((5.0 * var_width) / 6.0) - 25;
+var var_origen_text_x = ((5.0 * var_width) / 6.0) - 50;
 var var_origen_text_y = ((var_height - 100) / 2.0) + 100.0;
 var var_anchura_text = 75.0;
 var var_altura_text = 20.0;
