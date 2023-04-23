@@ -3,6 +3,8 @@ import './style.css'
 import App from './App.vue'
 
 import router from "../router.js";
+import "primeicons/primeicons.css"
+import "primeflex/primeflex.css"
 
 const app = createApp(App);
 
