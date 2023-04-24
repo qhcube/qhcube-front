@@ -110,7 +110,7 @@
                     combinaciones específicas de puertas <I>G</I> y <I>H</I>.
                 </p>
                 <div class="flex align-self-center">
-                    <img src="/src/assets/figura_3.bmp" alt="figura_1" style="max-width: 100%; margin: auto"/>
+                    <img src="/src/assets/figura_3.bmp" alt="figura_1" />
                 </div>
                 <p>
                     Entonces, para bajar el nivel del hipercubo hay que conseguir que las filas 1 y 2, por un lado, y 3
@@ -219,6 +219,11 @@ p {
     text-align: justify;
 }
 
+img {
+    max-width: 100%;
+    margin: auto;
+    min-width: 200px;
+}
 table {
     border-collapse: collapse;
 }
