@@ -268,7 +268,7 @@ context_oculto.textAlign = "center";
 var var_gradient = context_oculto.createLinearGradient(0, var_height, 0, 0);
 var_gradient.addColorStop(0, var_cfondo1);
 var_gradient.addColorStop(1, var_cfondo2);
-var imagen = context_oculto.createImagenData(var_width, var_height);
+var imagen = context_oculto.createImageData(var_width, var_height);
 context_oculto.strokeStyle = var_ca;
 var var_mouse_move = false;
 var var_clicks = 0;

@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-red-50 p-2">
+    <div class="bg-red-50 p-2" v-if="!this.instruccionesVisibles">
         <div class="flex flex-nowrap three">
             <h1>Descripción del juego</h1>
         </div>
@@ -17,49 +17,26 @@
             </p>
         </div>
         <div class="flex flex-nowrap flex-column" style="margin: auto">
-            <Button label="Aprende a jugar" link></Button>
+            <Button label="Aprende a jugar" link @click="this.instruccionesVisibles = true"></Button>
         </div>
     </div>
+    <descripcion-juego v-else v-on:close="this.instruccionesVisibles = false"></descripcion-juego>
 </template>
 
 <script>
+import DescripcionJuego from "./DescripcionJuego.vue";
+
 export default {
     name: "DescripcionBreve",
+    components: {DescripcionJuego},
+    data() {
+        return {
+            instruccionesVisibles: false,
+        }
+    },
 }
 </script>
 
 <style scoped>
-p {
-    line-height: 1.5em;
-}
 
-.three h1 {
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 1.5em;
-    padding-bottom: 15px;
-    position: relative;
-}
-
-.three h1:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 5px;
-    width: 55px;
-    background-color: #ff6459;
-}
-
-.three h1:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 2px;
-    height: 1px;
-    width: 115%;
-    max-width: 255px;
-    background-color: #ff8980;
-}
 </style>
