@@ -16,7 +16,7 @@
                 conseguir, mediante una serie de movimientos, <b>que el hipercubo represente la matriz identidad</b>.
             </p>
         </div>
-        <div class="flex flex-nowrap flex-column" style="margin: auto">
+        <div class="flex flex-nowrap flex-column align-items-start">
             <Button label="Aprende a jugar" link @click="this.instruccionesVisibles = true"></Button>
         </div>
     </div>
@@ -38,5 +38,7 @@ export default {
 </script>
 
 <style scoped>
-
+p {
+    line-height: 1.2em;
+}
 </style>

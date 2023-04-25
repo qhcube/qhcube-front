@@ -6,8 +6,9 @@
                 Your browser does not support HTML5 Canvas. Please shift to a newer browser.
             </canvas>
         </div>
-        <div class="flex flex-nowrap flex-column">
+        <div class="flex flex-nowrap flex-column gap-3">
             <descripcion-breve />
+            <login-and-register />
         </div>
     </div>
     <div class="flex gap-3">
@@ -19,10 +20,11 @@
 
 import DescripcionBreve from "./DescripcionBreve.vue";
 import MainFooter from "./MainFooter.vue";
+import LoginAndRegister from "./LoginAndRegister.vue";
 
 export default {
     name: "MainHome",
-    components: {MainFooter, DescripcionBreve},
+    components: {LoginAndRegister, MainFooter, DescripcionBreve},
     mounted() {
         pageLoaded();
     }
