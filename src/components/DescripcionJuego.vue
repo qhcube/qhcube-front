@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-column bg-red-50">
-        <div class="flex flex-row flex-nowrap three" style="height: 90px">
+    <div class="flex flex-column bg-red-50 shadow-6">
+        <div class="flex flex-row flex-nowrap three px-2" style="height: 90px">
             <div class="flex">
                 <h1>Juego del del hipercubo cuántico</h1>
             </div>
@@ -12,11 +12,12 @@
         <div class="flex flex-auto">
             <scroll-panel style="width: 100%; height: 510px" class="custombar1">
                 <p>
-                    El hipercubo cuántico representa una puerta cuántica discreta de dos cúbits, es decir, una matriz
-                    4x4 cuyas entradas son números complejos de la forma a+bi con a y b enteros. Pero en el hipercubo no
-                    se representan los enteros (partes reales e imaginarias) de los elmentos de la matriz, sino sus
-                    paridades, mediante un código de dos colores: par e impar. En la siguiente figura se puede ver el
-                    hipercubo correspondiente a una puerta cuántica discreta.
+                    El hipercubo cuántico representa una puerta cuántica discreta de dos cúbits, es decir, una matriz<i>4x4</i>
+                    cuyas entradas son números complejos de la forma <i>a+bi</i> con <i>a</i> y <i>b</i> enteros. Pero en
+                    el hipercubo no se representan los enteros (partes reales e imaginarias) de los elmentos de la
+                    matriz, sino sus paridades, mediante un código de dos colores: <span style="color: #e63c17">par</span>
+                    e <span style="color: #0066cc">impar</span>. En la siguiente
+                    figura se puede ver el hipercubo correspondiente a una puerta cuántica discreta.
                 </p>
 
                 <div class="flex align-self-center">
@@ -267,6 +268,7 @@ export default {
 <style scoped>
 h1 {
     font-size: 1.75rem;
+    font-weight: 600;
 }
 
 p {
