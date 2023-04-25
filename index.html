@@ -2,9 +2,1277 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>QHCube</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/default.css">
+    <!-- <script type="text/javascript" src="/src/assets/juego.js"> -->
+    <script>
+      // Variables globales
+      var var_width = 1000.0;
+      var var_height = 550.0;
+      var var_l = 3.0;
+      var var_escala_cubo = 2.0;
+      var var_L = var_l * var_escala_cubo;
+      var var_escala = 30.0;
+      var var_origen_x = ((var_height - 100) / 2.0) + 100.0;
+      var var_origen_y = var_width / 3.5;
+      var var_origen_text_x = ((5.0 * var_width) / 6.0) - 50;
+      var var_origen_text_y = ((var_height - 100) / 2.0) + 100.0;
+      var var_anchura_text = 75.0;
+      var var_altura_text = 20.0;
+      var var_espacio_text = 18.0;
+      var var_delta_alt = 0;
+      var var_mensaje = "Bienvenidos al juego del QHCube";
+      var var_mensaje2 = "";
+      var var_modo_tutorial = true;
+      var var_nivel_cero = false;
+      var var_final_partida = false;
+      var var_p = [[var_escala * var_l, var_escala * (var_l - Math.sqrt(2.0))],
+        [var_escala * (var_l - 1.0 / Math.sqrt(2.0)), var_escala * (var_l - 1.0 / Math.sqrt(2.0))],
+        [var_escala * (var_l - Math.sqrt(2.0)), var_escala * var_l],
+        [var_escala * (-var_l + Math.sqrt(2.0)), var_escala * var_l],
+        [-var_escala * (var_l - 1.0 / Math.sqrt(2.0)), var_escala * (var_l - 1.0 / Math.sqrt(2.0))],
+        [-var_escala * var_l, var_escala * (var_l - Math.sqrt(2.0))],
+        [-var_escala * var_l, var_escala * (-var_l + Math.sqrt(2.0))],
+        [-var_escala * (var_l - 1.0 / Math.sqrt(2.0)), -var_escala * (var_l - 1.0 / Math.sqrt(2.0))],
+        [var_escala * (-var_l + Math.sqrt(2.0)), -var_escala * var_l],
+        [var_escala * (var_l - Math.sqrt(2.0)), -var_escala * var_l],
+        [var_escala * (var_l - 1.0 / Math.sqrt(2.0)), -var_escala * (var_l - 1.0 / Math.sqrt(2.0))],
+        [var_escala * var_l, var_escala * (-var_l + Math.sqrt(2.0))]];
+      var var_P = [[var_escala * var_L, var_escala * (var_L - Math.sqrt(2.0))],
+        [var_escala * (var_L - 1.0 / Math.sqrt(2.0)), var_escala * (var_L - 1.0 / Math.sqrt(2.0))],
+        [var_escala * (var_L - Math.sqrt(2.0)), var_escala * var_L],
+        [var_escala * (-var_L + Math.sqrt(2.0)), var_escala * var_L],
+        [-var_escala * (var_L - 1.0 / Math.sqrt(2.0)), var_escala * (var_L - 1.0 / Math.sqrt(2.0))],
+        [-var_escala * var_L, var_escala * (var_L - Math.sqrt(2.0))],
+        [-var_escala * var_L, var_escala * (-var_L + Math.sqrt(2.0))],
+        [-var_escala * (var_L - 1.0 / Math.sqrt(2.0)), -var_escala * (var_L - 1.0 / Math.sqrt(2.0))],
+        [var_escala * (-var_L + Math.sqrt(2.0)), -var_escala * var_L],
+        [var_escala * (var_L - Math.sqrt(2.0)), -var_escala * var_L],
+        [var_escala * (var_L - 1.0 / Math.sqrt(2.0)), -var_escala * (var_L - 1.0 / Math.sqrt(2.0))],
+        [var_escala * var_L, var_escala * (-var_L + Math.sqrt(2.0))]];
+      var var_ratio = var_escala / Math.sqrt((var_p[0][0] - var_P[0][0]) * (var_p[0][0] - var_P[0][0]) +
+              (var_p[0][1] - var_P[0][1]) * (var_p[0][1] - var_P[0][1]) +
+              (var_escala * (var_l - var_L)) * (var_escala * (var_l - var_L)));
+      var var_v = [[var_P[0][0], var_P[0][1], var_escala * var_L],
+        [var_P[1][0], var_P[1][1], var_escala * var_L],
+        [var_P[2][0], var_P[2][1], var_escala * var_L],
+        [var_P[3][0], var_P[3][1], var_escala * var_L],
+        [var_P[4][0], var_P[4][1], var_escala * var_L],
+        [var_P[5][0], var_P[5][1], var_escala * var_L],
+        [var_P[6][0], var_P[6][1], var_escala * var_L],
+        [var_P[7][0], var_P[7][1], var_escala * var_L],
+        [var_P[8][0], var_P[8][1], var_escala * var_L],
+        [var_P[9][0], var_P[9][1], var_escala * var_L],
+        [var_P[10][0], var_P[10][1], var_escala * var_L],
+        [var_P[11][0], var_P[11][1], var_escala * var_L],
+        [var_P[0][0] + var_ratio * (var_p[0][0] - var_P[0][0]), var_P[0][1] + var_ratio * (var_p[0][1] - var_P[0][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[1][0] + var_ratio * (var_p[1][0] - var_P[1][0]), var_P[1][1] + var_ratio * (var_p[1][1] - var_P[1][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[2][0] + var_ratio * (var_p[2][0] - var_P[2][0]), var_P[2][1] + var_ratio * (var_p[2][1] - var_P[2][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[3][0] + var_ratio * (var_p[3][0] - var_P[3][0]), var_P[3][1] + var_ratio * (var_p[3][1] - var_P[3][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[4][0] + var_ratio * (var_p[4][0] - var_P[4][0]), var_P[4][1] + var_ratio * (var_p[4][1] - var_P[4][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[5][0] + var_ratio * (var_p[5][0] - var_P[5][0]), var_P[5][1] + var_ratio * (var_p[5][1] - var_P[5][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[6][0] + var_ratio * (var_p[6][0] - var_P[6][0]), var_P[6][1] + var_ratio * (var_p[6][1] - var_P[6][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[7][0] + var_ratio * (var_p[7][0] - var_P[7][0]), var_P[7][1] + var_ratio * (var_p[7][1] - var_P[7][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[8][0] + var_ratio * (var_p[8][0] - var_P[8][0]), var_P[8][1] + var_ratio * (var_p[8][1] - var_P[8][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[9][0] + var_ratio * (var_p[9][0] - var_P[9][0]), var_P[9][1] + var_ratio * (var_p[9][1] - var_P[9][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[10][0] + var_ratio * (var_p[10][0] - var_P[10][0]), var_P[10][1] + var_ratio * (var_p[10][1] - var_P[10][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_P[11][0] + var_ratio * (var_p[11][0] - var_P[11][0]), var_P[11][1] + var_ratio * (var_p[11][1] - var_P[11][1]), var_escala * var_L + var_escala * (var_l - var_L) * var_ratio],
+        [var_p[0][0], var_p[0][1], var_escala * var_l],
+        [var_p[1][0], var_p[1][1], var_escala * var_l],
+        [var_p[2][0], var_p[2][1], var_escala * var_l],
+        [var_p[3][0], var_p[3][1], var_escala * var_l],
+        [var_p[4][0], var_p[4][1], var_escala * var_l],
+        [var_p[5][0], var_p[5][1], var_escala * var_l],
+        [var_p[6][0], var_p[6][1], var_escala * var_l],
+        [var_p[7][0], var_p[7][1], var_escala * var_l],
+        [var_p[8][0], var_p[8][1], var_escala * var_l],
+        [var_p[9][0], var_p[9][1], var_escala * var_l],
+        [var_p[10][0], var_p[10][1], var_escala * var_l],
+        [var_p[11][0], var_p[11][1], var_escala * var_l],
+        [var_p[0][0], var_p[0][1], var_escala * (var_l - 1.0)],
+        [var_p[1][0], var_p[1][1], var_escala * (var_l - 1.0)],
+        [var_p[2][0], var_p[2][1], var_escala * (var_l - 1.0)],
+        [var_p[3][0], var_p[3][1], var_escala * (var_l - 1.0)],
+        [var_p[4][0], var_p[4][1], var_escala * (var_l - 1.0)],
+        [var_p[5][0], var_p[5][1], var_escala * (var_l - 1.0)],
+        [var_p[6][0], var_p[6][1], var_escala * (var_l - 1.0)],
+        [var_p[7][0], var_p[7][1], var_escala * (var_l - 1.0)],
+        [var_p[8][0], var_p[8][1], var_escala * (var_l - 1.0)],
+        [var_p[9][0], var_p[9][1], var_escala * (var_l - 1.0)],
+        [var_p[10][0], var_p[10][1], var_escala * (var_l - 1.0)],
+        [var_p[11][0], var_p[11][1], var_escala * (var_l - 1.0)],
+        [var_p[0][0], var_p[0][1], -var_escala * (var_l - 1.0)],
+        [var_p[1][0], var_p[1][1], -var_escala * (var_l - 1.0)],
+        [var_p[2][0], var_p[2][1], -var_escala * (var_l - 1.0)],
+        [var_p[3][0], var_p[3][1], -var_escala * (var_l - 1.0)],
+        [var_p[4][0], var_p[4][1], -var_escala * (var_l - 1.0)],
+        [var_p[5][0], var_p[5][1], -var_escala * (var_l - 1.0)],
+        [var_p[6][0], var_p[6][1], -var_escala * (var_l - 1.0)],
+        [var_p[7][0], var_p[7][1], -var_escala * (var_l - 1.0)],
+        [var_p[8][0], var_p[8][1], -var_escala * (var_l - 1.0)],
+        [var_p[9][0], var_p[9][1], -var_escala * (var_l - 1.0)],
+        [var_p[10][0], var_p[10][1], -var_escala * (var_l - 1.0)],
+        [var_p[11][0], var_p[11][1], -var_escala * (var_l - 1.0)],
+        [var_p[0][0], var_p[0][1], -var_escala * var_l],
+        [var_p[1][0], var_p[1][1], -var_escala * var_l],
+        [var_p[2][0], var_p[2][1], -var_escala * var_l],
+        [var_p[3][0], var_p[3][1], -var_escala * var_l],
+        [var_p[4][0], var_p[4][1], -var_escala * var_l],
+        [var_p[5][0], var_p[5][1], -var_escala * var_l],
+        [var_p[6][0], var_p[6][1], -var_escala * var_l],
+        [var_p[7][0], var_p[7][1], -var_escala * var_l],
+        [var_p[8][0], var_p[8][1], -var_escala * var_l],
+        [var_p[9][0], var_p[9][1], -var_escala * var_l],
+        [var_p[10][0], var_p[10][1], -var_escala * var_l],
+        [var_p[11][0], var_p[11][1], -var_escala * var_l],
+        [var_P[0][0] + var_ratio * (var_p[0][0] - var_P[0][0]), var_P[0][1] + var_ratio * (var_p[0][1] - var_P[0][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[1][0] + var_ratio * (var_p[1][0] - var_P[1][0]), var_P[1][1] + var_ratio * (var_p[1][1] - var_P[1][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[2][0] + var_ratio * (var_p[2][0] - var_P[2][0]), var_P[2][1] + var_ratio * (var_p[2][1] - var_P[2][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[3][0] + var_ratio * (var_p[3][0] - var_P[3][0]), var_P[3][1] + var_ratio * (var_p[3][1] - var_P[3][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[4][0] + var_ratio * (var_p[4][0] - var_P[4][0]), var_P[4][1] + var_ratio * (var_p[4][1] - var_P[4][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[5][0] + var_ratio * (var_p[5][0] - var_P[5][0]), var_P[5][1] + var_ratio * (var_p[5][1] - var_P[5][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[6][0] + var_ratio * (var_p[6][0] - var_P[6][0]), var_P[6][1] + var_ratio * (var_p[6][1] - var_P[6][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[7][0] + var_ratio * (var_p[7][0] - var_P[7][0]), var_P[7][1] + var_ratio * (var_p[7][1] - var_P[7][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[8][0] + var_ratio * (var_p[8][0] - var_P[8][0]), var_P[8][1] + var_ratio * (var_p[8][1] - var_P[8][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[9][0] + var_ratio * (var_p[9][0] - var_P[9][0]), var_P[9][1] + var_ratio * (var_p[9][1] - var_P[9][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[10][0] + var_ratio * (var_p[10][0] - var_P[10][0]), var_P[10][1] + var_ratio * (var_p[10][1] - var_P[10][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[11][0] + var_ratio * (var_p[11][0] - var_P[11][0]), var_P[11][1] + var_ratio * (var_p[11][1] - var_P[11][1]), -var_escala * var_L - var_escala * (var_l - var_L) * var_ratio],
+        [var_P[0][0], var_P[0][1], -var_escala * var_L],
+        [var_P[1][0], var_P[1][1], -var_escala * var_L],
+        [var_P[2][0], var_P[2][1], -var_escala * var_L],
+        [var_P[3][0], var_P[3][1], -var_escala * var_L],
+        [var_P[4][0], var_P[4][1], -var_escala * var_L],
+        [var_P[5][0], var_P[5][1], -var_escala * var_L],
+        [var_P[6][0], var_P[6][1], -var_escala * var_L],
+        [var_P[7][0], var_P[7][1], -var_escala * var_L],
+        [var_P[8][0], var_P[8][1], -var_escala * var_L],
+        [var_P[9][0], var_P[9][1], -var_escala * var_L],
+        [var_P[10][0], var_P[10][1], -var_escala * var_L],
+        [var_P[11][0], var_P[11][1], -var_escala * var_L]];
+      var var_vista_v = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0],
+        [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0], [0.0, 0.0]];
+      var var_c = [[0, 1, 13, 12, 0], [1, 2, 14, 13, 1], [3, 4, 16, 15, 3], [4, 5, 17, 16, 4],
+        [6, 7, 19, 18, 6], [7, 8, 20, 19, 7], [9, 10, 22, 21, 9], [10, 11, 23, 22, 10],
+        [12, 14, 26, 24, 12], [2, 3, 27, 26, 2], [15, 17, 29, 27, 15], [5, 6, 30, 29, 5],
+        [18, 20, 32, 30, 18], [8, 9, 33, 32, 8], [21, 23, 35, 33, 21], [11, 0, 24, 35, 11],
+        [24, 25, 37, 36, 24], [25, 26, 38, 37, 25], [27, 28, 40, 39, 27], [28, 29, 41, 40, 28],
+        [30, 31, 43, 42, 30], [31, 32, 44, 43, 31], [33, 34, 46, 45, 33], [34, 35, 47, 46, 34],
+        [36, 38, 50, 48, 36], [26, 27, 63, 62, 26], [39, 41, 53, 51, 39], [29, 30, 66, 65, 29],
+        [42, 44, 56, 54, 42], [32, 33, 69, 68, 32], [45, 47, 59, 57, 45], [35, 24, 60, 71, 35],
+        [48, 49, 61, 60, 48], [49, 50, 62, 61, 49], [51, 52, 64, 63, 51], [52, 53, 65, 64, 52],
+        [54, 55, 67, 66, 54], [55, 56, 68, 67, 55], [57, 58, 70, 69, 57], [58, 59, 71, 70, 58],
+        [60, 62, 74, 72, 60], [62, 63, 87, 86, 62], [63, 65, 77, 75, 63], [65, 66, 90, 89, 65],
+        [66, 68, 80, 78, 66], [68, 69, 93, 92, 68], [69, 71, 83, 81, 69], [71, 60, 84, 95, 71],
+        [72, 73, 85, 84, 72], [73, 74, 86, 85, 73], [75, 76, 88, 87, 75], [76, 77, 89, 88, 76],
+        [78, 79, 91, 90, 78], [79, 80, 92, 91, 79], [81, 82, 94, 93, 81], [82, 83, 95, 94, 82]];
+      var var_n_c = [[1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)], [1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)],
+        [-1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)], [-1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)],
+        [-1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)], [-1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)],
+        [1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)], [1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)],
+        [1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)], [0.0, 1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0)],
+        [-1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)], [-1.0 / Math.sqrt(2.0), 0.0, -1.0 / Math.sqrt(2.0)],
+        [-1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)], [0.0, -1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0)],
+        [1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), -Math.sqrt(2.0 / 3.0)], [1.0 / Math.sqrt(2.0), 0.0, -1.0 / Math.sqrt(2.0)],
+        [1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0], [1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0],
+        [-1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0], [-1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0],
+        [-1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0], [-1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0],
+        [1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0], [1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0],
+        [1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0], [0.0, 1.0, 0.0],
+        [-1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0], [-1.0, 0.0, 0.0],
+        [-1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0], [0.0, -1.0, 0.0],
+        [1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0], [1.0, 0.0, 0.0],
+        [1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0], [1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0],
+        [-1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0], [-1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0), 0.0],
+        [-1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0], [-1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0],
+        [1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0], [1.0 / Math.sqrt(2.0), -1.0 / Math.sqrt(2.0), 0.0],
+        [1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)], [0.0, 1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0)],
+        [-1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)], [-1.0 / Math.sqrt(2.0), 0.0, 1.0 / Math.sqrt(2.0)],
+        [-1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)], [0.0, -1.0 / Math.sqrt(2.0), 1.0 / Math.sqrt(2.0)],
+        [1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)], [1.0 / Math.sqrt(2.0), 0.0, 1.0 / Math.sqrt(2.0)],
+        [1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)], [1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)],
+        [-1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)], [-1.0 / Math.sqrt(6.0), 1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)],
+        [-1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)], [-1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)],
+        [1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)], [1.0 / Math.sqrt(6.0), -1.0 / Math.sqrt(6.0), Math.sqrt(2.0 / 3.0)]];
+      var const_cara_cubo = -1;
+      var const_cara_real = 0;
+      var const_cara_imag = 1;
+      var var_t_c = [[const_cara_real, 0, 0], [const_cara_imag, 0, 0], [const_cara_real, 0, 1], [const_cara_imag, 0, 1],
+        [const_cara_real, 0, 2], [const_cara_imag, 0, 2], [const_cara_real, 0, 3], [const_cara_imag, 0, 3],
+        [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1],
+        [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1],
+        [const_cara_real, 1, 0], [const_cara_imag, 1, 0], [const_cara_real, 1, 1], [const_cara_imag, 1, 1],
+        [const_cara_real, 1, 2], [const_cara_imag, 1, 2], [const_cara_real, 1, 3], [const_cara_imag, 1, 3],
+        [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1],
+        [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1],
+        [const_cara_real, 2, 0], [const_cara_imag, 2, 0], [const_cara_real, 2, 1], [const_cara_imag, 2, 1],
+        [const_cara_real, 2, 2], [const_cara_imag, 2, 2], [const_cara_real, 2, 3], [const_cara_imag, 2, 3],
+        [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1],
+        [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1], [const_cara_cubo, -1, -1],
+        [const_cara_real, 3, 0], [const_cara_imag, 3, 0], [const_cara_real, 3, 1], [const_cara_imag, 3, 1],
+        [const_cara_real, 3, 2], [const_cara_imag, 3, 2], [const_cara_real, 3, 3], [const_cara_imag, 3, 3]];
+      var const_fila = 1;
+      var const_columna = 2;
+      /*
+          var var_coor = [[[10, 11, 12, 13],
+          [14, 15, 16, 17],
+          [18, 19, 20, 21],
+          [22, 23, 24, 25]],
+          [[50, 51, 52, 53],
+          [54, 55, 56, 57],
+          [58, 59, 60, 61],
+          [62, 63, 64, 65]]];
+          */
+      var var_coor = [[[7, -2, 1, 0],
+        [3, 6, 1, 0],
+        [-1, -1, 7, -1],
+        [0, 1, -1, 6]],
+        [[2, -2, -1, 1],
+          [0, 4, 1, -1],
+          [-1, 1, 1, 3],
+          [0, -1, 3, 4]]];
+      var var_nivel = 64;
+      var var_nivel_reducido = 6;
+      var var_c8 = [[0, 2, 3, 5, 6, 8, 9, 11, 0],
+        [84, 86, 87, 89, 90, 92, 93, 95, 84]];
+      var var_n_c8 = [[0.0, 0.0, 1.0],
+        [0.0, 0.0, -1.0]];
+      var var_e3_aux = [0.0, 0.0, 0.0];
+      var var_e3 = [Math.sqrt(14.0) / 5.0, Math.sqrt(10.0) / 5.0, 1.0 / 5.0];
+      var var_e2 = [0.0, 0.0, 0.0];
+      var var_e1 = [0.0, 0.0, 0.0];
+      var var_ca = 'rgb(158, 40, 16)';
+      var var_cc = 'rgb(230, 60, 23)';
+      var var_cc_r = 230;
+      var var_cc_g = 60;
+      var var_cc_b = 23;
+      var var_cinf = 'rgb(0, 102, 204)';
+      var var_cpar = 'rgb(209, 164, 5)';
+      var var_cimpar = 'rgb(13, 125, 227)';
+      var var_cfondo1 = 'rgb(255, 255, 255)';
+      var var_cfondo2 = 'rgb(255, 255, 255)';
+      var var_cblack = 'rgb(0, 0, 0)';
+      /*
+          var var_cfondo1 = 'rgb(96, 122, 78)';
+          var var_cfondo2 = 'rgb(250, 251, 249)';
+          */
+      var canvas;
+      var context;
+      var canv_oculto = document.createElement("canvas");
+      var context_oculto = canv_oculto.getContext("2d");
+      canv_oculto.width = var_width;
+      canv_oculto.height = var_height;
+      context_oculto.font = "24pt Roboto";
+      context_oculto.textAlign = "center";
+      var var_gradient = context_oculto.createLinearGradient(0, var_height, 0, 0);
+      var_gradient.addColorStop(0, var_cfondo1);
+      var_gradient.addColorStop(1, var_cfondo2);
+      var imagen = context_oculto.createImageData(var_width, var_height);
+      context_oculto.strokeStyle = var_ca;
+      var var_mouse_move = false;
+      var var_clicks = 0;
+      var var_pos_mouse_x0 = 0;
+      var var_pos_mouse_y0 = 0;
+      var var_pos_mouse_x = 0;
+      var var_pos_mouse_y = 0;
+      var var_rect_canvas;
+      var var_Delta_x = 0;
+      var var_Delta_y = 0;
+      var var_coor_xy = 0.0;
+      var var_coor_xy_new = 0.0;
+      var var_cara_clicked = 0;
+      var var_click_mouse_x = 0;
+      var var_click_mouse_y = 0;
+      var var_aux = 0.0;
+      var var_aux1 = 0.0;
+      var var_k = 0;
+      var var_j = 0;
+
+      // This function will be calles once the page loads completely
+      function ParametrizarColor(color_r, color_g, color_b) {
+        return "rgb(" + color_r + "," + color_g + "," + color_b + ")";
+      }
+
+      function SistemaReferencia() {
+        var_aux = Math.sqrt(var_e3[0] * var_e3[0] + var_e3[1] * var_e3[1]);
+        var_e2[0] = -var_e3[1] / var_aux;
+        var_e2[1] = var_e3[0] / var_aux;
+        var_e1[0] = (var_e3[0] * var_e3[2]) / var_aux;
+        var_e1[1] = (var_e3[1] * var_e3[2]) / var_aux;
+        var_e1[2] = -var_aux;
+      }
+
+      function CalcularVista() {
+        for (var_k = 0; var_k < 96; ++var_k) {
+          var_vista_v[var_k][0] = var_origen_x + var_e1[0] * var_v[var_k][0] + var_e1[1] * var_v[var_k][1] + var_e1[2] * var_v[var_k][2];
+          var_vista_v[var_k][1] = var_origen_y + var_e2[0] * var_v[var_k][0] + var_e2[1] * var_v[var_k][1];
+        }
+      }
+
+      function TextoCoordenada(x, y) {
+        var abs_x, abs_y;
+
+        abs_x = Math.abs(x);
+        abs_y = Math.abs(y);
+        if (x == 0) {
+          if (y == 0) {
+            return ("0");
+          } else {
+            if (y == 1) return ("i");
+            if (y == -1) return ("-i");
+            if (y > 0) return (String(y) + "i")
+            else return ("-" + String(abs_y) + "i");
+          }
+        } else {
+          if (y == 0) {
+            return (String(x));
+          } else {
+            if (y == 1) return (String(x) + "+i");
+            if (y == -1) return (String(x) + "-i");
+            if (y > 0) return (String(x) + "+" + String(y) + "i")
+            else return (String(x) + "-" + String(abs_y) + "i")
+          }
+        }
+      }
+
+      function Calcular_nivel() {
+        var var_k, nivel;
+
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][0][var_k] * var_coor[0][0][var_k] + var_coor[1][0][var_k] * var_coor[1][0][var_k];
+        }
+        var_nivel = nivel;
+        var_nivel_reducido = Math.round(Math.log2(var_nivel));
+      }
+
+      function QHCube_reducible() {
+        var var_j, var_k, res;
+
+        res = true;
+        for (var_j = 0; var_j < 4; ++var_j) {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            if (var_coor[0][var_j][var_k] % 2 == 1) res = false;
+            if (var_coor[1][var_j][var_k] % 2 == 1) res = false;
+          }
+        }
+        return (res);
+      }
+
+      function Reducir_nivel() {
+        var var_j, var_k, x, nivel;
+
+        for (var_j = 0; var_j < 4; ++var_j) {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            x = Math.floor(var_coor[0][var_j][var_k] / 2);
+            var_coor[0][var_j][var_k] = x;
+            x = Math.floor(var_coor[1][var_j][var_k] / 2);
+            var_coor[1][var_j][var_k] = x;
+          }
+        }
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][0][var_k] * var_coor[0][0][var_k] + var_coor[1][0][var_k] * var_coor[1][0][var_k];
+        }
+        return (nivel);
+      }
+
+      function Comprobar_final() {
+        var var_j, var_k, final;
+
+        final = true;
+        for (var_j = 0; var_j < 4; ++var_j) {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            if (var_j == var_k) {
+              if (var_coor[0][var_j][var_k] != 1) final = false;
+              if (var_coor[1][var_j][var_k] != 0) final = false;
+            } else {
+              if (var_coor[0][var_j][var_k] != 0) final = false;
+              if (var_coor[1][var_j][var_k] != 0) final = false;
+            }
+          }
+        }
+        return (final);
+      }
+
+      function Ajustar_nivel() {
+        var reducible, nivel, nivel_reducido;
+
+        reducible = QHCube_reducible();
+        if (reducible) {
+          nivel = Reducir_nivel();
+          nivel_reducido = Math.round(Math.log2(nivel));
+          if (nivel_reducido == 0) {
+            var_nivel_cero = true;
+            var_final_partida = Comprobar_final();
+            if (var_final_partida) {
+              if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+              var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+            } else {
+              if (var_modo_tutorial) alert("¡Enhorabuena! Ya está en el nivel 0.");
+              var_mensaje2 = "¡Enhorabuena! Ya está en el nivel 0.";
+            }
+          } else {
+            if (nivel_reducido == var_nivel_reducido - 1) {
+              if (var_modo_tutorial) alert("¡Buena jugada! Ha reducido el nivel.");
+              var_mensaje2 = "¡Buena jugada! Ha reducido el nivel.";
+            }
+            if (nivel_reducido == var_nivel_reducido) {
+              if (var_modo_tutorial) alert("¡Buena jugada! Ha mantenido el nivel.");
+              var_mensaje2 = "¡Buena jugada! Ha mantenido el nivel.";
+            }
+          }
+          var_nivel = nivel;
+          var_nivel_reducido = nivel_reducido;
+        } else {
+          var_nivel_cero = false;
+          if (var_modo_tutorial) alert("¡Mala suerte! Ha aumentado el nivel.");
+          var_mensaje2 = "¡Mala suerte! Ha aumentado el nivel.";
+          Calcular_nivel();
+        }
+      }
+
+      function Comprobacion_QHCube() {
+        var var_j, var_k, nivel, impares, producto;
+
+        // Nivel por filas
+
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][0][var_k] * var_coor[0][0][var_k] + var_coor[1][0][var_k] * var_coor[1][0][var_k];
+        }
+        if (var_nivel != nivel) {
+          if (var_modo_tutorial) alert("Error en el nivel del QHCube: fila 1");
+          var_mensaje = "Error en el nivel del QHCube: fila 1";
+        }
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][1][var_k] * var_coor[0][1][var_k] + var_coor[1][1][var_k] * var_coor[1][1][var_k];
+        }
+        if (var_nivel != nivel) {
+          if (var_modo_tutorial) alert("Error en el nivel del QHCube: fila 2");
+          var_mensaje = "Error en el nivel del QHCube: fila 2";
+        }
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][2][var_k] * var_coor[0][2][var_k] + var_coor[1][2][var_k] * var_coor[1][2][var_k];
+        }
+        if (var_nivel != nivel) {
+          if (var_modo_tutorial) alert("Error en el nivel del QHCube: fila 3");
+          var_mensaje = "Error en el nivel del QHCube: fila 3";
+        }
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][3][var_k] * var_coor[0][3][var_k] + var_coor[1][3][var_k] * var_coor[1][3][var_k];
+        }
+        if (var_nivel != nivel) {
+          if (var_modo_tutorial) alert("Error en el nivel del QHCube: fila 3");
+          var_mensaje = "Error en el nivel del QHCube: fila 4";
+        }
+
+        // Nivel por columnas
+
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][var_k][0] * var_coor[0][var_k][0] + var_coor[1][var_k][0] * var_coor[1][var_k][0];
+        }
+        if (var_nivel != nivel) {
+          if (var_modo_tutorial) alert("Error en el nivel del QHCube: columna 1");
+          var_mensaje = "Error en el nivel del QHCube: columna 1";
+        }
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][var_k][1] * var_coor[0][var_k][1] + var_coor[1][var_k][1] * var_coor[1][var_k][1];
+        }
+        if (var_nivel != nivel) {
+          if (var_modo_tutorial) alert("Error en el nivel del QHCube: columna 2");
+          var_mensaje = "Error en el nivel del QHCube: columna 2";
+        }
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][var_k][2] * var_coor[0][var_k][2] + var_coor[1][var_k][2] * var_coor[1][var_k][2];
+        }
+        if (var_nivel != nivel) {
+          if (var_modo_tutorial) alert("Error en el nivel del QHCube: columna 3");
+          var_mensaje = "Error en el nivel del QHCube: columna 3";
+        }
+        nivel = 0;
+        for (var_k = 0; var_k < 4; ++var_k) {
+          nivel += var_coor[0][var_k][3] * var_coor[0][var_k][3] + var_coor[1][var_k][3] * var_coor[1][var_k][3];
+        }
+        if (var_nivel != nivel) {
+          if (var_modo_tutorial) alert("Error en el nivel del QHCube: columna 4");
+          var_mensaje = "Error en el nivel del QHCube: columna 4";
+        }
+
+        // QHCube no reducible
+
+        impares = 0;
+        for (var_j = 0; var_j < 4; ++var_j) {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            if ((var_coor[0][var_j][var_k] % 2) == 1) ++impares;
+            if ((var_coor[1][var_j][var_k] % 2) == 1) ++impares;
+          }
+        }
+        if (impares == 0) {
+          if (var_modo_tutorial) alert("Error en el QHCube: es reducible");
+          var_mensaje = "Error en el QHCube: es reducible";
+        }
+
+        // QHCube unitario
+
+        nivel = 0;
+        for (var_j = 0; var_j < 3; ++var_j) {
+          for (var_k = var_j + 1; var_k < 4; ++var_k) {
+            producto = 0;
+            for (var_i = 0; var_i < 4; ++var_i) {
+              producto += var_coor[0][var_j][var_i] * var_coor[0][var_k][var_i] + var_coor[1][var_j][var_i] * var_coor[1][var_k][var_i];
+            }
+            if (producto != 0) {
+              if (var_modo_tutorial) alert("Error en la unitariedad el QHCube (parte real): filas " + String(var_j) + " y " + String(var_k));
+              var_mensaje = "Error en la unitariedad el QHCube (parte real): filas " + String(var_j) + " y " + String(var_k);
+            }
+            producto = 0;
+            for (var_i = 0; var_i < 4; ++var_i) {
+              producto += var_coor[0][var_j][var_i] * var_coor[1][var_k][var_i] - var_coor[1][var_j][var_i] * var_coor[0][var_k][var_i];
+            }
+            if (producto != 0) {
+              if (var_modo_tutorial) alert("Error en la unitariedad el QHCube (parte imaginaria): filas " + String(var_j) + " y " + String(var_k));
+              var_mensaje = "Error en la unitariedad el QHCube (parte imaginaria): filas " + String(var_j) + " y " + String(var_k);
+            }
+          }
+        }
+      }
+
+      function Chequeo() {
+        Calcular_nivel();
+        Comprobacion_QHCube();
+      }
+
+      function RepresentacionVista() {
+        context_oculto.clearRect(0, 0, var_width - 1, var_height - 1);
+
+        // Fondo
+
+        context_oculto.fillStyle = var_gradient;
+        context_oculto.fillRect(0, 0, var_width - 1, var_height - 1);
+
+        if (var_e3[2] >= 0.0) {
+          for (var_k = 55; var_k > -1; --var_k) {
+            var_aux = var_e3[0] * var_n_c[var_k][0] + var_e3[1] * var_n_c[var_k][1] + var_e3[2] * var_n_c[var_k][2];
+            if (var_aux > 0.0) {
+
+              if (var_t_c[var_k][0] == const_cara_cubo) {
+                var_aux1 = Math.sqrt(Math.sqrt(var_aux));
+                context_oculto.fillStyle = ParametrizarColor(var_cc_r * var_aux1, var_cc_g * var_aux1, var_cc_b * var_aux1);
+              } else {
+                if (Math.abs(var_coor[var_t_c[var_k][0]][var_t_c[var_k][1]][var_t_c[var_k][2]]) % 2 == 0) {
+                  context_oculto.fillStyle = var_cpar;
+                } else {
+                  context_oculto.fillStyle = var_cimpar;
+                }
+              }
+
+              context_oculto.beginPath();
+              context_oculto.moveTo(var_vista_v[var_c[var_k][0]][1], var_vista_v[var_c[var_k][0]][0]);
+              for (var_j = 1; var_j < 5; ++var_j) {
+                context_oculto.lineTo(var_vista_v[var_c[var_k][var_j]][1], var_vista_v[var_c[var_k][var_j]][0]);
+              }
+              context_oculto.stroke();
+
+              context_oculto.closePath();
+              context_oculto.fill();
+            }
+          }
+
+          // cara c8 superior
+
+          var_aux = Math.sqrt(Math.sqrt(var_e3[0] * var_n_c8[0][0] + var_e3[1] * var_n_c8[0][1] + var_e3[2] * var_n_c8[0][2]));
+          context_oculto.fillStyle = ParametrizarColor(var_cc_r * var_aux, var_cc_g * var_aux, var_cc_b * var_aux);
+
+          context_oculto.beginPath();
+          context_oculto.moveTo(var_vista_v[var_c8[0][0]][1], var_vista_v[var_c8[0][0]][0]);
+          for (var_j = 1; var_j < 9; ++var_j) {
+            context_oculto.lineTo(var_vista_v[var_c8[0][var_j]][1], var_vista_v[var_c8[0][var_j]][0]);
+          }
+          context_oculto.stroke();
+
+          context_oculto.closePath();
+          context_oculto.fill();
+
+          // marcar la primera columna
+
+          context_oculto.beginPath();
+          context_oculto.arc(0.95 * var_vista_v[1][1] + 0.05 * var_vista_v[7][1], 0.95 * var_vista_v[1][0] + 0.05 * var_vista_v[7][0], 3, 0, 2 * Math.PI, false);
+          context_oculto.closePath();
+          context_oculto.fillStyle = ParametrizarColor(0, 0, 0);
+          context_oculto.fill();
+        } else {
+          for (var_k = 0; var_k < 56; ++var_k) {
+            var_aux = var_e3[0] * var_n_c[var_k][0] + var_e3[1] * var_n_c[var_k][1] + var_e3[2] * var_n_c[var_k][2];
+            if (var_aux > 0.0) {
+
+              if (var_t_c[var_k][0] == const_cara_cubo) {
+                var_aux1 = Math.sqrt(Math.sqrt(var_aux));
+                context_oculto.fillStyle = ParametrizarColor(var_cc_r * var_aux1, var_cc_g * var_aux1, var_cc_b * var_aux1);
+              } else {
+                if (Math.abs(var_coor[var_t_c[var_k][0]][var_t_c[var_k][1]][var_t_c[var_k][2]]) % 2 == 0) {
+                  context_oculto.fillStyle = var_cpar;
+                } else {
+                  context_oculto.fillStyle = var_cimpar;
+                }
+              }
+
+              context_oculto.beginPath();
+              context_oculto.moveTo(var_vista_v[var_c[var_k][0]][1], var_vista_v[var_c[var_k][0]][0]);
+              for (var_j = 1; var_j < 5; ++var_j) {
+                context_oculto.lineTo(var_vista_v[var_c[var_k][var_j]][1], var_vista_v[var_c[var_k][var_j]][0]);
+              }
+              context_oculto.stroke();
+
+              context_oculto.closePath();
+              context_oculto.fill();
+            }
+          }
+
+          // cara c8 inferior
+
+          var_aux = Math.sqrt(Math.sqrt(var_e3[0] * var_n_c8[1][0] + var_e3[1] * var_n_c8[1][1] + var_e3[2] * var_n_c8[1][2]));
+          context_oculto.fillStyle = ParametrizarColor(var_cc_r * var_aux, var_cc_g * var_aux, var_cc_b * var_aux);
+
+          context_oculto.beginPath();
+          context_oculto.moveTo(var_vista_v[var_c8[1][0]][1], var_vista_v[var_c8[1][0]][0]);
+          for (var_j = 1; var_j < 9; ++var_j) {
+            context_oculto.lineTo(var_vista_v[var_c8[1][var_j]][1], var_vista_v[var_c8[1][var_j]][0]);
+          }
+          context_oculto.stroke();
+
+          context_oculto.closePath();
+          context_oculto.fill();
+
+          // marcar la primera columna
+
+          context_oculto.beginPath();
+          context_oculto.arc(0.95 * var_vista_v[85][1] + 0.05 * var_vista_v[91][1], 0.95 * var_vista_v[85][0] + 0.05 * var_vista_v[91][0], 3, 0, 2 * Math.PI, false);
+          context_oculto.closePath();
+          context_oculto.fillStyle = ParametrizarColor(0, 0, 0);
+          context_oculto.fill();
+        }
+
+        // Encabezamiento y matriz
+
+        var_delta_alt = -50;
+
+        context_oculto.beginPath();
+        context_oculto.moveTo(var_origen_text_x - 2.5 * var_espacio_text - 2.0 * var_anchura_text, var_delta_alt + var_origen_text_y - 2.5 * var_espacio_text - 2.0 * var_altura_text);
+        context_oculto.lineTo(var_origen_text_x - 2.5 * var_espacio_text - 2.0 * var_anchura_text, var_delta_alt + var_origen_text_y + 2.5 * var_espacio_text + 2.0 * var_altura_text);
+        context_oculto.lineTo(var_origen_text_x + 2.5 * var_espacio_text + 2.0 * var_anchura_text, var_delta_alt + var_origen_text_y + 2.5 * var_espacio_text + 2.0 * var_altura_text);
+        context_oculto.lineTo(var_origen_text_x + 2.5 * var_espacio_text + 2.0 * var_anchura_text, var_delta_alt + var_origen_text_y - 2.5 * var_espacio_text - 2.0 * var_altura_text);
+        context_oculto.lineTo(var_origen_text_x - 2.5 * var_espacio_text - 2.0 * var_anchura_text, var_delta_alt + var_origen_text_y - 2.5 * var_espacio_text - 2.0 * var_altura_text);
+        context_oculto.stroke();
+
+        context_oculto.font = "24pt Roboto";
+        context_oculto.fillStyle = var_cinf;
+        context_oculto.fillText("Nivel " + var_nivel_reducido, var_origen_text_x, var_delta_alt + var_origen_text_y - 4.0 * var_espacio_text - 2.0 * var_altura_text);
+
+        //context_oculto.font = "30pt Roboto";
+        //context_oculto.font = "1pt Roboto";
+        //context_oculto.fillStyle = ParametrizarColor(var_cc_r * 0.72, var_cc_g * 0.72, var_cc_b * 0.72);
+        //context_oculto.fillText("Juego del hipercubo cuántico - Jesús Lacalle (UPM)", var_width / 2, 75);
+
+
+        context_oculto.font = "16pt Roboto";
+        context_oculto.fillStyle = var_cblack;
+        context_oculto.fillText(TextoCoordenada(var_coor[0][0][0], var_coor[1][0][0]), var_origen_text_x - 1.5 * var_espacio_text - 1.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y - 1.5 * var_espacio_text - 1.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][0][1], var_coor[1][0][1]), var_origen_text_x - 0.5 * var_espacio_text - 0.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y - 1.5 * var_espacio_text - 1.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][0][2], var_coor[1][0][2]), var_origen_text_x + 0.5 * var_espacio_text + 0.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y - 1.5 * var_espacio_text - 1.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][0][3], var_coor[1][0][3]), var_origen_text_x + 1.5 * var_espacio_text + 1.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y - 1.5 * var_espacio_text - 1.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][1][0], var_coor[1][1][0]), var_origen_text_x - 1.5 * var_espacio_text - 1.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y - 0.5 * var_espacio_text - 0.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][1][1], var_coor[1][1][1]), var_origen_text_x - 0.5 * var_espacio_text - 0.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y - 0.5 * var_espacio_text - 0.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][1][2], var_coor[1][1][2]), var_origen_text_x + 0.5 * var_espacio_text + 0.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y - 0.5 * var_espacio_text - 0.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][1][3], var_coor[1][1][3]), var_origen_text_x + 1.5 * var_espacio_text + 1.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y - 0.5 * var_espacio_text - 0.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][2][0], var_coor[1][2][0]), var_origen_text_x - 1.5 * var_espacio_text - 1.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y + 0.5 * var_espacio_text + 1.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][2][1], var_coor[1][2][1]), var_origen_text_x - 0.5 * var_espacio_text - 0.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y + 0.5 * var_espacio_text + 1.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][2][2], var_coor[1][2][2]), var_origen_text_x + 0.5 * var_espacio_text + 0.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y + 0.5 * var_espacio_text + 1.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][2][3], var_coor[1][2][3]), var_origen_text_x + 1.5 * var_espacio_text + 1.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y + 0.5 * var_espacio_text + 1.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][3][0], var_coor[1][3][0]), var_origen_text_x - 1.5 * var_espacio_text - 1.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y + 1.5 * var_espacio_text + 2.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][3][1], var_coor[1][3][1]), var_origen_text_x - 0.5 * var_espacio_text - 0.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y + 1.5 * var_espacio_text + 2.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][3][2], var_coor[1][3][2]), var_origen_text_x + 0.5 * var_espacio_text + 0.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y + 1.5 * var_espacio_text + 2.0 * var_altura_text);
+        context_oculto.fillText(TextoCoordenada(var_coor[0][3][3], var_coor[1][3][3]), var_origen_text_x + 1.5 * var_espacio_text + 1.5 * var_anchura_text,
+                var_delta_alt + var_origen_text_y + 1.5 * var_espacio_text + 2.0 * var_altura_text);
+
+        // Información
+
+        var_delta_alt = 150;
+        context_oculto.font = "24pt Roboto";
+        context_oculto.fillStyle = var_cinf;
+        context_oculto.fillText("Información", var_origen_text_x, var_delta_alt + var_origen_text_y);
+
+        var_delta_alt = 200;
+        context_oculto.font = "16pt Roboto";
+        context_oculto.fillStyle = var_cblack;
+        context_oculto.fillText(var_mensaje, var_origen_text_x, var_delta_alt + var_origen_text_y);
+        var_delta_alt = 240;
+        context_oculto.fillText(var_mensaje2, var_origen_text_x, var_delta_alt + var_origen_text_y);
+        var_mensaje2 = "";
+
+        // Copiar la imagen
+
+        imagen = context_oculto.getImageData(0, 0, var_width - 1, var_height - 1);
+        context.clearRect(0, 0, var_width - 1, var_height - 1);
+        context.putImageData(imagen, 0, 0);
+      }
+
+      function TestClick() {
+        var signo1, signo2, signo3, signo4, signo5, signo6, signo7, signo8;
+
+        var_cara_clicked = -1;
+
+        if (var_e3[2] >= 0.0) {
+          for (var_k = 55; var_k > -1; --var_k) {
+            var_aux = var_e3[0] * var_n_c[var_k][0] + var_e3[1] * var_n_c[var_k][1] + var_e3[2] * var_n_c[var_k][2];
+            if (var_aux > 0.0) {
+              var_signo1 = (var_vista_v[var_c[var_k][0]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][1]][1] - var_click_mouse_x) -
+                      (var_vista_v[var_c[var_k][1]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][0]][1] - var_click_mouse_x);
+              var_signo2 = (var_vista_v[var_c[var_k][1]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][2]][1] - var_click_mouse_x) -
+                      (var_vista_v[var_c[var_k][2]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][1]][1] - var_click_mouse_x);
+              var_signo3 = (var_vista_v[var_c[var_k][2]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][3]][1] - var_click_mouse_x) -
+                      (var_vista_v[var_c[var_k][3]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][2]][1] - var_click_mouse_x);
+              var_signo4 = (var_vista_v[var_c[var_k][3]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][0]][1] - var_click_mouse_x) -
+                      (var_vista_v[var_c[var_k][0]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][3]][1] - var_click_mouse_x);
+              if (var_signo1 * var_signo2 > 0.0 && var_signo1 * var_signo3 > 0.0 && var_signo1 * var_signo4 > 0.0) {
+                var_cara_clicked = var_k;
+              }
+            }
+          }
+          var_signo1 = (var_vista_v[var_c8[0][0]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][1]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[0][1]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][0]][1] - var_click_mouse_x);
+          var_signo2 = (var_vista_v[var_c8[0][1]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][2]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[0][2]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][1]][1] - var_click_mouse_x);
+          var_signo3 = (var_vista_v[var_c8[0][2]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][3]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[0][3]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][2]][1] - var_click_mouse_x);
+          var_signo4 = (var_vista_v[var_c8[0][3]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][4]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[0][4]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][3]][1] - var_click_mouse_x);
+          var_signo5 = (var_vista_v[var_c8[0][4]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][5]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[0][5]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][4]][1] - var_click_mouse_x);
+          var_signo6 = (var_vista_v[var_c8[0][5]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][6]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[0][6]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][5]][1] - var_click_mouse_x);
+          var_signo7 = (var_vista_v[var_c8[0][6]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][7]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[0][7]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][6]][1] - var_click_mouse_x);
+          var_signo8 = (var_vista_v[var_c8[0][7]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][0]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[0][0]][0] - var_click_mouse_y) * (var_vista_v[var_c8[0][7]][1] - var_click_mouse_x);
+          if (var_signo1 * var_signo2 > 0.0 && var_signo1 * var_signo3 > 0.0 && var_signo1 * var_signo4 > 0.0 && var_signo1 * var_signo5 > 0.0 &&
+                  var_signo1 * var_signo6 > 0.0 && var_signo1 * var_signo7 > 0.0 && var_signo1 * var_signo8 > 0.0) {
+            var_cara_clicked = 56;
+          }
+        } else {
+          for (var_k = 0; var_k < 56; ++var_k) {
+            var_aux = var_e3[0] * var_n_c[var_k][0] + var_e3[1] * var_n_c[var_k][1] + var_e3[2] * var_n_c[var_k][2];
+            if (var_aux > 0.0) {
+              var_signo1 = (var_vista_v[var_c[var_k][0]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][1]][1] - var_click_mouse_x) -
+                      (var_vista_v[var_c[var_k][1]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][0]][1] - var_click_mouse_x);
+              var_signo2 = (var_vista_v[var_c[var_k][1]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][2]][1] - var_click_mouse_x) -
+                      (var_vista_v[var_c[var_k][2]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][1]][1] - var_click_mouse_x);
+              var_signo3 = (var_vista_v[var_c[var_k][2]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][3]][1] - var_click_mouse_x) -
+                      (var_vista_v[var_c[var_k][3]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][2]][1] - var_click_mouse_x);
+              var_signo4 = (var_vista_v[var_c[var_k][3]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][0]][1] - var_click_mouse_x) -
+                      (var_vista_v[var_c[var_k][0]][0] - var_click_mouse_y) * (var_vista_v[var_c[var_k][3]][1] - var_click_mouse_x);
+              if (var_signo1 * var_signo2 > 0.0 && var_signo1 * var_signo3 > 0.0 && var_signo1 * var_signo4 > 0.0) {
+                var_cara_clicked = var_k;
+              }
+            }
+          }
+          var_signo1 = (var_vista_v[var_c8[1][0]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][1]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[1][1]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][0]][1] - var_click_mouse_x);
+          var_signo2 = (var_vista_v[var_c8[1][1]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][2]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[1][2]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][1]][1] - var_click_mouse_x);
+          var_signo3 = (var_vista_v[var_c8[1][2]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][3]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[1][3]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][2]][1] - var_click_mouse_x);
+          var_signo4 = (var_vista_v[var_c8[1][3]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][4]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[1][4]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][3]][1] - var_click_mouse_x);
+          var_signo5 = (var_vista_v[var_c8[1][4]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][5]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[1][5]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][4]][1] - var_click_mouse_x);
+          var_signo6 = (var_vista_v[var_c8[1][5]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][6]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[1][6]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][5]][1] - var_click_mouse_x);
+          var_signo7 = (var_vista_v[var_c8[1][6]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][7]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[1][7]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][6]][1] - var_click_mouse_x);
+          var_signo8 = (var_vista_v[var_c8[1][7]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][0]][1] - var_click_mouse_x) -
+                  (var_vista_v[var_c8[1][0]][0] - var_click_mouse_y) * (var_vista_v[var_c8[1][7]][1] - var_click_mouse_x);
+          if (var_signo1 * var_signo2 > 0.0 && var_signo1 * var_signo3 > 0.0 && var_signo1 * var_signo4 > 0.0 && var_signo1 * var_signo5 > 0.0 &&
+                  var_signo1 * var_signo6 > 0.0 && var_signo1 * var_signo7 > 0.0 && var_signo1 * var_signo8 > 0.0) {
+            var_cara_clicked = 57;
+          }
+        }
+      }
+
+      function Permutar(elem, j, k) {
+        if (elem == const_fila) {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            var_aux = var_coor[0][j][var_k];
+            var_coor[0][j][var_k] = var_coor[0][k][var_k];
+            var_coor[0][k][var_k] = var_aux;
+
+            var_aux = var_coor[1][j][var_k];
+            var_coor[1][j][var_k] = var_coor[1][k][var_k];
+            var_coor[1][k][var_k] = var_aux;
+          }
+        } else {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            var_aux = var_coor[0][var_k][j];
+            var_coor[0][var_k][j] = var_coor[0][var_k][k];
+            var_coor[0][var_k][k] = var_aux;
+
+            var_aux = var_coor[1][var_k][j];
+            var_coor[1][var_k][j] = var_coor[1][var_k][k];
+            var_coor[1][var_k][k] = var_aux;
+          }
+        }
+      }
+
+      function Intercambiar(elem, j) {
+        if (elem == const_fila) {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            var_aux = var_coor[0][j][var_k];
+            var_coor[0][j][var_k] = -var_coor[1][j][var_k];
+            var_coor[1][j][var_k] = var_aux;
+          }
+        } else {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            var_aux = var_coor[0][var_k][j];
+            var_coor[0][var_k][j] = -var_coor[1][var_k][j];
+            var_coor[1][var_k][j] = var_aux;
+          }
+        }
+      }
+
+      function Rotar_filas_1_y_2() {
+        var var_k, x0, y0, x1, y1;
+
+        for (var_k = 0; var_k < 4; ++var_k) {
+          x0 = var_coor[0][0][var_k] + var_coor[0][1][var_k] - var_coor[1][0][var_k] + var_coor[1][1][var_k];
+          y0 = var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
+          x1 = var_coor[0][0][var_k] - var_coor[0][1][var_k] - var_coor[1][0][var_k] - var_coor[1][1][var_k];
+          y1 = var_coor[0][0][var_k] + var_coor[0][1][var_k] + var_coor[1][0][var_k] - var_coor[1][1][var_k];
+          var_coor[0][0][var_k] = x0;
+          var_coor[1][0][var_k] = y0;
+          var_coor[0][1][var_k] = x1;
+          var_coor[1][1][var_k] = y1;
+          x0 = 2 * var_coor[0][2][var_k];
+          y0 = 2 * var_coor[1][2][var_k];
+          x1 = 2 * var_coor[0][3][var_k];
+          y1 = 2 * var_coor[1][3][var_k];
+          var_coor[0][2][var_k] = x0;
+          var_coor[1][2][var_k] = y0;
+          var_coor[0][3][var_k] = x1;
+          var_coor[1][3][var_k] = y1;
+        }
+      }
+
+      function Rotar_columnas_1_y_2() {
+        var var_k, x0, y0, x1, y1;
+
+        for (var_k = 0; var_k < 4; ++var_k) {
+          x0 = var_coor[0][var_k][0] + var_coor[0][var_k][1] - var_coor[1][var_k][0] + var_coor[1][var_k][1];
+          y0 = var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
+          x1 = var_coor[0][var_k][0] - var_coor[0][var_k][1] - var_coor[1][var_k][0] - var_coor[1][var_k][1];
+          y1 = var_coor[0][var_k][0] + var_coor[0][var_k][1] + var_coor[1][var_k][0] - var_coor[1][var_k][1];
+          var_coor[0][var_k][0] = x0;
+          var_coor[1][var_k][0] = y0;
+          var_coor[0][var_k][1] = x1;
+          var_coor[1][var_k][1] = y1;
+          x0 = 2 * var_coor[0][var_k][2];
+          y0 = 2 * var_coor[1][var_k][2];
+          x1 = 2 * var_coor[0][var_k][3];
+          y1 = 2 * var_coor[1][var_k][3];
+          var_coor[0][var_k][2] = x0;
+          var_coor[1][var_k][2] = y0;
+          var_coor[0][var_k][3] = x1;
+          var_coor[1][var_k][3] = y1;
+        }
+      }
+
+      function Rotar(elem, j, k) {
+        var var_k, x0, y0, x1, y1;
+
+        if (elem == const_fila) {
+          if (j == 1) {
+            Permutar(const_fila, 0, 1);
+            Permutar(const_fila, 1, 2);
+          }
+          if (j == 2) {
+            Permutar(const_fila, 0, 2);
+            Permutar(const_fila, 1, 3);
+          }
+          Rotar_filas_1_y_2();
+          if (j == 1) {
+            Permutar(const_fila, 1, 2);
+            Permutar(const_fila, 0, 1);
+          }
+          if (j == 2) {
+            Permutar(const_fila, 1, 3);
+            Permutar(const_fila, 0, 2);
+          }
+        } else {
+          if (j == 1) {
+            Permutar(const_columna, 0, 1);
+            Permutar(const_columna, 1, 2);
+          }
+          if (j == 2) {
+            Permutar(const_columna, 0, 2);
+            Permutar(const_columna, 1, 3);
+          }
+          if (j == 3) {
+            Permutar(const_columna, 0, 3);
+            Permutar(const_columna, 1, 3);
+          }
+          Rotar_columnas_1_y_2();
+          if (j == 1) {
+            Permutar(const_columna, 1, 2);
+            Permutar(const_columna, 0, 1);
+          }
+          if (j == 2) {
+            Permutar(const_columna, 1, 3);
+            Permutar(const_columna, 0, 2);
+          }
+          if (j == 3) {
+            Permutar(const_columna, 1, 3);
+            Permutar(const_columna, 0, 3);
+          }
+        }
+      }
+
+      function Reducir(elem) {
+        var var_k, x, y;
+
+        if (elem == const_fila) {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            x = var_coor[0][0][var_k];
+            y = var_coor[0][1][var_k];
+            var_coor[0][0][var_k] = x + y;
+            var_coor[0][1][var_k] = x - y;
+            x = var_coor[1][0][var_k];
+            y = var_coor[1][1][var_k];
+            var_coor[1][0][var_k] = x + y;
+            var_coor[1][1][var_k] = x - y;
+
+            x = var_coor[0][2][var_k];
+            y = var_coor[0][3][var_k];
+            var_coor[0][2][var_k] = x + y;
+            var_coor[0][3][var_k] = x - y;
+            x = var_coor[1][2][var_k];
+            y = var_coor[1][3][var_k];
+            var_coor[1][2][var_k] = x + y;
+            var_coor[1][3][var_k] = x - y;
+          }
+        } else {
+          for (var_k = 0; var_k < 4; ++var_k) {
+            x = var_coor[0][var_k][0];
+            y = var_coor[0][var_k][1];
+            var_coor[0][var_k][0] = x + y;
+            var_coor[0][var_k][1] = x - y;
+            x = var_coor[1][var_k][0];
+            y = var_coor[1][var_k][1];
+            var_coor[1][var_k][0] = x + y;
+            var_coor[1][var_k][1] = x - y;
+
+            x = var_coor[0][var_k][2];
+            y = var_coor[0][var_k][3];
+            var_coor[0][var_k][2] = x + y;
+            var_coor[0][var_k][3] = x - y;
+            x = var_coor[1][var_k][2];
+            y = var_coor[1][var_k][3];
+            var_coor[1][var_k][2] = x + y;
+            var_coor[1][var_k][3] = x - y;
+          }
+        }
+      }
+
+      function on_mouse_down(event) {
+        var var_delay = 350, var_timer = null;
+
+        var_cara_clicked = -1;
+        var_click_mouse_x = event.clientX - var_rect_canvas.left;
+        var_click_mouse_y = event.clientY - var_rect_canvas.top;
+        TestClick();
+        if (var_cara_clicked == -1) {
+          var_mouse_move = true;
+          var_pos_mouse_x0 = event.clientX - var_rect_canvas.left;
+          var_pos_mouse_y0 = event.clientY - var_rect_canvas.top;
+        } else {
+          if (var_cara_clicked > -1 && var_cara_clicked < 56) {
+            var_clicks++;
+
+            if (var_clicks == 1) {
+              var_timer = setTimeout(function () {
+                if (var_clicks == 1) {
+                  var_clicks = 0;
+                  mouse_down_function();
+                }
+                var_clicks = 0;
+              }, var_delay);
+            } else {
+              clearTimeout(var_timer);
+              var_clicks = 0;
+              mouse_dblclick_function();
+            }
+          }
+        }
+      }
+
+      function mouse_down_function(event) {
+        if (var_final_partida == false) {
+          if (var_t_c[var_cara_clicked][0] == const_cara_cubo) {
+            if (var_cara_clicked % 2 == 0) {
+              if (var_cara_clicked == 8 || var_cara_clicked == 10 || var_cara_clicked == 12 || var_cara_clicked == 14) {
+                if (var_modo_tutorial) alert("Permutación de las filas 1 y 2");
+                var_mensaje = "Permutación de las filas 1 y 2";
+                Permutar(const_fila, 0, 1);
+                if (var_nivel_cero) {
+                  var_final_partida = Comprobar_final();
+                  if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                  }
+                }
+              } else if (var_cara_clicked == 24 || var_cara_clicked == 26 || var_cara_clicked == 28 || var_cara_clicked == 30) {
+                if (var_modo_tutorial) alert("Permutación de las filas 2 y 3");
+                var_mensaje = "Permutación de las filas 2 y 3";
+                Permutar(const_fila, 1, 2);
+                if (var_nivel_cero) {
+                  var_final_partida = Comprobar_final();
+                  if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                  }
+                }
+              } else   // var_cara_clicked == 40 || var_cara_clicked == 42 || var_cara_clicked == 44 || var_cara_clicked == 46
+              {
+                if (var_modo_tutorial) alert("Permutación de las filas 3 y 4");
+                var_mensaje = "Permutación de las filas 3 y 4";
+                Permutar(const_fila, 2, 3);
+                if (var_nivel_cero) {
+                  var_final_partida = Comprobar_final();
+                  if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                  }
+                }
+              }
+            } else {
+              if (var_cara_clicked == 9 || var_cara_clicked == 25 || var_cara_clicked == 41) {
+                if (var_modo_tutorial) alert("Permutación de las columnas 1 y 2");
+                var_mensaje = "Permutación de las columnas 1 y 2";
+                Permutar(const_columna, 0, 1);
+                if (var_nivel_cero) {
+                  var_final_partida = Comprobar_final();
+                  if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                  }
+                }
+              } else if (var_cara_clicked == 11 || var_cara_clicked == 27 || var_cara_clicked == 43) {
+                if (var_modo_tutorial) alert("Permutación de las columnas 2 y 3");
+                var_mensaje = "Permutación de las columnas 2 y 3";
+                Permutar(const_columna, 1, 2);
+                if (var_nivel_cero) {
+                  var_final_partida = Comprobar_final();
+                  if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                  }
+                }
+              } else if (var_cara_clicked == 13 || var_cara_clicked == 29 || var_cara_clicked == 45) {
+                if (var_modo_tutorial) alert("Permutación de las columnas 3 y 4");
+                var_mensaje = "Permutación de las columnas 3 y 4";
+                Permutar(const_columna, 2, 3);
+                if (var_nivel_cero) {
+                  var_final_partida = Comprobar_final();
+                  if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                  }
+                }
+              } else   // var_cara_clicked == 15 || var_cara_clicked == 31 || var_cara_clicked == 47
+              {
+                if (var_modo_tutorial) alert("Permutación de las columnas 4 y 1");
+                var_mensaje = "Permutación de las columnas 4 y 1";
+                Permutar(const_columna, 3, 0);
+                if (var_nivel_cero) {
+                  var_final_partida = Comprobar_final();
+                  if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                  }
+                }
+              }
+            }
+          } else {
+            if (var_t_c[var_cara_clicked][0] == const_cara_real) {
+              var_k = var_t_c[var_cara_clicked][1] + 1;
+              if (var_modo_tutorial) alert("Intercambio en la fila " + var_k);
+              var_mensaje = "Intercambio en la fila " + var_k;
+              Intercambiar(const_fila, var_t_c[var_cara_clicked][1]);
+              if (var_nivel_cero) {
+                var_final_partida = Comprobar_final();
+                if (var_final_partida) {
+                  if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                  var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                }
+              }
+            } else {
+              var_k = var_t_c[var_cara_clicked][2] + 1;
+              if (var_modo_tutorial) alert("Intercambio en la columna " + var_k);
+              var_mensaje = "Intercambio en la columna " + var_k;
+              Intercambiar(const_columna, var_t_c[var_cara_clicked][2]);
+              if (var_nivel_cero) {
+                var_final_partida = Comprobar_final();
+                if (var_final_partida) {
+                  if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                  var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
+                }
+              }
+            }
+          }
+          Chequeo();
+          RepresentacionVista();
+        }
+      }
+
+      function on_mouse_move(event) {
+        if (var_mouse_move) {
+          var_pos_mouse_x = event.clientX - var_rect_canvas.left;
+          var_pos_mouse_y = event.clientY - var_rect_canvas.top;
+          if (var_pos_mouse_x0 != var_pos_mouse_x || var_pos_mouse_y0 != var_pos_mouse_y) {
+            Delta_x = (var_pos_mouse_x0 - var_pos_mouse_x) * 0.01745;
+            var_e3_aux[0] = Math.cos(Delta_x) * var_e3[0] - Math.sin(Delta_x) * var_e3[1];
+            var_e3_aux[1] = Math.sin(Delta_x) * var_e3[0] + Math.cos(Delta_x) * var_e3[1];
+            var_e3_aux[2] = var_e3[2];
+
+            Delta_y = (var_pos_mouse_y - var_pos_mouse_y0) * 0.01745;
+            var_coor_xy = Math.sqrt(var_e3_aux[0] * var_e3_aux[0] + var_e3_aux[1] * var_e3_aux[1]);
+            var_coor_xy_new = Math.cos(Delta_y) * var_coor_xy - Math.sin(Delta_y) * var_e3_aux[2];
+            if (var_coor_xy_new > 0.2) {
+              var_e3[2] = Math.sin(Delta_y) * var_coor_xy + Math.cos(Delta_y) * var_e3_aux[2];
+              var_e3[0] = (var_e3_aux[0] * var_coor_xy_new) / var_coor_xy;
+              var_e3[1] = (var_e3_aux[1] * var_coor_xy_new) / var_coor_xy;
+            } else {
+              var_e3[0] = var_e3_aux[0];
+              var_e3[1] = var_e3_aux[1];
+              var_e3[2] = var_e3_aux[2];
+            }
+            var_pos_mouse_x0 = var_pos_mouse_x;
+            var_pos_mouse_y0 = var_pos_mouse_y;
+
+            SistemaReferencia();
+            CalcularVista();
+            RepresentacionVista();
+          }
+        }
+      }
+
+      function on_mouse_up(event) {
+        var_mouse_move = false;
+      }
+
+      function mouse_dblclick_function() {
+        if (var_final_partida == false) {
+          if (var_t_c[var_cara_clicked][0] == const_cara_cubo) {
+            if (var_cara_clicked % 2 == 0) {
+              if (var_cara_clicked == 8 || var_cara_clicked == 10 || var_cara_clicked == 12 || var_cara_clicked == 14) {
+                if (var_modo_tutorial) alert("Rotación de las filas 1 y 2");
+                var_mensaje = "Rotación de las filas 1 y 2";
+                Rotar(const_fila, 0, 1);
+              } else if (var_cara_clicked == 24 || var_cara_clicked == 26 || var_cara_clicked == 28 || var_cara_clicked == 30) {
+                if (var_modo_tutorial) alert("Rotación de las filas 2 y 3");
+                var_mensaje = "Rotación de las filas 2 y 3";
+                Rotar(const_fila, 1, 2);
+              } else   // var_cara_clicked == 40 || var_cara_clicked == 42 || var_cara_clicked == 44 || var_cara_clicked == 46
+              {
+                if (var_modo_tutorial) alert("Rotación de las filas 3 y 4");
+                var_mensaje = "Rotación de las filas 3 y 4";
+                Rotar(const_fila, 2, 3);
+              }
+            } else {
+              if (var_cara_clicked == 9 || var_cara_clicked == 25 || var_cara_clicked == 41) {
+                if (var_modo_tutorial) alert("Rotación de las columnas 1 y 2");
+                var_mensaje = "Rotación de las columnas 1 y 2";
+                Rotar(const_columna, 0, 1);
+              } else if (var_cara_clicked == 11 || var_cara_clicked == 27 || var_cara_clicked == 43) {
+                if (var_modo_tutorial) alert("Rotación de las columnas 2 y 3");
+                var_mensaje = "Rotación de las columnas 2 y 3";
+                Rotar(const_columna, 1, 2);
+              } else if (var_cara_clicked == 13 || var_cara_clicked == 29 || var_cara_clicked == 45) {
+                if (var_modo_tutorial) alert("Rotación de las columnas 3 y 4");
+                var_mensaje = "Rotación de las columnas 3 y 4";
+                Rotar(const_columna, 2, 3);
+              } else   // var_cara_clicked == 15 || var_cara_clicked == 31 || var_cara_clicked == 47
+              {
+                if (var_modo_tutorial) alert("Rotación de las columnas 4 y 1");
+                var_mensaje = "Rotación de las columnas 4 y 1";
+                Rotar(const_columna, 3, 0);
+              }
+            }
+            Ajustar_nivel();
+          } else {
+            if (var_t_c[var_cara_clicked][0] == const_cara_real) {
+              if (var_modo_tutorial) alert("Reducción por filas");
+              var_mensaje = "Reducción por filas";
+              Reducir(const_fila);
+            } else {
+              if (var_modo_tutorial) alert("Reducción por columnas");
+              var_mensaje = "Reducción por columnas";
+              Reducir(const_columna);
+            }
+            Ajustar_nivel();
+          }
+          Chequeo();
+          RepresentacionVista();
+        }
+      }
+
+      function pageLoaded() {
+        canvas = document.getElementById("myCanvas");
+        context = canvas.getContext("2d");
+        var_clicks = 0;
+        var_rect_canvas = canvas.getBoundingClientRect();
+        canvas.addEventListener("mousedown", on_mouse_down, false);
+        canvas.addEventListener("mousemove", on_mouse_move, false);
+        canvas.addEventListener("mouseup", on_mouse_up, false);
+
+        Chequeo();
+        SistemaReferencia();
+        CalcularVista();
+        RepresentacionVista();
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
