@@ -43,7 +43,7 @@
                 <p>
                     En computación cuántica, la unidad elemental de información es el cúbit. Al igual que un bit, en
                     computación clásica, un cúbit puede estar en dos estados –que denotamos con |0 y |1– pero también
-                    puede estar en estados intermedios –por ejemplo, el estado 0,8|0 + 0,6|1–. Matemáticamente, se
+                    puede estar en estados intermedios –por ejemplo, el estado ❬0,8|0 + 0,6|1❭–. Matemáticamente, se
                     puede expresar cualquier cúbit con dos coordenadas, en el ejemplo anterior, (0,8, 0,6). Si tenemos
                     un sistema de dos cúbits, el estado de cada uno de ellos se expresa con cuatro coordenadas. Los
                     valores de cada una de estas coordenadas son números complejos, es decir, números de la forma <i>a +
