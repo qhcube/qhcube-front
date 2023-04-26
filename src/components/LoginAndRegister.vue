@@ -28,7 +28,7 @@
                         </span>
                         <InputText placeholder="Password" v-model="this.user.password" type="password"/>
                     </div>
-                    <div class="flex p-inputgroup  w-fit">
+                    <div class="flex p-inputgroup w-fit">
                         <Button type="submit" label="Login" @click="this.performLogin() "/>
                     </div>
                 </div>

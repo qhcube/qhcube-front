@@ -2,14 +2,17 @@
     <div class="flex gap-3 py-4">
         <div class="flex flex-nowrrap flex-column">
             <!-- <canvas id="myCanvas" width="1000" height="600" style="border: 3px solid rgb(164,82,0);"> -->
-            <canvas id="myCanvas" width="500" height="600" class="shadow-6">
+            <canvas id="myCanvas" width="1000" height="600" class="shadow-6">
                 Your browser does not support HTML5 Canvas. Please shift to a newer browser.
             </canvas>
         </div>
-        <div class="flex flex-nowrap flex-column gap-3">
-            <descripcion-breve v-if="this.descripcionVisible"/>
+        <div class="flex flex-nowrap flex-column gap-3 w-full">
+            <descripcion-breve  @closeRegistro="this.registroVisible = false"
+                                @openRegistro="this.registroVisible = true"
+                                v-if="this.descripcionVisible" />
             <login-and-register @openDescripcion="this.descripcionVisible=true"
-                                @closeDescripcion="this.descripcionVisible=false"/>
+                                @closeDescripcion="this.descripcionVisible=false"
+                                v-if="this.registroVisible"/>
         </div>
     </div>
     <div class="flex gap-3">
@@ -27,7 +30,8 @@ export default {
     name: "MainHome",
     data() {
         return {
-            descripcionVisible: true
+            descripcionVisible: true,
+            registroVisible: true
         }
     },
     components: {LoginAndRegister, MainFooter, DescripcionBreve},
