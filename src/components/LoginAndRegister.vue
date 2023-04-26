@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-column bg-indigo-50 shadow-6" v-if="!this.registroNuevoVisible">
+    <div class="flex flex-column bg-indigo-50 shadow-6" v-if="!this.userStoreQHCube.isAuthenticated && !this.registroNuevoVisible">
         <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
             <div class="flex">
                 <h1>Registro de jugador</h1>
@@ -35,15 +35,18 @@
             </div>
         </div>
     </div>
-    <registro-nuevo v-else @closeRegistroNuevo="this.closeRegistroNuevo()" />
+    <registro-nuevo v-else-if="this.registroNuevoVisible" @closeRegistroNuevo="this.closeRegistroNuevo()" />
+    <usuario-registrado v-else />
 </template>
 
 <script>
 import RegistroNuevo from "./RegistroNuevo.vue";
+import UsuarioRegistrado from "./UsuarioRegistrado.vue";
 
 export default {
-    nombre: "LoginAndRegister",
-    components: { RegistroNuevo },
+    name: "LoginAndRegister",
+    inject: ["userStoreQHCube"],
+    components: {UsuarioRegistrado, RegistroNuevo },
     data() {
         return {
             user: {

@@ -16,6 +16,7 @@ import "primeicons/primeicons.css"
 import "primeflex/primeflex.css"
 import {createPinia} from "pinia";
 import piniaPersist from 'pinia-plugin-persist'
+import { useUserStoreQHCube } from "../userSotorageQHCube.js";
 
 const app = createApp(App);
 
@@ -33,6 +34,8 @@ app.component('Card', Card);
 app.component('InputText', InputText);
 app.component('Message', Message);
 app.component('ScrollPanel', ScrollPanel);
+
+app.provide('userStoreQHCube', useUserStoreQHCube());
 
 
 app.mount('#app')
