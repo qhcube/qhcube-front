@@ -27,7 +27,7 @@ import MainFooter from "./MainFooter.vue";
 import LoginAndRegister from "./LoginAndRegister.vue";
 
 export default {
-    name: "MainHome",
+    nombre: "MainHome",
     data() {
         return {
             descripcionVisible: true,

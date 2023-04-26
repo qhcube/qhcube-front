@@ -260,7 +260,7 @@
 
 <script>
 export default {
-    name: "DescripcionJuego",
+    nombre: "DescripcionJuego",
     emits: ['closeDescripcionJuego']
 }
 </script>
