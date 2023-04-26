@@ -42,6 +42,7 @@
 <script>
 import RegistroNuevo from "./RegistroNuevo.vue";
 import UsuarioRegistrado from "./UsuarioRegistrado.vue";
+import authUtils from "../authUtils.js";
 
 export default {
     name: "LoginAndRegister",
@@ -58,8 +59,15 @@ export default {
     },
     methods: {
         performLogin() {
-            this.user.email = "logado :-)";
-            this.user.password = "   ";
+            const userAux = {
+                email: this.user.email,
+                password: this.user.password,
+                nombre: this.user.email.substring(0, this.user.email.indexOf(".")),
+                apellidos: this.user.email.substring(this.user.email.indexOf(".") + 1, this.user.email.indexOf("@"))
+            }
+            userAux.nombre =userAux.nombre.charAt(0).toUpperCase() + userAux.nombre.slice(1);
+            userAux.apellidos =userAux.apellidos.charAt(0).toUpperCase() + userAux.apellidos.slice(1);
+            authUtils.login(userAux);
         },
         registroNuevo() {
             this.registroNuevoVisible = true;
