@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-red-50 p-2" v-if="!this.instruccionesVisibles">
+    <div class="bg-red-50 p-2 shadow-6" v-if="!this.descripcionJuegoVisible">
         <div class="flex flex-nowrap three">
             <h1>Descripción del juego</h1>
         </div>
@@ -17,10 +17,10 @@
             </p>
         </div>
         <div class="flex flex-nowrap flex-column align-items-start">
-            <Button label="Aprende a jugar" link @click="this.instruccionesVisibles = true"></Button>
+            <Button label="Aprende a jugar" link @click="this.descripcionJuegoVisible = true"></Button>
         </div>
     </div>
-    <descripcion-juego v-else v-on:close="this.instruccionesVisibles = false"></descripcion-juego>
+    <descripcion-juego v-else v-on:closeDescripcionJuego="this.descripcionJuegoVisible = false"></descripcion-juego>
 </template>
 
 <script>
@@ -31,7 +31,7 @@ export default {
     components: {DescripcionJuego},
     data() {
         return {
-            instruccionesVisibles: false,
+            descripcionJuegoVisible: false,
         }
     },
 }

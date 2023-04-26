@@ -4,9 +4,9 @@
             <div class="flex">
                 <h1>Juego del del hipercubo cuántico</h1>
             </div>
-            <div class="flex flex-row-reverse flex-grow-1 align-self-start">
-                <Button link class="pi pi-times-circle text-red-400 mx-1 my-3 text-4xl"
-                        @click="this.$emit('close')"></Button>
+            <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
+                <Button icon="pi pi-times" severity="danger" class="p-button-raised p-button-outlined p-button-rounded" size="large"
+                        @click="this.$emit('closeDescripcionJuego')" />
             </div>
         </div>
         <div class="flex flex-auto">
@@ -261,7 +261,7 @@
 <script>
 export default {
     name: "DescripcionJuego",
-    emits: ['close']
+    emits: ['closeDescripcionJuego']
 }
 </script>
 
