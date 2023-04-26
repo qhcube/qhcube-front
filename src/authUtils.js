@@ -1,20 +1,20 @@
-import {useUserStore} from "/userSotorage.js";
+import { useUserStoreQHCube } from "/userSotorageQHCube.js";
 
 export default {
 
     logout() {
-        const userStore = useUserStore();
-        userStore.$reset();
+        const userStoreQHCube = useUserStoreQHCube();
+        userStoreQHCube.$reset();
         // axios.defaults.headers.common['Authorization'] = '';
     },
 
     async login(user) {
-        const userStore = useUserStore();
+        const userStoreQHCube = useUserStoreQHCube();
 
-        userStore.nombre = user.nombre;
-        userStore.apellidos = user.apellidos;
-        userStore.email = user.email;
-        userStore.jwttoken = "Este es mi token de autenciación";
+        userStoreQHCube.nombre = user.nombre;
+        userStoreQHCube.apellidos = user.apellidos;
+        userStoreQHCube.email = user.email;
+        userStoreQHCube.jwttoken = "Este es mi token de autenciación";
         /*
         await axios({
             method: "post",

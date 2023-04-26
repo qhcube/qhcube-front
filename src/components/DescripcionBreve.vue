@@ -27,7 +27,7 @@
 import DescripcionJuego from "./DescripcionJuego.vue";
 
 export default {
-    name: "DescripcionBreve",
+    nombre: "DescripcionBreve",
     components: {DescripcionJuego},
     data() {
         return {

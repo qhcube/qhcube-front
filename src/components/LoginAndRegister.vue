@@ -42,8 +42,8 @@
 import RegistroNuevo from "./RegistroNuevo.vue";
 
 export default {
-    name: "LoginAndRegister",
-    components: {RegistroNuevo},
+    nombre: "LoginAndRegister",
+    components: { RegistroNuevo },
     data() {
         return {
             user: {

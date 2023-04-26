@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    name: "UsuarioRegistrado"
+    nombre: "UsuarioRegistrado"
 }
 </script>
 
