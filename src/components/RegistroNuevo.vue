@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import authUtils from '/src/authUtils.js';
+
 export default {
     name: "RegistroNuevo",
     emits: ['closeRegistroNuevo'],
@@ -67,6 +69,7 @@ export default {
             this.$el.querySelector("#passwordConfirm").value = "";
         },
         registrar() {
+            authUtils.login(this.user);
             this.mensajeVisible = true;
         }
     }

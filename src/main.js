@@ -14,6 +14,8 @@ import "primevue/resources/themes/saga-blue/theme.css"
 import "primevue/resources/primevue.min.css"
 import "primeicons/primeicons.css"
 import "primeflex/primeflex.css"
+import {createPinia} from "pinia";
+import piniaPersist from 'pinia-plugin-persist'
 
 const app = createApp(App);
 
@@ -23,6 +25,8 @@ app.use(PrimeVue, {
     ripple: true,
     inputStyle: "filled"
 });
+
+app.use(createPinia().use(piniaPersist));
 
 app.component('Button', Button);
 app.component('Card', Card);
