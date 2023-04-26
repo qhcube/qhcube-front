@@ -17,10 +17,10 @@
             </p>
         </div>
         <div class="flex flex-nowrap flex-column align-items-start">
-            <Button label="Aprende a jugar" link @click="this.descripcionJuegoVisible = true"></Button>
+            <Button label="Aprende a jugar" link @click="this.mostrarDescripcionJuego()"></Button>
         </div>
     </div>
-    <descripcion-juego v-else v-on:closeDescripcionJuego="this.descripcionJuegoVisible = false"></descripcion-juego>
+    <descripcion-juego v-else v-on:closeDescripcionJuego="this.closeDescripcionJuego()"></descripcion-juego>
 </template>
 
 <script>
@@ -34,6 +34,16 @@ export default {
             descripcionJuegoVisible: false,
         }
     },
+    methods: {
+        mostrarDescripcionJuego() {
+            this.descripcionJuegoVisible = true;
+            this.$emit("closeRegistro");
+        },
+        closeDescripcionJuego() {
+            this.descripcionJuegoVisible = false;
+            this.$emit("openRegistro");
+        }
+    }
 }
 </script>
 

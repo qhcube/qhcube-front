@@ -5,7 +5,7 @@
                 <h1>Juego del del hipercubo cuántico</h1>
             </div>
             <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
-                <Button icon="pi pi-times" severity="danger" class="p-button-raised p-button-outlined p-button-rounded" size="large"
+                <Button icon="pi pi-times" severity="danger" class="p-button-raised p-button-outlined p-button-rounded" size="small"
                         @click="this.$emit('closeDescripcionJuego')" />
             </div>
         </div>
