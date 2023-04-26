@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-column bg-indigo-50 shadow-6">
+    <div class="flex flex-column bg-indigo-50 shadow-6" v-if="!this.registroNuevoVisible">
         <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
             <div class="flex">
                 <h1>Registro de jugador</h1>
@@ -10,7 +10,7 @@
                 Puedes jugar sin registrarte, pero si te registras, podremos medir el tiempo que tardas en resolver
                 el juego y registrarlo en la tabla de puntuaciones.
             </p>
-            <Button label="Resgistrarse" link></Button>
+            <Button label="Resgistrarse" link @click="this.registroNuevo()"></Button>
             <p>
                 Si ya estás registrado, puedes iniciar sesión:
             </p>
@@ -20,7 +20,7 @@
                         <span class="p-inputgroup-addon">
                             <i class="pi pi-user"></i>
                         </span>
-                        <InputText placeholder="eMail" v-model="this.user.username" type="email"/>
+                        <InputText placeholder="eMail" v-model="this.user.email" type="email"/>
                     </div>
                     <div class="flex p-inputgroup w-9rem">
                         <span class="p-inputgroup-addon">
@@ -31,28 +31,40 @@
                     <div class="flex p-inputgroup  w-fit">
                         <Button type="submit" label="Login" @click="this.performLogin() "/>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+    <registro-nuevo v-else @closeRegistroNuevo="this.closeRegistroNuevo()" />
 </template>
 
 <script>
+import RegistroNuevo from "./RegistroNuevo.vue";
+
 export default {
     name: "LoginAndRegister",
+    components: {RegistroNuevo},
     data() {
         return {
             user: {
-                username: "",
+                email: "",
                 password: ""
             },
+            registroNuevoVisible: false
         }
     },
     methods: {
         performLogin() {
-            this.user.username = "logado :-)";
+            this.user.email = "logado :-)";
             this.user.password = "   ";
+        },
+        registroNuevo() {
+            this.registroNuevoVisible = true;
+            this.$emit("closeDescripcion");
+        },
+        closeRegistroNuevo() {
+            this.registroNuevoVisible = false;
+            this.$emit("openDescripcion");
         }
     }
 }
