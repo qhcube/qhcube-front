@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "pinia": "^2.0.35",
+    "pinia-plugin-persist": "^1.0.0",
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
     "primevue": "^3.27.0",

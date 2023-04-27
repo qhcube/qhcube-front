@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-column bg-indigo-50 shadow-6" v-if="!this.registroNuevoVisible">
+    <div class="flex flex-column bg-indigo-50 shadow-6" v-if="!this.userStoreQHCube.isAuthenticated && !this.registroNuevoVisible">
         <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
             <div class="flex">
                 <h1>Registro de jugador</h1>
@@ -35,15 +35,19 @@
             </div>
         </div>
     </div>
-    <registro-nuevo v-else @closeRegistroNuevo="this.closeRegistroNuevo()" />
+    <registro-nuevo v-else-if="this.registroNuevoVisible" @closeRegistroNuevo="this.closeRegistroNuevo()" />
+    <usuario-registrado v-else />
 </template>
 
 <script>
 import RegistroNuevo from "./RegistroNuevo.vue";
+import UsuarioRegistrado from "./UsuarioRegistrado.vue";
+import authUtils from "../authUtils.js";
 
 export default {
     name: "LoginAndRegister",
-    components: {RegistroNuevo},
+    inject: ["userStoreQHCube"],
+    components: {UsuarioRegistrado, RegistroNuevo },
     data() {
         return {
             user: {
@@ -55,8 +59,15 @@ export default {
     },
     methods: {
         performLogin() {
-            this.user.email = "logado :-)";
-            this.user.password = "   ";
+            const userAux = {
+                email: this.user.email,
+                password: this.user.password,
+                nombre: this.user.email.substring(0, this.user.email.indexOf(".")),
+                apellidos: this.user.email.substring(this.user.email.indexOf(".") + 1, this.user.email.indexOf("@"))
+            }
+            userAux.nombre =userAux.nombre.charAt(0).toUpperCase() + userAux.nombre.slice(1);
+            userAux.apellidos =userAux.apellidos.charAt(0).toUpperCase() + userAux.apellidos.slice(1);
+            authUtils.login(userAux);
         },
         registroNuevo() {
             this.registroNuevoVisible = true;
