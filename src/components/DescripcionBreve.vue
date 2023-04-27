@@ -1,13 +1,13 @@
 <template>
-    <div class="bg-red-50 p-2 shadow-6" v-if="!this.descripcionJuegoVisible">
+    <div v-if="!this.descripcionJuegoVisible" class="bg-red-50 p-2 shadow-6">
         <div class="flex flex-nowrap three">
             <h1>Descripción del juego</h1>
         </div>
         <div class="flex flex-nowrap">
             <p>
-                El hipercubo cuántico representa una <i>puerta cuántica discreta de dos cúbits</i>, es decir, una <u>matriz
-                4x4</u>
-                cuyas entradas son <u>números complejos</u> de la forma <b>a+bi</b> con a y b enteros.
+                El hipercubo cuántico representa una <i>puerta cuántica discreta de dos cúbits</i>,
+                es decir, una <u>matriz 4x4</u>
+                cuyas entradas son <u>números complejos</u> de la forma <b>a+bi</b> con <i>a</i> y <i>b</i> enteros.
             </p>
         </div>
         <div class="flex flex-nowrap">
@@ -17,18 +17,18 @@
             </p>
         </div>
         <div class="flex flex-nowrap flex-column align-items-start">
-            <Button label="Aprende a jugar" link @click="this.mostrarDescripcionJuego()"></Button>
+            <Button label="Aprende a jugar" link @click="this.mostrarDescripcionJuego()"/>
         </div>
     </div>
-    <descripcion-juego v-else @closeDescripcionJuego="this.closeDescripcionJuego()"></descripcion-juego>
+    <descripcion-juego v-else @closeDescripcionJuego="this.closeDescripcionJuego()"/>
 </template>
 
 <script>
-import DescripcionJuego from "./DescripcionJuego.vue";
+import DescripcionJuego from "@/components/DescripcionJuego.vue";
 
 export default {
     nombre: "DescripcionBreve",
-    components: { DescripcionJuego },
+    components: {DescripcionJuego},
     emits: ["showDescripcionJuego"],
     data() {
         return {

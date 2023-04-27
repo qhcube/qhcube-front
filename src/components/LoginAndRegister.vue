@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-column bg-indigo-50 shadow-6" v-if="!this.userStoreQHCube.isAuthenticated && !this.registroNuevoVisible">
+    <div v-if="!this.userStoreQHCube.isAuthenticated && !this.registroNuevoVisible" class="flex flex-column bg-indigo-50 shadow-6">
         <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
             <div class="flex">
                 <h1>Registro de jugador</h1>
@@ -20,16 +20,16 @@
                         <span class="p-inputgroup-addon">
                             <i class="pi pi-user"></i>
                         </span>
-                        <InputText placeholder="eMail" v-model="this.user.email" type="email"/>
+                        <InputText placeholder="eMail" type="email" v-model="this.user.email"/>
                     </div>
                     <div class="flex p-inputgroup w-9rem">
                         <span class="p-inputgroup-addon">
                             <i class="pi pi-key"></i>
                         </span>
-                        <InputText placeholder="Password" v-model="this.user.password" type="password"/>
+                        <InputText placeholder="Password" type="password" v-model="this.user.password"/>
                     </div>
                     <div class="flex p-inputgroup w-fit">
-                        <Button type="submit" label="Login" @click="this.performLogin() "/>
+                        <Button label="Login" type="submit" @click="this.performLogin() "/>
                     </div>
                 </div>
             </div>
@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import RegistroNuevo from "./RegistroNuevo.vue";
-import UsuarioRegistrado from "./UsuarioRegistrado.vue";
-import authUtils from "../assets/js/authUtils.js";
+import RegistroNuevo from "@/components/RegistroNuevo.vue";
+import UsuarioRegistrado from "@/components/UsuarioRegistrado.vue";
+import authUtils from "@/assets/js/authUtils.js";
 
 export default {
     name: "LoginAndRegister",

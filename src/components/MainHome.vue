@@ -7,12 +7,12 @@
             </canvas>
         </div>
         <div class="flex flex-nowrap flex-column gap-3 w-full">
-            <descripcion-breve @showDescripcionJuego="this.showDescripcionJuego()"
-                               @closeDescripcionJuego="this.closeDescripcionJuego()"
-                               v-if="this.descripcionVisible"/>
-            <login-and-register @closeRegistroNuevo="this.closeRegistroNuevo()"
-                                @showRegistroNuevo="this.showRegistroNuevo()"
-                                v-if="this.registroVisible"/>
+            <descripcion-breve v-if="this.descripcionVisible"
+                               @showDescripcionJuego="this.showDescripcionJuego()"
+                               @closeDescripcionJuego="this.closeDescripcionJuego()"/>
+            <login-and-register v-if="this.registroVisible"
+                                @closeRegistroNuevo="this.closeRegistroNuevo()"
+                                @showRegistroNuevo="this.showRegistroNuevo()"/>
         </div>
     </div>
     <div class="flex gap-3">
@@ -22,9 +22,9 @@
 
 <script>
 
-import DescripcionBreve from "./DescripcionBreve.vue";
-import MainFooter from "./MainFooter.vue";
-import LoginAndRegister from "./LoginAndRegister.vue";
+import DescripcionBreve from "@/components/DescripcionBreve.vue";
+import MainFooter from "@/components/MainFooter.vue";
+import LoginAndRegister from "@/components/LoginAndRegister.vue";
 
 export default {
     name: "MainHome",

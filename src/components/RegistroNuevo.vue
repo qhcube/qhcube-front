@@ -5,15 +5,15 @@
                 <h1>Nuevo registro de Jugador</h1>
             </div>
         </div>
-        <div class="flex flex-column px-2 align-items-start" v-if="!this.mensajeVisible">
+        <div v-if="!this.mensajeVisible" class="flex flex-column px-2 align-items-start">
             <label for="email" class="block text-900 font-medium mb-2 mt-2">eMail</label>
-            <InputText id="email" placeholder="eMail" v-model="this.user.email" type="email" class="w-full"/>
+            <InputText id="email" placeholder="eMail" type="email" v-model="this.user.email" class="w-full"/>
 
             <label for="nombre" class="block text-900 font-medium mb-2 mt-4">Nombre</label>
-            <InputText id="nombre" placeholder="Nombre" v-model="this.user.nombre" type="text" class="w-full"/>
+            <InputText id="nombre" placeholder="Nombre" type="text" v-model="this.user.nombre" class="w-full"/>
 
             <label for="apellidos" class="block text-900 font-medium mb-2 mt-4">Apellidos</label>
-            <InputText id="apellidos" placeholder="Apellidos" v-model="this.user.apellidos" type="text" class="w-full"/>
+            <InputText id="apellidos" placeholder="Apellidos" type="text" v-model="this.user.apellidos" class="w-full"/>
 
             <label for="password" class="block text-900 font-medium mb-2 mt-4">Contraseña</label>
             <InputText id="password" type="password" class="w-full" />
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="flex" v-else>
-            <Message severity="success" style="margin: 4rem auto 6rem auto" @close="this.mensajeVisible = false; this.cancelar()">
+            <Message severity="success" @close="this.mensajeVisible = false; this.cancelar()" style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
                     <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem"> ¡Usuario registrado con éxito!</span>
                     <span style="margin: 1rem 1rem 0 2rem"> {{ this.user.nombre }} {{ this.user.apellidos }} </span>

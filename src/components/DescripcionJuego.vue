@@ -5,12 +5,13 @@
                 <h1>Juego del del hipercubo cuántico</h1>
             </div>
             <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
-                <Button icon="pi pi-times" severity="danger" class="p-button-raised p-button-outlined p-button-rounded" size="small"
-                        @click="this.$emit('closeDescripcionJuego')" />
+                <Button icon="pi pi-times" severity="danger" size="small"
+                        @click="this.$emit('closeDescripcionJuego')"
+                        class="p-button-raised p-button-outlined p-button-rounded"/>
             </div>
         </div>
         <div class="flex flex-auto">
-            <scroll-panel style="width: 100%; height: 510px" class="custombar1">
+            <scroll-panel class="custombar1" style="width: 100%; height: 510px">
                 <p>
                     El hipercubo cuántico representa una puerta cuántica discreta de dos cúbits, es decir, una matriz<i>4x4</i>
                     cuyas entradas son números complejos de la forma <i>a+bi</i> con <i>a</i> y <i>b</i> enteros. Pero en
@@ -102,7 +103,7 @@
                     que resultan de combinaciones específicas de puertas <i>G</i> y <i>H</i>.
                 </p>
                 <div class="flex align-self-center">
-                    <img src="@/assets/images/figura_3.png" alt="figura 3"/>
+                    <img src="@/assets/images/figura_3.png" alt="figura 3" style="max-width: 100%; margin: auto"/>
                 </div>
                 <p>
                     Entonces, para bajar el nivel del hipercubo hay que conseguir que las filas 1 y 2, por un lado, y 3
@@ -136,7 +137,10 @@
                         <td class="descripcion">
                             Pinchar fuera del hipercubo y arrastar
                         </td>
-                        <td><img src="@/assets/images/figura_4.png" width="406" height="173" alt="Figura tabla 1"></td>
+                        <td>
+                            <img src="@/assets/images/figura_4.png"
+                                 alt="Figura tabla 1" style="max-width: 100%; margin: auto"/>
+                        </td>
                     </tr>
                     <tr>
                         <td class="movimiento">Permutar dos filas</td>
@@ -144,8 +148,10 @@
                             Pinchar una de las caras que separa las dos filas (hay 4 caras posibles). Se puden permutar
                             las filas 1-2, 2-3 y 3-4.
                         </td>
-                        <td><img src="@/assets/images/figura_permutacion-rotacion_filas.png" width="207" height="198"
-                                 alt="Figura tabla 2"></td>
+                        <td>
+                            <img src="@/assets/images/figura_permutacion-rotacion_filas.png"
+                                 alt="Figura tabla 2" style="max-width: 100%; margin: auto"/>
+                        </td>
                     </tr>
                     <tr>
                         <td class="movimiento">Permutar dos columnas</td>
@@ -153,8 +159,9 @@
                             Pinchar una de las caras que separa las dos columnas (hay 3 caras posibles). Se puden
                             permutar las columnas 1-2, 2-3, 3-4 y 4-1.
                         </td>
-                        <td><img src="@/assets/images/figura_permutacion-rotacion_columnas.png" width="210" height="200"
-                                 alt="Figura tabla 3">
+                        <td>
+                            <img src="@/assets/images/figura_permutacion-rotacion_columnas.png"
+                                 alt="Figura tabla 3" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
                     <tr>
@@ -163,8 +170,10 @@
                             Pinchar en una de las caras correspondiente a la parte real de un vértice de la fila (hay 4
                             caras posibles).
                         </td>
-                        <td><img src="@/assets/images/figura_intercambio_fila.png" width="210" height="189"
-                                 alt="Figura tabla 4"></td>
+                        <td>
+                            <img src="@/assets/images/figura_intercambio_fila.png"
+                                 alt="Figura tabla 4" style="max-width: 100%; margin: auto"/>
+                        </td>
                     </tr>
                     <tr>
                         <td class="movimiento">Intercambio en una columna</td>
@@ -172,8 +181,10 @@
                             Pinchar en una de las caras correspondiente a la parte imaginaria de un vértice de la
                             columna (hay 4 caras posibles).
                         </td>
-                        <td><img src="@/assets/images/figura_intercambio_columna.png" width="211" height="199"
-                                 alt="Figura tabla 5"></td>
+                        <td>
+                            <img src="@/assets/images/figura_intercambio_columna.png"
+                                 alt="Figura tabla 5" style="max-width: 100%; margin: auto"/>
+                        </td>
                     </tr>
                     <tr>
                         <td class="movimiento">Rotar dos filas</td>
@@ -181,8 +192,10 @@
                             Hacer doble click en una de las caras que separa las dos filas (hay 4 caras posibles). Se
                             puden rotar las filas 1-2, 2-3 y 3-4.
                         </td>
-                        <td><img src="@/assets/images/figura_permutacion-rotacion_filas.png" width="207" height="198"
-                                 alt="Figura tabla 6"></td>
+                        <td>
+                            <img src="@/assets/images/figura_permutacion-rotacion_filas.png"
+                                 alt="Figura tabla 6" style="max-width: 100%; margin: auto"/>
+                        </td>
                     </tr>
                     <tr>
                         <td class="movimiento">Rotar dos columnas</td>
@@ -190,8 +203,9 @@
                             Hacer doble click en una de las caras que separa las dos columnas (hay 3 caras posibles). Se
                             puden rotar las columnas 1-2, 2-3, 3-4 y 4-1.
                         </td>
-                        <td><img src="@/assets/images/figura_permutacion-rotacion_columnas.png" width="210" height="200"
-                                 alt="Figura tabla 7">
+                        <td>
+                            <img src="@/assets/images/figura_permutacion-rotacion_columnas.png"
+                                 alt="Figura tabla 7" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
                     <tr>
@@ -200,8 +214,10 @@
                             Hacer doble click en una de las caras correspondiente a la parte real de un vértice (hay 16
                             caras posibles).
                         </td>
-                        <td><img src="@/assets/images/figura_reduccion_filas.png" width="212" height="202"
-                                 alt="Figura tabla 8"></td>
+                        <td>
+                            <img src="@/assets/images/figura_reduccion_filas.png"
+                                 alt="Figura tabla 8" style="max-width: 100%; margin: auto"/>
+                        </td>
                     </tr>
                     <tr>
                         <td class="movimiento">Reducción por columnas</td>
@@ -209,8 +225,10 @@
                             Hacer doble click en una de las caras correspondiente a la parte imaginaria de un vértice
                             (hay 16 caras posibles).
                         </td>
-                        <td><img src="@/assets/images/figura_reduccion_columnas.png" width="216" height="198"
-                                 alt="Figura tabla 9"></td>
+                        <td>
+                            <img src="@/assets/images/figura_reduccion_columnas.png"
+                                 alt="Figura tabla 9" style="max-width: 100%; margin: auto"/>
+                        </td>
                     </tr>
                 </table>
 
@@ -225,7 +243,7 @@
                     resto de pares es idéntico.
                 </p>
                 <div class="flex align-self-center">
-                    <img src="@/assets/images/figura_5.png" alt="Figura 4"/>
+                    <img src="@/assets/images/figura_5.png" alt="Figura 4" style="max-width: 100%; margin: auto"/>
                 </div>
                 <p>
                     El factor 1/sqrt(2) de <i>H</i> aumenta el nivel en uno, pero si todas las coordenadas quedan pares
@@ -244,7 +262,7 @@
                     efecto sobre un par de coordenadas dado que sobre el resto de pares es idéntico.
                 </p>
                 <div class="flex align-self-center">
-                    <img src="@/assets/images/figura_6.png" alt="Figura 5"/>
+                    <img src="@/assets/images/figura_6.png" alt="Figura 5" style="max-width: 100%; margin: auto"/>
                 </div>
                 <p>
                     El factor 1/2 de <i>R</i> aumenta el nivel en dos, pero si todas las coordenadas quedan pares se

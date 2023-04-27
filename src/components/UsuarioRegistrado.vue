@@ -15,9 +15,9 @@
             </p>
         </div>
         <div class="flex flex-row gap-2" style="margin: auto" >
-            <Button v-if="!this.juegoComenzado" label="Comenzar juego" @click="this.comenzarJuego()" severity="success" class=" mt-4 mb-3"/>
-            <Button v-else label="Cancelar juego" @click="this.cancelarJuego()" severity="warning" class=" mt-4 mb-3"/>
-            <Button label="Salir" severity="danger" @click="this.salir()" class=" mt-4 mb-3"/>
+            <Button label="Comenzar juego" v-if="!this.juegoComenzado" @click="this.comenzarJuego()" severity="success" class=" mt-4 mb-3"/>
+            <Button label="Cancelar juego" v-else @click="this.cancelarJuego()" severity="warning" class=" mt-4 mb-3"/>
+            <Button label="Salir" @click="this.salir()" severity="danger" class=" mt-4 mb-3"/>
         </div>
     </div>
 </template>
@@ -25,7 +25,6 @@
 <script>
 
 export default {
-
     name: "UsuarioRegistrado",
     inject: ['userStoreQHCube'],
     data() {
