@@ -1,4 +1,4 @@
-import { useUserStoreQHCube } from "/userSotorageQHCube.js";
+import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
 
 export default {
 

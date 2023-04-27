@@ -14,7 +14,7 @@ import "primeicons/primeicons.css"
 import "primeflex/primeflex.css"
 import {createPinia} from "pinia";
 import piniaPersist from 'pinia-plugin-persist'
-import { useUserStoreQHCube } from "../userSotorageQHCube.js";
+import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
 
 const app = createApp(App);
 
