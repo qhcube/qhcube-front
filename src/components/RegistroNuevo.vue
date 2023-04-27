@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import authUtils from '/src/authUtils.js';
+import authUtils from "@/assets/js/authUtils.js";
 
 export default {
     name: "RegistroNuevo",

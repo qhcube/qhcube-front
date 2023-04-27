@@ -42,11 +42,12 @@
 <script>
 import RegistroNuevo from "./RegistroNuevo.vue";
 import UsuarioRegistrado from "./UsuarioRegistrado.vue";
-import authUtils from "../authUtils.js";
+import authUtils from "../assets/js/authUtils.js";
 
 export default {
     name: "LoginAndRegister",
     inject: ["userStoreQHCube"],
+    emits: ["showRegistroNuevo"],
     components: {UsuarioRegistrado, RegistroNuevo },
     data() {
         return {
@@ -71,11 +72,10 @@ export default {
         },
         registroNuevo() {
             this.registroNuevoVisible = true;
-            this.$emit("closeDescripcion");
+            this.$emit("showRegistroNuevo");
         },
         closeRegistroNuevo() {
             this.registroNuevoVisible = false;
-            this.$emit("openDescripcion");
         }
     }
 }

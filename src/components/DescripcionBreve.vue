@@ -20,7 +20,7 @@
             <Button label="Aprende a jugar" link @click="this.mostrarDescripcionJuego()"></Button>
         </div>
     </div>
-    <descripcion-juego v-else v-on:closeDescripcionJuego="this.closeDescripcionJuego()"></descripcion-juego>
+    <descripcion-juego v-else @closeDescripcionJuego="this.closeDescripcionJuego()"></descripcion-juego>
 </template>
 
 <script>
@@ -28,7 +28,8 @@ import DescripcionJuego from "./DescripcionJuego.vue";
 
 export default {
     nombre: "DescripcionBreve",
-    components: {DescripcionJuego},
+    components: { DescripcionJuego },
+    emits: ["showDescripcionJuego"],
     data() {
         return {
             descripcionJuegoVisible: false,
@@ -37,11 +38,10 @@ export default {
     methods: {
         mostrarDescripcionJuego() {
             this.descripcionJuegoVisible = true;
-            this.$emit("closeRegistro");
+            this.$emit("showDescripcionJuego");
         },
         closeDescripcionJuego() {
             this.descripcionJuegoVisible = false;
-            this.$emit("openRegistro");
         }
     }
 }

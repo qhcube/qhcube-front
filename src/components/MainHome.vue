@@ -7,16 +7,16 @@
             </canvas>
         </div>
         <div class="flex flex-nowrap flex-column gap-3 w-full">
-            <descripcion-breve  @closeRegistro="this.registroVisible = false"
-                                @openRegistro="this.registroVisible = true"
-                                v-if="this.descripcionVisible" />
-            <login-and-register @openDescripcion="this.descripcionVisible=true"
-                                @closeDescripcion="this.descripcionVisible=false"
+            <descripcion-breve @showDescripcionJuego="this.showDescripcionJuego()"
+                               @closeDescripcionJuego="this.closeDescripcionJuego()"
+                               v-if="this.descripcionVisible"/>
+            <login-and-register @closeRegistroNuevo="this.closeRegistroNuevo()"
+                                @showRegistroNuevo="this.showRegistroNuevo()"
                                 v-if="this.registroVisible"/>
         </div>
     </div>
     <div class="flex gap-3">
-        <MainFooter />
+        <MainFooter/>
     </div>
 </template>
 
@@ -27,7 +27,7 @@ import MainFooter from "./MainFooter.vue";
 import LoginAndRegister from "./LoginAndRegister.vue";
 
 export default {
-    nombre: "MainHome",
+    name: "MainHome",
     data() {
         return {
             descripcionVisible: true,
@@ -35,6 +35,20 @@ export default {
         }
     },
     components: {LoginAndRegister, MainFooter, DescripcionBreve},
+    methods: {
+        closeDescripcionJuego() {
+            this.registroVisible = true;
+        },
+        showDescripcionJuego() {
+            this.registroVisible = false;
+        },
+        showRegistroNuevo() {
+            this.descripcionVisible = false;
+        },
+        closeRegistroNuevo() {
+            this.descripcionVisible = true
+        }
+    },
     mounted() {
         pageLoaded();
     }
