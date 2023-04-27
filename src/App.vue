@@ -1,14 +1,15 @@
 <template>
     <main-title></main-title>
-    <router-view />
+    <main-home />
 </template>
 
 <script>
 import {defineComponent} from "vue";
 import MainTitle from "./components/MainTitle.vue";
+import MainHome from "./components/MainHome.vue";
 
 export default defineComponent({
-    components: {MainTitle}
+    components: {MainHome, MainTitle}
 })
 </script>
 
