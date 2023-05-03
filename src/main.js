@@ -6,6 +6,7 @@ import Button from 'primevue/button';
 import Card from 'primevue/card';
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
+import InlineMessage from "primevue/inlinemessage";
 import InputText from "primevue/inputtext";
 import Message from "primevue/message";
 import ScrollPanel from 'primevue/scrollpanel';
@@ -32,6 +33,7 @@ app.component('Button', Button);
 app.component('Card', Card);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('InputText', InputText);
+app.component('InlineMessage', InlineMessage);
 app.component('Message', Message);
 app.component('ScrollPanel', ScrollPanel);
 
