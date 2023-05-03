@@ -9,13 +9,15 @@
 
             <div v-for="(field, value, key) in this.user" class="flex gap-2">
                 <div class="flex flex-column mb-3 gap-2">
-                    <label :for="value" class="block text-900 font-medium mb-2 mt-2">
+                    <label :id="'lbl' + value" :for="value" class="block text-900 font-medium mb-2 mt-2">
                         {{ value.charAt(0).toUpperCase() + value.substring(1) }}
                     </label>
                     <InputText :id="value" :placeholder="value.charAt(0).toUpperCase() + value.substring(1)"
-                               :type="key > 2 ? 'password' : 'text'" v-model="this.user[value]" />
+                               :type="key > 2 ? 'password' : 'text'" v-model="this.user[value]"/>
                 </div>
-                <InlineMessage v-if="this.checkMsgs[key].length > 0" class="h-min align-self-end mb-3"> {{ this.checkMsgs[key] }}</InlineMessage>
+                <InlineMessage v-if="this.checkMsgs[key].length > 0" class="h-min align-self-end mb-3">
+                    {{ this.checkMsgs[key] }}
+                </InlineMessage>
             </div>
 
             <div class="flex flex-row gap-2">
@@ -25,7 +27,8 @@
             </div>
         </div>
         <div class="flex" v-else>
-            <Message severity="success" @close="this.mensajeVisible = false; this.cancelar()" style="margin: 4rem auto 6rem auto">
+            <Message severity="success" @close="this.mensajeVisible = false; this.cancelar()"
+                     style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
                     <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem"> ¡Usuario registrado con éxito!</span>
                     <span style="margin: 1rem 1rem 0 2rem"> {{ this.user.nombre }} {{ this.user.apellidos }} </span>
@@ -52,48 +55,50 @@ export default {
                 passwordConfirm: ""
             },
             mensajeVisible: false,
-            checkMsgs: [ "", "", "", "", ""]
+            checkMsgs: ["", "", "", "", ""]
         }
     },
     watch: {
         user: {
             handler: function (val) {
-                if(val.nombre.length > 0){
+                if (val.nombre.length > 0) {
                     this.checkMsgs[0] = "";
                     this.$el.querySelector("#nombre").classList.remove("p-invalid");
                 }
-                if(val.apellidos.length > 0) {
+                if (val.apellidos.length > 0) {
                     this.checkMsgs[1] = "";
-                     this.$el.querySelector("#apellidos").classList.remove("p-invalid");
+                    this.$el.querySelector("#apellidos").classList.remove("p-invalid");
                 }
-                if(val.email.length > 0) {
+                if (val.email.length > 0) {
                     this.checkMsgs[2] = "";
-                     this.$el.querySelector("#email").classList.remove("p-invalid");
+                    this.$el.querySelector("#email").classList.remove("p-invalid");
                 }
-                if(val.password.length > 0) {
+                if (val.password.length > 0) {
                     this.checkMsgs[3] = "";
-                     this.$el.querySelector("#password").classList.remove("p-invalid");
+                    this.$el.querySelector("#password").classList.remove("p-invalid");
                 }
-                if(val.passwordConfirm.length > 0) {
+                if (val.passwordConfirm.length > 0) {
                     this.checkMsgs[4] = "";
-                     this.$el.querySelector("#passwordConfirm").classList.remove("p-invalid");
+                    this.$el.querySelector("#passwordConfirm").classList.remove("p-invalid");
                 }
             },
             deep: true
         }
+    },
+    mounted() {
+        this.$el.querySelector("#passwordConfirm").placeholder = "Confirmar password";
+        this.$el.querySelector("#lblpasswordConfirm").innerText = "Confirmar password";
     },
     methods: {
         cancelar() {
             this.$emit('closeRegistroNuevo');
         },
         reiniciar() {
-            this.user.nombre = "";
-            this.user.apellidos = "";
-            this.user.email = "";
-            this.user.password = "";
-            this.user.passwordConfirm = "";
-            this.$el.querySelector("#password").value = "";
-            this.$el.querySelector("#passwordConfirm").value = "";
+            Object.keys(this.user).forEach(key => {
+                this.user[key] = "";
+                this.$el.querySelector("#" + key).classList.remove("p-invalid");
+            });
+            this.checkMsgs = ["", "", "", "", ""];
         },
         registrar() {
             if (this.user.nombre.length < 1) {
@@ -106,10 +111,10 @@ export default {
             }
             if (this.user.email.length < 1) {
                 this.checkMsgs[2] = "El email no puede estar vacío.";
-                  this.$el.querySelector("#email").classList.add("p-invalid");
+                this.$el.querySelector("#email").classList.add("p-invalid");
             } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email))) {
                 this.checkMsgs[2] = "El email no es válido: '" + this.user.email + "'";
-                  this.$el.querySelector("#email").classList.add("p-invalid");
+                this.$el.querySelector("#email").classList.add("p-invalid");
             }
             if (this.user.password.length < 6) {
                 this.checkMsgs[3] = "La contraseña debe tener al menos 6 caracteres.";
