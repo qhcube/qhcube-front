@@ -28,11 +28,11 @@
         </div>
         <div class="flex" v-else>
             <Message severity="success" @close="this.mensajeVisible = false; this.cancelar()"
-                     style="margin: 4rem auto 6rem auto">
+                     icon="pi" style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
-                    <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem"> ¡Usuario registrado con éxito!</span>
-                    <span style="margin: 1rem 1rem 0 2rem"> {{ this.user.nombre }} {{ this.user.apellidos }} </span>
-                    <span style="margin-left: 2rem; margin-right: 1rem"> {{ this.user.email }}</span>
+                    <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span>
+                    <span style="margin: 1rem 3rem 0 2rem"> {{ this.user.nombre }} {{ this.user.apellidos }} </span><br/>
+                    <span style="margin: 1rem 3rem 0 2rem;"> {{ this.user.email }}</span>
                 </div>
             </Message>
         </div>
