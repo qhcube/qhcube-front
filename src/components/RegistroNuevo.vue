@@ -9,9 +9,11 @@
 
             <div v-for="(field, value, key) in this.user" class="flex gap-2">
                 <div class="flex flex-column mb-3 gap-2">
-                    <label :for="value" class="block text-900 font-medium mb-2 mt-2">{{ value.charAt(0).toUpperCase() + value.substring(1) }}</label>
-                    <InputText :id="value" :placeholder="value.charAt(0).toUpperCase() + value.substring(1)" :type="key > 2 ? 'password' : 'text'"
-                               v-model="this.user[value]" />
+                    <label :for="value" class="block text-900 font-medium mb-2 mt-2">
+                        {{ value.charAt(0).toUpperCase() + value.substring(1) }}
+                    </label>
+                    <InputText :id="value" :placeholder="value.charAt(0).toUpperCase() + value.substring(1)"
+                               :type="key > 2 ? 'password' : 'text'" v-model="this.user[value]" />
                 </div>
                 <InlineMessage v-if="this.checkMsgs[key].length > 0" class="h-min align-self-end mb-3"> {{ this.checkMsgs[key] }}</InlineMessage>
             </div>
@@ -55,7 +57,7 @@ export default {
     },
     watch: {
         user: {
-            handler: function (val, oldVal) {
+            handler: function (val) {
                 if(val.nombre.length > 0){
                     this.checkMsgs[0] = "";
                     this.$el.querySelector("#nombre").classList.remove("p-invalid");
@@ -136,7 +138,5 @@ export default {
 </script>
 
 <style scoped>
-.invisible {
-    visibility: hidden;
-}
+
 </style>
