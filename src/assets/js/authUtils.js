@@ -1,4 +1,4 @@
-import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
+//import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
 import axios from "axios";
 
 export default {
@@ -53,8 +53,6 @@ export default {
     async registrar(user) {
         // const userStoreQHCube = useUserStoreQHCube();
 
-        console.log("Vamos a registrar el usuario: " + JSON.stringify(user));
-        console.log("URL: " + import.meta.env.VITE_APP_FREEAPI + "/jugador/registrar");
         await axios({
             method: "post",
             url: import.meta.env.VITE_APP_FREEAPI + "/jugador/registrar",
@@ -63,6 +61,10 @@ export default {
         })
             .then((response) => {
                 console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+                console.log("AuthUtils.registrar --> Error al registrar el usuario.");
+                console.log(error.message);
             })
         ;
 
