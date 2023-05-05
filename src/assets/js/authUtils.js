@@ -50,7 +50,7 @@ export default {
         }
     }
      */
-    async registrar(user) {
+    async registerNewPlayer(user) {
         // const userStoreQHCube = useUserStoreQHCube();
 
         await axios({
@@ -63,31 +63,11 @@ export default {
                 console.log(JSON.stringify(response.data));
             })
             .catch((error) => {
-                console.log("AuthUtils.registrar --> Error al registrar el usuario.");
-                console.log(error.message);
-            })
-        ;
-
-        /*
-        await axios({
-            method: "post",
-            url: process.env.VUE_APP_FREEAPI + "/authenticate",
-            data: user,
-            headers: {"Content-Type": "application/json"},
-        })
-            .then((response) => {
-                userStore.email = user.username;
-                userStore.jwttoken = response.data.jwttoken;
-                userStore.jwtexpiration = response.data.expiration;
-            })
-            .catch(() => {
-                let resp = {
-                    status: 'Credenciales NO válidas',
-                    message: 'Por favor, vuelva a intentarlo de nuevo.'
+                    console.log("AuthUtils.registrar --> Error al registrar el usuario.");
+                    console.log(error.message);
                 }
-                router.push({name: 'error', params: {code: JSON.stringify(resp)}});
-            });
-        */
+            );
+
     }
 }
 

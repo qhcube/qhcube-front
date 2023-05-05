@@ -45,7 +45,7 @@
 import authUtils from "@/assets/js/authUtils.js";
 
 export default {
-    name: "RegistroNuevo",
+    name: "NewRecord",
     emits: ['closeRegistroNuevo'],
     data() {
         return {
