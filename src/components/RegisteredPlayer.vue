@@ -5,9 +5,9 @@
                 <h1>Usuario: {{ this.userStoreQHCube.nombre }} {{ this.userStoreQHCube.apellidos }}</h1>
             </div>
         </div>
-        <div v-if=" !this.mensajeQuedarseVisible && !this.mensajeSalirVisible" class="flex flex-column">
+        <div v-if=" !this.logOutRegretMessage && !this.loggedOutMessage" class="flex flex-column">
             <div class="flex flex-column px-2 align-items-start">
-                <p v-if="!this.juegoComenzado">
+                <p v-if="!this.startedGame">
                     Ahora puedes comenzar el juego pulsando el botón. Si así lo haces, se te asignará una
                     puntuación si consigues completarlo.
                 </p>
@@ -16,18 +16,18 @@
                 </p>
             </div>
             <div class="flex flex-row gap-2" style="margin: auto">
-                <Button label="Comenzar juego" v-if="!this.juegoComenzado" @click="this.comenzarJuego()" severity="success"
+                <Button label="Comenzar juego" v-if="!this.startedGame" @click="this.comenzarJuego()" severity="success"
                         class=" mt-4 mb-3"/>
                 <Button label="Cancelar juego" v-else @click="this.cancelarJuego()" severity="warning" class=" mt-4 mb-3"/>
                 <Button label="Salir" @click="this.salir()" severity="danger" class=" mt-4 mb-3"/>
             </div>
         </div>
         <ConfirmDialog/>
-        <Message v-if="this.mensajeSalirVisible" severity="warn" @close="this.mensajeSalirVisible = false; this.userStoreQHCube.$reset();" style="margin: 2rem auto 4rem auto">
+        <Message v-if="this.loggedOutMessage" severity="warn" @close="this.loggedOutMessage = false; this.userStoreQHCube.$reset();" style="margin: 2rem auto 4rem auto">
             <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">¡Gracias por hugar!</span><br/><br/>
             <span style="margin-left: 1rem; margin-right: 1rem">Esperamos volver a verte pronto.</span>
         </Message>
-        <Message v-if="this.mensajeQuedarseVisible" severity="info" @close="this.mensajeQuedarseVisible=false" style="margin: 2rem auto 4rem auto">
+        <Message v-if="this.logOutRegretMessage" severity="info" @close="this.logOutRegretMessage=false" style="margin: 2rem auto 4rem auto">
             <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">Seguimos jugando...</span><br/>
         </Message>
     </div>
@@ -40,9 +40,9 @@ export default {
     inject: ['userStoreQHCube'],
     data() {
         return {
-            juegoComenzado: false,
-            mensajeSalirVisible: false,
-            mensajeQuedarseVisible: false
+            startedGame: false,
+            loggedOutMessage: false,
+            logOutRegretMessage: false
         }
     },
     methods: {
@@ -53,21 +53,21 @@ export default {
                 icon: 'pi pi-info-circle',
                 acceptClass: 'p-button-danger',
                 accept: () => {
-                    this.mensajeSalirVisible = true;
+                    this.loggedOutMessage = true;
                 },
                 reject: () => {
-                    this.mensajeQuedarseVisible = true;
+                    this.logOutRegretMessage = true;
                 }
             });
         },
             comenzarJuego()
             {
-                this.juegoComenzado = true;
+                this.startedGame = true;
             }
         ,
             cancelarJuego()
             {
-                this.juegoComenzado = false;
+                this.startedGame = false;
             }
         }
     }
