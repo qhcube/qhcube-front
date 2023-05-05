@@ -7,10 +7,10 @@
             </canvas>
         </div>
         <div class="flex flex-nowrap flex-column gap-3 w-full">
-            <brief-game-description v-if="this.descripcionVisible"
+            <brief-game-description v-if="this.briefGameDescriptionVisible"
                                @showDescripcionJuego="this.showDescripcionJuego()"
                                @closeDescripcionJuego="this.closeDescripcionJuego()"/>
-            <login-and-register v-if="this.registroVisible"
+            <login-and-register v-if="this.loginAndRegisterVisible"
                                 @closeNewRecord="this.closeNewRecord()"
                                 @showNewRecord="this.showNewRecord()"/>
         </div>
@@ -30,23 +30,23 @@ export default {
     name: "MainHome",
     data() {
         return {
-            descripcionVisible: true,
-            registroVisible: true
+            briefGameDescriptionVisible: true,
+            loginAndRegisterVisible: true
         }
     },
     components: {BriefGameDescription, LoginAndRegister, MainFooter},
     methods: {
         closeDescripcionJuego() {
-            this.registroVisible = true;
+            this.loginAndRegisterVisible = true;
         },
         showDescripcionJuego() {
-            this.registroVisible = false;
+            this.loginAndRegisterVisible = false;
         },
         showNewRecord() {
-            this.descripcionVisible = false;
+            this.briefGameDescriptionVisible = false;
         },
         closeNewRecord() {
-            this.descripcionVisible = true
+            this.briefGameDescriptionVisible = true
         }
     },
     mounted() {
