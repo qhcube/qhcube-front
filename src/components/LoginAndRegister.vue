@@ -36,11 +36,11 @@
         </div>
     </div>
     <new-record v-else-if="this.registroNuevoVisible" @closeNewRecord="this.closeNewRecord()" />
-    <usuario-registrado v-else />
+    <registered-player v-else />
 </template>
 
 <script>
-import UsuarioRegistrado from "@/components/UsuarioRegistrado.vue";
+import RegisteredPlayer from "@/components/RegisteredPlayer.vue";
 import authUtils from "@/assets/js/authUtils.js";
 import NewRecord from "@/components/NewRecord.vue";
 
@@ -48,7 +48,7 @@ export default {
     name: "LoginAndRegister",
     inject: ["userStoreQHCube"],
     emits: ["showRegistroNuevo"],
-    components: { UsuarioRegistrado, NewRecord },
+    components: { RegisteredPlayer, NewRecord },
     data() {
         return {
             user: {

@@ -1,4 +1,4 @@
-//import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
+import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
 import axios from "axios";
 
 export default {
@@ -51,7 +51,7 @@ export default {
     }
      */
     async registerNewPlayer(user) {
-        // const userStoreQHCube = useUserStoreQHCube();
+        const userStoreQHCube = useUserStoreQHCube();
 
         await axios({
             method: "post",
@@ -61,6 +61,10 @@ export default {
         })
             .then((response) => {
                 console.log(JSON.stringify(response.data));
+                userStoreQHCube.nombre = response.data.nombre;
+                userStoreQHCube.apellidos = response.data.apellidos;
+                userStoreQHCube.email = response.data.email;
+                userStoreQHCube.jwttoken = response.data.jwttoken;
             })
             .catch((error) => {
                     console.log("AuthUtils.registrar --> Error al registrar el usuario.");

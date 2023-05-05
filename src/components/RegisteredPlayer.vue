@@ -36,7 +36,7 @@
 <script>
 
 export default {
-    name: "UsuarioRegistrado",
+    name: "RegisteredPlayer",
     inject: ['userStoreQHCube'],
     data() {
         return {
