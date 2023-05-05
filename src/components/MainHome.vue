@@ -11,7 +11,7 @@
                                @showGameDescription="this.showGameDescription()"
                                @hideGameDescription="this.hideGameDescription()"/>
             <login-and-register v-if="this.loginAndRegisterVisible"
-                                @closeNewRecord="this.closeNewRecord()"
+                                @closeNewRecord="this.hideNewRecord()"
                                 @showNewRecord="this.showNewRecord()"/>
         </div>
     </div>
@@ -36,16 +36,16 @@ export default {
     },
     components: {BriefGameDescription, LoginAndRegister, MainFooter},
     methods: {
-        hideGameDescription() {
-            this.loginAndRegisterVisible = true;
-        },
         showGameDescription() {
             this.loginAndRegisterVisible = false;
+        },
+        hideGameDescription() {
+            this.loginAndRegisterVisible = true;
         },
         showNewRecord() {
             this.briefGameDescriptionVisible = false;
         },
-        closeNewRecord() {
+        hideNewRecord() {
             this.briefGameDescriptionVisible = true
         }
     },
