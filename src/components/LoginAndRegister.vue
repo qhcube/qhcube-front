@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!this.userStoreQHCube.isAuthenticated && !this.registroNuevoVisible" class="flex flex-column bg-indigo-50 shadow-6">
+    <div v-if="!this.userStoreQHCube.isAuthenticated && !this.newRecordVisiblility" class="flex flex-column bg-indigo-50 shadow-6">
         <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
             <div class="flex">
                 <h1>Registro de jugador</h1>
@@ -10,7 +10,7 @@
                 Puedes jugar sin registrarte, pero si te registras, podremos medir el tiempo que tardas en resolver
                 el juego y registrarlo en la tabla de puntuaciones.
             </p>
-            <Button label="Resgistrarse" link @click="this.registroNuevo()"></Button>
+            <Button label="Resgistrarse" link @click="this.newRecord()"></Button>
             <p>
                 Si ya estás registrado, puedes iniciar sesión:
             </p>
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <new-record v-else-if="this.registroNuevoVisible" @closeNewRecord="this.closeNewRecord()" />
+    <new-record v-else-if="this.newRecordVisiblility" @closeNewRecord="this.closeNewRecord()" />
     <registered-player v-else />
 </template>
 
@@ -55,7 +55,7 @@ export default {
                 email: "",
                 password: ""
             },
-            registroNuevoVisible: false
+            newRecordVisiblility: false
         }
     },
     methods: {
@@ -70,12 +70,12 @@ export default {
             userAux.apellidos =userAux.apellidos.charAt(0).toUpperCase() + userAux.apellidos.slice(1);
             authUtils.login(userAux);
         },
-        registroNuevo() {
-            this.registroNuevoVisible = true;
+        newRecord() {
+            this.newRecordVisiblility = true;
             this.$emit("showRegistroNuevo");
         },
         closeNewRecord() {
-            this.registroNuevoVisible = false;
+            this.newRecordVisiblility = false;
         }
     }
 }
