@@ -55,7 +55,7 @@ export default {
 
         await axios({
             method: "post",
-            url: import.meta.env.VITE_APP_FREEAPI + "/jugador/registrar",
+            url: import.meta.env.VITE_APP_FREEAPI + "/player/register",
             data: user,
             headers: {"Content-Type": "application/json"},
         })
