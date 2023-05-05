@@ -7,12 +7,12 @@
             </canvas>
         </div>
         <div class="flex flex-nowrap flex-column gap-3 w-full">
-            <descripcion-breve v-if="this.descripcionVisible"
+            <brief-game-description v-if="this.descripcionVisible"
                                @showDescripcionJuego="this.showDescripcionJuego()"
                                @closeDescripcionJuego="this.closeDescripcionJuego()"/>
             <login-and-register v-if="this.registroVisible"
                                 @closeNewRecord="this.closeNewRecord()"
-                                @showRegistroNuevo="this.showRegistroNuevo()"/>
+                                @showNewRecord="this.showNewRecord()"/>
         </div>
     </div>
     <div class="flex gap-3">
@@ -22,9 +22,9 @@
 
 <script>
 
-import DescripcionBreve from "@/components/DescripcionBreve.vue";
 import MainFooter from "@/components/MainFooter.vue";
 import LoginAndRegister from "@/components/LoginAndRegister.vue";
+import BriefGameDescription from "@/components/BriefGameDescription.vue";
 
 export default {
     name: "MainHome",
@@ -34,7 +34,7 @@ export default {
             registroVisible: true
         }
     },
-    components: {LoginAndRegister, MainFooter, DescripcionBreve},
+    components: {BriefGameDescription, LoginAndRegister, MainFooter},
     methods: {
         closeDescripcionJuego() {
             this.registroVisible = true;
@@ -42,7 +42,7 @@ export default {
         showDescripcionJuego() {
             this.registroVisible = false;
         },
-        showRegistroNuevo() {
+        showNewRecord() {
             this.descripcionVisible = false;
         },
         closeNewRecord() {

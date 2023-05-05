@@ -47,7 +47,7 @@ import NewRecord from "@/components/NewRecord.vue";
 export default {
     name: "LoginAndRegister",
     inject: ["userStoreQHCube"],
-    emits: ["showRegistroNuevo"],
+    emits: ["showNewRecord"],
     components: { RegisteredPlayer, NewRecord },
     data() {
         return {
@@ -72,7 +72,7 @@ export default {
         },
         newRecord() {
             this.newRecordVisiblility = true;
-            this.$emit("showRegistroNuevo");
+            this.$emit("showNewRecord");
         },
         closeNewRecord() {
             this.newRecordVisiblility = false;
