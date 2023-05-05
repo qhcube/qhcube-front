@@ -35,20 +35,20 @@
             </div>
         </div>
     </div>
-    <registro-nuevo v-else-if="this.registroNuevoVisible" @closeRegistroNuevo="this.closeRegistroNuevo()" />
+    <new-record v-else-if="this.registroNuevoVisible" @closeNewRecord="this.closeNewRecord()" />
     <usuario-registrado v-else />
 </template>
 
 <script>
-import RegistroNuevo from "@/components/RegistroNuevo.vue";
 import UsuarioRegistrado from "@/components/UsuarioRegistrado.vue";
 import authUtils from "@/assets/js/authUtils.js";
+import NewRecord from "@/components/NewRecord.vue";
 
 export default {
     name: "LoginAndRegister",
     inject: ["userStoreQHCube"],
     emits: ["showRegistroNuevo"],
-    components: {UsuarioRegistrado, RegistroNuevo },
+    components: { UsuarioRegistrado, NewRecord },
     data() {
         return {
             user: {
@@ -74,7 +74,7 @@ export default {
             this.registroNuevoVisible = true;
             this.$emit("showRegistroNuevo");
         },
-        closeRegistroNuevo() {
+        closeNewRecord() {
             this.registroNuevoVisible = false;
         }
     }

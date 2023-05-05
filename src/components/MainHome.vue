@@ -11,7 +11,7 @@
                                @showDescripcionJuego="this.showDescripcionJuego()"
                                @closeDescripcionJuego="this.closeDescripcionJuego()"/>
             <login-and-register v-if="this.registroVisible"
-                                @closeRegistroNuevo="this.closeRegistroNuevo()"
+                                @closeNewRecord="this.closeNewRecord()"
                                 @showRegistroNuevo="this.showRegistroNuevo()"/>
         </div>
     </div>
@@ -45,7 +45,7 @@ export default {
         showRegistroNuevo() {
             this.descripcionVisible = false;
         },
-        closeRegistroNuevo() {
+        closeNewRecord() {
             this.descripcionVisible = true
         }
     },
