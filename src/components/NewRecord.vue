@@ -47,7 +47,7 @@ import authUtils from "@/assets/js/authUtils.js";
 
 export default {
     name: "NewRecord",
-    emits: ['closeNewRecord'],
+    emits: ['hideNewRecord'],
     data() {
         return {
             user: {
@@ -94,7 +94,7 @@ export default {
     },
     methods: {
         cancel() {
-            this.$emit('closeNewRecord');
+            this.$emit('hideNewRecord');
         },
         reiniciar() {
             Object.keys(this.user).forEach(key => {

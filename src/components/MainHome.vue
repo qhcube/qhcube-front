@@ -11,7 +11,7 @@
                                @showGameDescription="this.showGameDescription()"
                                @hideGameDescription="this.hideGameDescription()"/>
             <login-and-register v-if="this.loginAndRegisterVisible"
-                                @closeNewRecord="this.hideNewRecord()"
+                                @hideNewRecord="this.hideNewRecord()"
                                 @showNewRecord="this.showNewRecord()"/>
         </div>
     </div>

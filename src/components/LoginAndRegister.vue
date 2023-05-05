@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!this.userStoreQHCube.isAuthenticated && !this.newRecordVisiblility" class="flex flex-column bg-indigo-50 shadow-6">
+    <div v-if="!this.userStoreQHCube.isAuthenticated && !this.newRecordVisible" class="flex flex-column bg-indigo-50 shadow-6">
         <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
             <div class="flex">
                 <h1>Registro de jugador</h1>
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    <new-record v-else-if="this.newRecordVisiblility" @closeNewRecord="this.closeNewRecord()" />
+    <new-record v-else-if="this.newRecordVisible" @hideNewRecord="this.hideNewRecord()" />
     <registered-player v-else />
 </template>
 
@@ -55,11 +55,12 @@ export default {
                 email: "",
                 password: ""
             },
-            newRecordVisiblility: false
+            newRecordVisible: false
         }
     },
     methods: {
         performLogin() {
+            // TODO: Borrar esto y poner lo que hay en los campos de texto.
             const userAux = {
                 email: this.user.email,
                 password: this.user.password,
@@ -71,11 +72,11 @@ export default {
             authUtils.login(userAux);
         },
         newRecord() {
-            this.newRecordVisiblility = true;
+            this.newRecordVisible = true;
             this.$emit("showNewRecord");
         },
-        closeNewRecord() {
-            this.newRecordVisiblility = false;
+        hideNewRecord() {
+            this.newRecordVisible = false;
         }
     }
 }
