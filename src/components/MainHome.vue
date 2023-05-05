@@ -8,8 +8,8 @@
         </div>
         <div class="flex flex-nowrap flex-column gap-3 w-full">
             <brief-game-description v-if="this.briefGameDescriptionVisible"
-                               @showDescripcionJuego="this.showDescripcionJuego()"
-                               @closeDescripcionJuego="this.closeDescripcionJuego()"/>
+                               @showGameDescription="this.showGameDescription()"
+                               @hideGameDescription="this.hideGameDescription()"/>
             <login-and-register v-if="this.loginAndRegisterVisible"
                                 @closeNewRecord="this.closeNewRecord()"
                                 @showNewRecord="this.showNewRecord()"/>
@@ -36,10 +36,10 @@ export default {
     },
     components: {BriefGameDescription, LoginAndRegister, MainFooter},
     methods: {
-        closeDescripcionJuego() {
+        hideGameDescription() {
             this.loginAndRegisterVisible = true;
         },
-        showDescripcionJuego() {
+        showGameDescription() {
             this.loginAndRegisterVisible = false;
         },
         showNewRecord() {

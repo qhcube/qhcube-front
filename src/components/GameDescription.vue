@@ -6,7 +6,7 @@
             </div>
             <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
                 <Button icon="pi pi-times" severity="danger" size="small"
-                        @click="this.$emit('closeDescripcionJuego')"
+                        @click="this.$emit('hideGameDescription')"
                         class="p-button-raised p-button-outlined p-button-rounded"/>
             </div>
         </div>
@@ -278,8 +278,8 @@
 
 <script>
 export default {
-    nombre: "DescripcionJuego",
-    emits: ['closeDescripcionJuego']
+    name: "GameDescription",
+    emits: ['hideGameDescription']
 }
 </script>
 

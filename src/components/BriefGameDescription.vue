@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!this.descripcionJuegoVisible" class="bg-red-50 p-2 shadow-6">
+    <div v-if="!this.gameDescriptionVisible" class="bg-red-50 p-2 shadow-6">
         <div class="flex flex-nowrap three">
             <h1>Descripción del juego</h1>
         </div>
@@ -17,31 +17,31 @@
             </p>
         </div>
         <div class="flex flex-nowrap flex-column align-items-start">
-            <Button label="Aprende a jugar" link @click="this.mostrarDescripcionJuego()"/>
+            <Button label="Aprende a jugar" link @click="this.showGameDescription()"/>
         </div>
     </div>
-    <descripcion-juego v-else @closeDescripcionJuego="this.closeDescripcionJuego()"/>
+    <game-description v-else @hideGameDescription="this.hideGameDescription()"/>
 </template>
 
 <script>
-import DescripcionJuego from "@/components/DescripcionJuego.vue";
+import GameDescription from "@/components/GameDescription.vue";
 
 export default {
     nombre: "BriefGameDescription",
-    components: {DescripcionJuego},
-    emits: ["showDescripcionJuego"],
+    components: {GameDescription},
+    emits: ["showGameDescription"],
     data() {
         return {
-            descripcionJuegoVisible: false,
+            gameDescriptionVisible: false,
         }
     },
     methods: {
-        mostrarDescripcionJuego() {
-            this.descripcionJuegoVisible = true;
-            this.$emit("showDescripcionJuego");
+        showGameDescription() {
+            this.gameDescriptionVisible = true;
+            this.$emit("showGameDescription");
         },
-        closeDescripcionJuego() {
-            this.descripcionJuegoVisible = false;
+        hideGameDescription() {
+            this.gameDescriptionVisible = false;
         }
     }
 }
