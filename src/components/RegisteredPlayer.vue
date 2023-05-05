@@ -16,10 +16,10 @@
                 </p>
             </div>
             <div class="flex flex-row gap-2" style="margin: auto">
-                <Button label="Comenzar juego" v-if="!this.startedGame" @click="this.comenzarJuego()" severity="success"
+                <Button label="Comenzar juego" v-if="!this.startedGame" @click="this.startGame()" severity="success"
                         class=" mt-4 mb-3"/>
-                <Button label="Cancelar juego" v-else @click="this.cancelarJuego()" severity="warning" class=" mt-4 mb-3"/>
-                <Button label="Salir" @click="this.salir()" severity="danger" class=" mt-4 mb-3"/>
+                <Button label="Cancelar juego" v-else @click="this.cancelGame()" severity="warning" class=" mt-4 mb-3"/>
+                <Button label="Salir" @click="this.logout()" severity="danger" class=" mt-4 mb-3"/>
             </div>
         </div>
         <ConfirmDialog/>
@@ -46,7 +46,7 @@ export default {
         }
     },
     methods: {
-        salir() {
+        logout() {
             this.$confirm.require({
                 header: 'Logging out...',
                 message: 'Realmente quieres salir?',
@@ -60,12 +60,12 @@ export default {
                 }
             });
         },
-            comenzarJuego()
+            startGame()
             {
                 this.startedGame = true;
             }
         ,
-            cancelarJuego()
+            cancelGame()
             {
                 this.startedGame = false;
             }
