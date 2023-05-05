@@ -5,7 +5,7 @@
                 <h1>Nuevo registro de Jugador</h1>
             </div>
         </div>
-        <div v-if="!this.mensajeVisible" class="flex flex-column px-2 align-items-start">
+        <div v-if="!this.successMessageVisibility" class="flex flex-column px-2 align-items-start">
 
             <div v-for="(field, value, key) in this.user" class="flex gap-2">
                 <div class="flex flex-column mb-3 gap-2">
@@ -23,12 +23,13 @@
             <div class="flex flex-row gap-2">
                 <Button label="Registrar" severity="success" @click="this.registrar()" class="mt-4 mb-2"/>
                 <Button label="Reiniciar Formulario" severity="warning" @click="this.reiniciar()" class="mt-4 mb-2"/>
-                <Button label="Cancelar" severity="danger" @click="this.cancelar()" class="mt-4 mb-2"/>
+                <Button label="Cancelar" severity="danger" @click="this.cancel()" class="mt-4 mb-2"/>
             </div>
         </div>
+
         <div class="flex" v-else>
-            <Message severity="success" @close="this.mensajeVisible = false; this.cancelar()"
-                     icon="pi" style="margin: 4rem auto 6rem auto">
+            <Message @close="this.successMessageVisibility = false; this.cancel()"
+                     icon="pi" severity="success" style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
                     <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span><br/>
                     <div class="flex flex-column bg-green-50 mr-4 border-round-2xl align-items-center">
@@ -56,7 +57,7 @@ export default {
                 password: "",
                 passwordConfirm: ""
             },
-            mensajeVisible: false,
+            successMessageVisibility: false,
             checkMsgs: ["", "", "", "", ""]
         }
     },
@@ -92,7 +93,7 @@ export default {
         this.$el.querySelector("#lblpasswordConfirm").innerText = "Confirmar password";
     },
     methods: {
-        cancelar() {
+        cancel() {
             this.$emit('closeNewRecord');
         },
         reiniciar() {
@@ -127,12 +128,12 @@ export default {
                 this.$el.querySelector("#passwordConfirm").classList.add("p-invalid");
             }
 
-            if (!this.hayError()) {
+            if (!this.isValidPlayerInfo()) {
                 authUtils.registerNewPlayer(this.user);
-                this.mensajeVisible = true;
+                this.successMessageVisibility = true;
             }
         },
-        hayError() {
+        isValidPlayerInfo() {
             for (let i = 0; i < this.checkMsgs.length; i++) {
                 if (this.checkMsgs[i].length > 0) {
                     return true;
