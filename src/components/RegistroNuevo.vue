@@ -30,9 +30,11 @@
             <Message severity="success" @close="this.mensajeVisible = false; this.cancelar()"
                      icon="pi" style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
-                    <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span>
-                    <span style="margin: 1rem 3rem 0 2rem"> {{ this.user.nombre }} {{ this.user.apellidos }} </span><br/>
-                    <span style="margin: 1rem 3rem 0 2rem;"> {{ this.user.email }}</span>
+                    <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span><br/>
+                    <div class="flex flex-column bg-green-50 mr-4 border-round-2xl align-items-center">
+                        <span style="margin: 1rem 3rem 0 2rem"> {{ this.user.nombre }} {{ this.user.apellidos }} </span>
+                        <span style="margin: 1rem 3rem 1rem 2rem;"> {{ this.user.email }}</span>
+                    </div>
                 </div>
             </Message>
         </div>
@@ -126,7 +128,7 @@ export default {
             }
 
             if (!this.hayError()) {
-                authUtils.registrar(this.user);
+                authUtils.registerNewPlayer(this.user);
                 this.mensajeVisible = true;
             }
         },
