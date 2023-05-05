@@ -1,4 +1,34 @@
 // Variables globales
+/*
+    gameType puede tomar 3 valores: 0, 1 o 2
+        0: Modo práctica
+        1: Modo juego registrado
+        2: Modo juego concurso
+*/
+let gameType = 0;
+
+/*
+console.log("Tipo de juego seleccionado: " + gameType);
+
+let user = {
+    "nombre": "Jugador",
+    "apellidos": "Anónimo",
+    "email": "mi@email.com",
+    "password": "123456",
+    "passwordConfirm": "123456"
+}
+fetch("http://localhost:9000/free/jugador/registrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user)
+    })
+    .then((response) => {
+        console.log(response.data);
+    });
+*/
+
 var var_width = 1000.0;
 var var_height = 550.0;
 var var_l = 3.0;

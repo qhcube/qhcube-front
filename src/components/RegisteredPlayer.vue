@@ -54,6 +54,7 @@ export default {
                 acceptClass: 'p-button-danger',
                 accept: () => {
                     this.loggedOutMessage = true;
+                    gameType = 0;
                 },
                 reject: () => {
                     this.logOutRegretMessage = true;
@@ -63,11 +64,13 @@ export default {
             startGame()
             {
                 this.startedGame = true;
+                gameType = 1;
             }
         ,
             cancelGame()
             {
                 this.startedGame = false;
+                gameType = 0;
             }
         }
     }
