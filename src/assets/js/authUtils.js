@@ -61,10 +61,15 @@ export default {
         })
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                userStoreQHCube.nombre = response.data.nombre;
-                userStoreQHCube.apellidos = response.data.apellidos;
-                userStoreQHCube.email = response.data.email;
-                userStoreQHCube.jwttoken = response.data.jwttoken;
+                if (response.data.status === "OK") {
+                    userStoreQHCube.nombre = response.data.nombre;
+                    userStoreQHCube.apellidos = response.data.apellidos;
+                    userStoreQHCube.email = response.data.email;
+                    userStoreQHCube.jwttoken = response.data.jwttoken;
+                } else {
+                    console.log("AuthUtils.registrar --> Error al registrar el usuario.");
+                    console.log(response.data.message);
+                }
             })
             .catch((error) => {
                     console.log("AuthUtils.registrar --> Error al registrar el usuario.");
