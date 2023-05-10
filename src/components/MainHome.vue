@@ -10,14 +10,10 @@
                                 @showNewRecord="this.showNewRecord()"/>
         </div>
     </div>
-    <div class="flex gap-3">
-        <MainFooter/>
-    </div>
 </template>
 
 <script>
 
-import MainFooter from "@/components/MainFooter.vue";
 import LoginAndRegister from "@/components/LoginAndRegister.vue";
 import BriefGameDescription from "@/components/BriefGameDescription.vue";
 import MainGame from "@/components/MainGame.vue";
@@ -30,7 +26,7 @@ export default {
             loginAndRegisterVisible: true
         }
     },
-    components: {MainGame, BriefGameDescription, LoginAndRegister, MainFooter},
+    components: {MainGame, BriefGameDescription, LoginAndRegister},
     methods: {
         showGameDescription() {
             this.loginAndRegisterVisible = false;

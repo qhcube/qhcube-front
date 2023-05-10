@@ -18,6 +18,7 @@ import "primeflex/primeflex.css"
 import {createPinia} from "pinia";
 import piniaPersist from 'pinia-plugin-persist'
 import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
+import {router} from "@/assets/js/router.js";
 
 const app = createApp(App);
 
@@ -28,6 +29,7 @@ app.use(PrimeVue, {
 
 app.use(createPinia().use(piniaPersist));
 app.use(ConfirmationService);
+app.use(router);
 
 app.component('Button', Button);
 app.component('Card', Card);

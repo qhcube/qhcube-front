@@ -1,18 +1,23 @@
 <template>
     <main-title />
-    <main-home />
+    <router-view />
+    <div class="flex gap-3">
+        <main-footer />
+    </div>
 </template>
 
 <script>
 
-import MainHome from "./components/MainHome.vue";
-import MainTitle from "./components/MainTitle.vue";
+import MainHome from "@/components/MainHome.vue";
+import MainTitle from "@/components/MainTitle.vue";
+import MainFooter from "@/components/MainFooter.vue";
 
 export default ({
     name: "App",
     components: {
         MainTitle,
-        MainHome
+        MainHome,
+        MainFooter
     }
 })
 </script>
