@@ -14,6 +14,7 @@ import MainFooter from "@/components/MainFooter.vue";
 
 export default ({
     name: "App",
+    inject: ["userStoreQHCube"],
     components: {
         MainTitle,
         MainHome,

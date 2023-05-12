@@ -5,7 +5,7 @@
                 <h1>Nuevo registro de Jugador</h1>
             </div>
         </div>
-        <div v-if="!this.successMessageVisibility" class="flex flex-column px-2 align-items-start">
+        <div v-if="!this.successMessageVisibility && !this.errorMessageVisibility" class="flex flex-column px-2 align-items-start">
 
             <div v-for="(field, value, key) in this.user" class="flex gap-2">
                 <div class="flex flex-column mb-3 gap-2">
@@ -27,14 +27,26 @@
             </div>
         </div>
 
-        <div class="flex" v-else>
-            <Message @close="this.successMessageVisibility = false; this.cancel()"
+        <div class="flex" v-if="this.successMessageVisibility">
+            <Message @close="this.successMessageVisibility = false; this.userStoreQHCube.setUserComponent('registered-user')"
                      icon="pi" severity="success" style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
                     <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span><br/>
                     <div class="flex flex-column bg-green-50 mr-4 border-round-2xl align-items-center">
                         <span style="margin: 1rem 3rem 0 2rem"> {{ this.user.nombre }} {{ this.user.apellidos }} </span>
                         <span style="margin: 1rem 3rem 1rem 2rem;"> {{ this.user.email }}</span>
+                    </div>
+                </div>
+            </Message>
+        </div>
+
+        <div class="flex" v-if="this.errorMessageVisibility">
+            <Message @close="this.errorMessageVisibility = false"
+                     icon="pi" severity="error" style="margin: 4rem auto 6rem auto">
+                <div class="flex flex-column">
+                    <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡NO se ha podido registrar el usuario!</span><br/>
+                    <div class="flex flex-column bg-green-50 mr-4 border-round-2xl align-items-center">
+                        <span style="margin: 1rem 3rem 1rem 2rem"> {{ this.checkMsgs[0] }} </span>
                     </div>
                 </div>
             </Message>
@@ -47,7 +59,7 @@ import authUtils from "@/assets/js/authUtils.js";
 
 export default {
     name: "NewRecord",
-    emits: ['hideNewRecord'],
+    inject: ["userStoreQHCube"],
     data() {
         return {
             user: {
@@ -58,6 +70,7 @@ export default {
                 passwordConfirm: ""
             },
             successMessageVisibility: false,
+            errorMessageVisibility: false,
             checkMsgs: ["", "", "", "", ""]
         }
     },
@@ -94,7 +107,7 @@ export default {
     },
     methods: {
         cancel() {
-            this.$emit('hideNewRecord');
+            this.userStoreQHCube.setUserComponent('login-and-register');
         },
         reiniciar() {
             Object.keys(this.user).forEach(key => {
@@ -103,7 +116,7 @@ export default {
             });
             this.checkMsgs = ["", "", "", "", ""];
         },
-        registrar() {
+        async registrar() {
             if (this.user.nombre.length < 1) {
                 this.checkMsgs[0] = "El nombre no puede estar vacío.";
                 this.$el.querySelector("#nombre").classList.add("p-invalid");
@@ -128,18 +141,24 @@ export default {
                 this.$el.querySelector("#passwordConfirm").classList.add("p-invalid");
             }
 
-            if (!this.isValidPlayerInfo()) {
-                authUtils.registerNewPlayer(this.user);
-                this.successMessageVisibility = true;
+            if (this.isValidPlayerInfo()) {
+                this.checkMsgs[0] = await authUtils.registerNewPlayer(this.user);
+                if (this.userStoreQHCube.isAuthenticated) {
+                    console.log("Usuario registrado con éxito");
+                    this.successMessageVisibility = true;
+                } else {
+                    console.log("Error al registrar el usuario");
+                    this.errorMessageVisibility = true;
+                }
             }
         },
         isValidPlayerInfo() {
             for (let i = 0; i < this.checkMsgs.length; i++) {
                 if (this.checkMsgs[i].length > 0) {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 }

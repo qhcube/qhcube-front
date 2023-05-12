@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!this.gameDescriptionVisible" class="bg-red-50 p-2 shadow-6">
+    <div class="bg-red-50 p-2 shadow-6">
         <div class="flex flex-nowrap three">
             <h1>Descripción del juego</h1>
         </div>
@@ -17,33 +17,16 @@
             </p>
         </div>
         <div class="flex flex-nowrap flex-column align-items-start">
-            <Button label="Aprende a jugar" link @click="this.showGameDescription()"/>
+            <Button label="Aprende a jugar" link @click="this.userStoreQHCube.setGameInfoComponent('game-description')"/>
         </div>
     </div>
-    <game-description v-else @hideGameDescription="this.hideGameDescription()"/>
 </template>
 
 <script>
-import GameDescription from "@/components/GameDescription.vue";
 
 export default {
     nombre: "BriefGameDescription",
-    components: {GameDescription},
-    emits: ["showGameDescription"],
-    data() {
-        return {
-            gameDescriptionVisible: false,
-        }
-    },
-    methods: {
-        showGameDescription() {
-            this.gameDescriptionVisible = true;
-            this.$emit("showGameDescription");
-        },
-        hideGameDescription() {
-            this.gameDescriptionVisible = false;
-        }
-    }
+    inject: ["userStoreQHCube"]
 }
 </script>
 

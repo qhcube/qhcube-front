@@ -53,6 +53,8 @@ export default {
     async registerNewPlayer(user) {
         const userStoreQHCube = useUserStoreQHCube();
 
+        let resultado = "OK";
+
         await axios({
             method: "post",
             url: import.meta.env.VITE_APP_FREEAPI + "/player/register",
@@ -61,22 +63,25 @@ export default {
         })
             .then((response) => {
                 console.log(JSON.stringify(response.data));
-                if (response.data.status === "OK") {
+                if (response.data.respStatus === "OK") {
                     userStoreQHCube.nombre = response.data.nombre;
                     userStoreQHCube.apellidos = response.data.apellidos;
                     userStoreQHCube.email = response.data.email;
                     userStoreQHCube.jwttoken = response.data.jwttoken;
                 } else {
+                    resultado = response.data.respMessage;
                     console.log("AuthUtils.registrar --> Error al registrar el usuario.");
-                    console.log(response.data.message);
+                    console.log("Respuesta del servidor: " + response.data.respMessage);
                 }
             })
             .catch((error) => {
-                    console.log("AuthUtils.registrar --> Error al registrar el usuario.");
-                    console.log(error.message);
+                resultado = "Error en la petición/respuesta.";
+                console.log("AuthUtils.registrar --> Error al registrar el usuario.");
+                console.log("Error en la petición/respuesta: " + error.message);
                 }
             );
 
+        return resultado;
     }
 }
 

@@ -1,46 +1,42 @@
 <template>
     <div class="flex gap-3 py-4">
+
         <main-game />
+
         <div class="flex flex-nowrap flex-column gap-3 w-full">
-            <brief-game-description v-if="this.briefGameDescriptionVisible"
-                               @showGameDescription="this.showGameDescription()"
-                               @hideGameDescription="this.hideGameDescription()"/>
-            <login-and-register v-if="this.loginAndRegisterVisible"
-                                @hideNewRecord="this.hideNewRecord()"
-                                @showNewRecord="this.showNewRecord()"/>
+            <game-info-layout v-if="this.userStoreQHCube.getUserComponent !== 'new-record'">
+                <component :is="this.userStoreQHCube.getGameInfoComponent" />
+            </game-info-layout>
+
+            <user-layout v-if="this.userStoreQHCube.getGameInfoComponent !== 'game-description'">
+                <component :is="this.userStoreQHCube.getUserComponent" />
+            </user-layout>
         </div>
+
     </div>
 </template>
 
 <script>
 
-import LoginAndRegister from "@/components/LoginAndRegister.vue";
-import BriefGameDescription from "@/components/BriefGameDescription.vue";
 import MainGame from "@/components/MainGame.vue";
+import GameInfoLayout from "@/components/layouts/GameInfoLayout.vue";
+import UserLayout from "@/components/layouts/UserLayout.vue";
+import GameDescription from "@/components/gameInfo/GameDescription.vue";
+import BriefGameDescription from "@/components/gameInfo/BriefGameDescription.vue";
+import LoginAndRegister from "@/components/usersManagement/LoginAndRegister.vue";
+import NewRecord from "@/components/usersManagement/NewRecord.vue";
+import RegisteredPlayer from "@/components/usersManagement/RegisteredPlayer.vue";
 
 export default {
     name: "MainHome",
+    inject: ["userStoreQHCube"],
     data() {
         return {
-            briefGameDescriptionVisible: true,
             loginAndRegisterVisible: true
         }
     },
-    components: {MainGame, BriefGameDescription, LoginAndRegister},
-    methods: {
-        showGameDescription() {
-            this.loginAndRegisterVisible = false;
-        },
-        hideGameDescription() {
-            this.loginAndRegisterVisible = true;
-        },
-        showNewRecord() {
-            this.briefGameDescriptionVisible = false;
-        },
-        hideNewRecord() {
-            this.briefGameDescriptionVisible = true
-        }
-    }
+    components: {UserLayout, GameInfoLayout, MainGame, BriefGameDescription,
+        GameDescription, LoginAndRegister, NewRecord, RegisteredPlayer}
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!this.userStoreQHCube.isAuthenticated && !this.newRecordVisible" class="flex flex-column bg-indigo-50 shadow-6">
+    <div class="flex flex-column bg-indigo-50 shadow-6">
         <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
             <div class="flex">
                 <h1>Registro de jugador</h1>
@@ -10,7 +10,7 @@
                 Puedes jugar sin registrarte, pero si te registras, podremos medir el tiempo que tardas en resolver
                 el juego y registrarlo en la tabla de puntuaciones.
             </p>
-            <Button label="Resgistrarse" link @click="this.newRecord()"></Button>
+            <Button label="Resgistrarse" link @click="this.userStoreQHCube.setUserComponent('new-record')"></Button>
             <p>
                 Si ya estás registrado, puedes iniciar sesión:
             </p>
@@ -35,27 +35,20 @@
             </div>
         </div>
     </div>
-    <new-record v-else-if="this.newRecordVisible" @hideNewRecord="this.hideNewRecord()" />
-    <registered-player v-else />
 </template>
 
 <script>
-import RegisteredPlayer from "@/components/RegisteredPlayer.vue";
 import authUtils from "@/assets/js/authUtils.js";
-import NewRecord from "@/components/NewRecord.vue";
 
 export default {
     name: "LoginAndRegister",
     inject: ["userStoreQHCube"],
-    emits: ["showNewRecord"],
-    components: { RegisteredPlayer, NewRecord },
     data() {
         return {
             user: {
                 email: "",
                 password: ""
-            },
-            newRecordVisible: false
+            }
         }
     },
     methods: {
@@ -70,13 +63,13 @@ export default {
             userAux.nombre =userAux.nombre.charAt(0).toUpperCase() + userAux.nombre.slice(1);
             userAux.apellidos =userAux.apellidos.charAt(0).toUpperCase() + userAux.apellidos.slice(1);
             authUtils.login(userAux);
-        },
-        newRecord() {
-            this.newRecordVisible = true;
-            this.$emit("showNewRecord");
-        },
-        hideNewRecord() {
-            this.newRecordVisible = false;
+
+            // TODO Añadir que vaya a un usuario registrado...
+            /*
+            if (this.userStoreQHCube.isAuthenticated) {
+                this.userStoreQHCube.setUserComponent('registered-user');
+                }
+            */
         }
     }
 }
