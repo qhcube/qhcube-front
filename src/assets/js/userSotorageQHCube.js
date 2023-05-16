@@ -9,16 +9,6 @@ export const useUserStoreQHCube = defineStore('userStoreQHCube', {
     }),
     getters: {
         isAuthenticated: (state) => !!state.jwttoken,
-        getGameInfoComponent: (state) => state.gameInfoComponent,
-        getUserComponent: (state) => state.userComponent
-    },
-    actions: {
-        setGameInfoComponent(component) {
-            this.gameInfoComponent = component;
-        },
-        setUserComponent(component) {
-            this.userComponent = component;
-        }
     },
     persist: {
         enabled: true,

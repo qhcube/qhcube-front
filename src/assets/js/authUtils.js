@@ -9,28 +9,30 @@ export default {
         // axios.defaults.headers.common['Authorization'] = '';
     },
 
-    /*
     async login(user) {
-        const userStore = useUserStore();
+        const userStoreQHCube = useUserStoreQHCube();
         await axios({
             method: "post",
-            url: process.env.VUE_APP_FREEAPI + "/authenticate",
+            url: import.meta.env.VITE_APP_FREEAPI + "/login",
             data: user,
             headers: {"Content-Type": "application/json"},
         })
             .then((response) => {
-                userStore.email = user.username;
-                userStore.jwttoken = response.data.jwttoken;
-                userStore.jwtexpiration = response.data.expiration;
-        })
+                userStoreQHCube.email = user.username;
+                console.log("Player login response: " + JSON.stringify(response.data));
+            })
             .catch(() => {
+                console.log("AuthUtils.login(user): Error al hacer login del usuario.");
+                /*
                 let resp = {
                     status: 'Credenciales NO válidas',
                     message: 'Por favor, vuelva a intentarlo de nuevo.'
                 }
                 router.push({name: 'error', params: {code: JSON.stringify(resp)}});
-        });
+                */
+            });
 
+        /*
         if (userStore.isAuthenticated) {
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + userStore.jwttoken;
             await axios({
@@ -48,8 +50,11 @@ export default {
                     console.log("AuthUtils.login(user): Error al obtener los datos del usuario");
             });
         }
+
     }
-     */
+    */
+    },
+
     async registerNewPlayer(user) {
         const userStoreQHCube = useUserStoreQHCube();
 

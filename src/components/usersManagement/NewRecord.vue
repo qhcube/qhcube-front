@@ -28,7 +28,7 @@
         </div>
 
         <div class="flex" v-if="this.successMessageVisibility">
-            <Message @close="this.successMessageVisibility = false; this.viewStoreQHCube.setUserComponent('registered-user')"
+            <Message @close="this.successMessageVisibility = false; this.viewStoreQHCube.setUserComponent('registered-player')"
                      icon="pi" severity="success" style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
                     <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span><br/>
