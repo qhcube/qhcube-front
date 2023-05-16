@@ -17,7 +17,7 @@
             </p>
         </div>
         <div class="flex flex-nowrap flex-column align-items-start">
-            <Button label="Aprende a jugar" link @click="this.userStoreQHCube.setGameInfoComponent('game-description')"/>
+            <Button label="Aprende a jugar" link @click="this.viewStoreQHCube.setGameInfoComponent('game-description')"/>
         </div>
     </div>
 </template>
@@ -26,7 +26,7 @@
 
 export default {
     nombre: "BriefGameDescription",
-    inject: ["userStoreQHCube"]
+    inject: ["userStoreQHCube", "viewStoreQHCube"]
 }
 </script>
 

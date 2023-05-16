@@ -10,7 +10,7 @@
                 Puedes jugar sin registrarte, pero si te registras, podremos medir el tiempo que tardas en resolver
                 el juego y registrarlo en la tabla de puntuaciones.
             </p>
-            <Button label="Resgistrarse" link @click="this.userStoreQHCube.setUserComponent('new-record')"></Button>
+            <Button label="Resgistrarse" link @click="this.viewStoreQHCube.setUserComponent('new-record')"></Button>
             <p>
                 Si ya estás registrado, puedes iniciar sesión:
             </p>
@@ -42,7 +42,7 @@ import authUtils from "@/assets/js/authUtils.js";
 
 export default {
     name: "LoginAndRegister",
-    inject: ["userStoreQHCube"],
+    inject: ["userStoreQHCube", "viewStoreQHCube"],
     data() {
         return {
             user: {

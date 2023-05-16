@@ -28,7 +28,7 @@
         </div>
 
         <div class="flex" v-if="this.successMessageVisibility">
-            <Message @close="this.successMessageVisibility = false; this.userStoreQHCube.setUserComponent('registered-user')"
+            <Message @close="this.successMessageVisibility = false; this.viewStoreQHCube.setUserComponent('registered-user')"
                      icon="pi" severity="success" style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
                     <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span><br/>
@@ -59,7 +59,7 @@ import authUtils from "@/assets/js/authUtils.js";
 
 export default {
     name: "NewRecord",
-    inject: ["userStoreQHCube"],
+    inject: ["userStoreQHCube", "viewStoreQHCube"],
     data() {
         return {
             user: {
@@ -107,7 +107,7 @@ export default {
     },
     methods: {
         cancel() {
-            this.userStoreQHCube.setUserComponent('login-and-register');
+            this.viewStoreQHCube.setUserComponent('login-and-register');
         },
         reiniciar() {
             Object.keys(this.user).forEach(key => {

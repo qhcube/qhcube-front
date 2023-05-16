@@ -19,6 +19,7 @@ import {createPinia} from "pinia";
 import piniaPersist from 'pinia-plugin-persist'
 import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
 import {router} from "@/assets/js/router.js";
+import {viewStoreQHCube} from "@/assets/js/viewStoreQHCube.js";
 
 const app = createApp(App);
 
@@ -40,6 +41,7 @@ app.component('Message', Message);
 app.component('ScrollPanel', ScrollPanel);
 
 app.provide('userStoreQHCube', useUserStoreQHCube());
+app.provide('viewStoreQHCube', viewStoreQHCube());
 
 
 app.mount('#app')

@@ -23,7 +23,7 @@
             </div>
         </div>
         <ConfirmDialog/>
-        <Message v-if="this.loggedOutMessage" severity="warn" @close="this.loggedOutMessage = false; this.userStoreQHCube.$reset();" style="margin: 2rem auto 4rem auto">
+        <Message v-if="this.loggedOutMessage" severity="warn" @close="this.loggedOutMessage = false; this.userStoreQHCube.$reset(); this.viewStoreQHCube.$reset()" style="margin: 2rem auto 4rem auto">
             <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">¡Gracias por hugar!</span><br/><br/>
             <span style="margin-left: 1rem; margin-right: 1rem">Esperamos volver a verte pronto.</span>
         </Message>
@@ -37,7 +37,7 @@
 
 export default {
     name: "RegisteredPlayer",
-    inject: ['userStoreQHCube'],
+    inject: ['userStoreQHCube', 'viewStoreQHCube'],
     data() {
         return {
             startedGame: false,

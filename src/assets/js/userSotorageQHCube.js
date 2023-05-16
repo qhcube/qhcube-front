@@ -5,9 +5,7 @@ export const useUserStoreQHCube = defineStore('userStoreQHCube', {
         email: '',
         nombre: '',
         apellidos: '',
-        jwttoken: '',
-        gameInfoComponent: 'brief-game-description',
-        userComponent: 'login-and-register'
+        jwttoken: ''
     }),
     getters: {
         isAuthenticated: (state) => !!state.jwttoken,

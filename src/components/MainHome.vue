@@ -4,12 +4,12 @@
         <main-game />
 
         <div class="flex flex-nowrap flex-column gap-3 w-full">
-            <game-info-layout v-if="this.userStoreQHCube.getUserComponent !== 'new-record'">
-                <component :is="this.userStoreQHCube.getGameInfoComponent" />
+            <game-info-layout v-if="this.viewStoreQHCube.getUserComponent !== 'new-record'">
+                <component :is="this.viewStoreQHCube.getGameInfoComponent" />
             </game-info-layout>
 
-            <user-layout v-if="this.userStoreQHCube.getGameInfoComponent !== 'game-description'">
-                <component :is="this.userStoreQHCube.getUserComponent" />
+            <user-layout v-if="this.viewStoreQHCube.getGameInfoComponent !== 'game-description'">
+                <component :is="this.viewStoreQHCube.getUserComponent" />
             </user-layout>
         </div>
 
@@ -29,12 +29,7 @@ import RegisteredPlayer from "@/components/usersManagement/RegisteredPlayer.vue"
 
 export default {
     name: "MainHome",
-    inject: ["userStoreQHCube"],
-    data() {
-        return {
-            loginAndRegisterVisible: true
-        }
-    },
+    inject: ["userStoreQHCube" , "viewStoreQHCube"],
     components: {UserLayout, GameInfoLayout, MainGame, BriefGameDescription,
         GameDescription, LoginAndRegister, NewRecord, RegisteredPlayer}
 }
