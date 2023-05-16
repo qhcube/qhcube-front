@@ -1,8 +1,8 @@
 <template>
-    <main-title />
+    <router-view name="MainTitle"/>
     <router-view />
     <div class="flex gap-3">
-        <main-footer />
+        <router-view name="MainFooter" />
     </div>
 </template>
 
