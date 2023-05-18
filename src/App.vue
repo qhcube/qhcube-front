@@ -19,7 +19,10 @@ export default ({
         MainTitle,
         MainHome,
         MainFooter
-    }
+    },
+   mounted() {
+       this.viewStoreQHCube.$reset();
+   }
 })
 </script>
 

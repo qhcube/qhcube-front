@@ -28,13 +28,15 @@
         </div>
 
         <div class="flex" v-if="this.successMessageVisibility">
-            <Message @close="this.successMessageVisibility = false; this.viewStoreQHCube.setUserComponent('registered-player')"
+            <Message @close="this.successMessageVisibility = false; this.viewStoreQHCube.setUserComponent('login-and-register')"
                      icon="pi" severity="success" style="margin: 4rem auto 6rem auto">
                 <div class="flex flex-column">
-                    <span style="font-weight: bold; margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span><br/>
-                    <div class="flex flex-column bg-green-50 mr-4 border-round-2xl align-items-center">
-                        <span style="margin: 1rem 3rem 0 2rem"> {{ this.user.nombre }} {{ this.user.apellidos }} </span>
-                        <span style="margin: 1rem 3rem 1rem 2rem;"> {{ this.user.email }}</span>
+                    <span class="align-self-center font-bold text-lg" style="margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span><br/>
+                    <div class="flex flex-column bg-green-50 mr-4 border-round-2xl">
+                        <span class="font-semibold" style="margin: 1rem 3rem 0 2rem">{{ this.user.nombre }} {{ this.user.apellidos }},</span>
+                        <span style="margin: 1rem 3rem 1rem 2rem;">Recibirás en breve un correo electrónico en</span>
+                        <span class="align-self-center font-semibold" style="margin: 0 3rem 1rem 2rem;">{{ this.user.email }}</span>
+                        <span style="margin: 0 3rem 1rem 2rem;">para que puedas activar tu cuenta.</span>
                     </div>
                 </div>
             </Message>
@@ -143,7 +145,7 @@ export default {
 
             if (this.isValidPlayerInfo()) {
                 this.checkMsgs[0] = await authUtils.registerNewPlayer(this.user);
-                if (this.userStoreQHCube.isAuthenticated) {
+                if (this.checkMsgs[0] === "OK") {
                     console.log("Usuario registrado con éxito");
                     this.successMessageVisibility = true;
                 } else {
