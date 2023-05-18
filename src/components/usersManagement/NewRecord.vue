@@ -150,7 +150,8 @@ export default {
                     this.successMessageVisibility = true;
                 } else {
                     console.log("Error al registrar el usuario");
-                    this.errorMessageVisibility = true;
+                    //this.errorMessageVisibility = true;
+                   this.viewStoreQHCube.setError("ERROR !", "¡NO se ha podido registrar el usuario!");
                 }
             }
         },
