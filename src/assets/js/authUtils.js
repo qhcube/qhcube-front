@@ -5,8 +5,10 @@ export default {
 
     logout() {
         const userStoreQHCube = useUserStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
         userStoreQHCube.$reset();
-        // axios.defaults.headers.common['Authorization'] = '';
+        viewStoreQHCube.$reset();
+        axios.defaults.headers.common['Authorization'] = '';
     },
 
     async login(user) {

@@ -7,7 +7,8 @@ const routes = [
             MainTitle: () => import('@/components/MainTitle.vue'),
             MainFooter: () => import('@/components/MainFooter.vue')
         }
-    }
+    },
+    { path: '/:catchAll(.*)*', name: 'page-not-found', component: () => import('@/components/errors/PageNotFound.vue') }
     ];
 export const router =createRouter({
     history: createWebHistory(),
