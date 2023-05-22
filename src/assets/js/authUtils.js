@@ -5,11 +5,14 @@ export default {
 
     logout() {
         const userStoreQHCube = useUserStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
         userStoreQHCube.$reset();
-        // axios.defaults.headers.common['Authorization'] = '';
+        viewStoreQHCube.$reset();
+        axios.defaults.headers.common['Authorization'] = '';
     },
 
     async login(user) {
+
         const userStoreQHCube = useUserStoreQHCube();
         await axios({
             method: "post",
@@ -62,7 +65,7 @@ export default {
 
         await axios({
             method: "post",
-            url: import.meta.env.VITE_APP_FREEAPI + "/player/register",
+            url: import.meta.env.VITE_APP_FREEAPI + "/register",
             data: user,
             headers: {"Content-Type": "application/json"},
         })
