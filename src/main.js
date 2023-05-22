@@ -20,14 +20,11 @@ import {createPinia} from "pinia";
 import piniaPersist from 'pinia-plugin-persist'
 import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
 import {router} from "@/assets/js/router.js";
-import {viewStoreQHCube} from "@/assets/js/viewStoreQHCube.js";
+import {useViewStoreQHCube} from "@/assets/js/viewStoreQHCube.js";
 
 const app = createApp(App);
 
-app.use(PrimeVue, {
-    ripple: true,
-    inputStyle: "filled"
-});
+app.use(PrimeVue, { ripple: true , inputStyle: 'filled' });
 
 app.use(createPinia().use(piniaPersist));
 app.use(ConfirmationService);
@@ -42,7 +39,7 @@ app.component('Message', Message);
 app.component('ScrollPanel', ScrollPanel);
 
 app.provide('userStoreQHCube', useUserStoreQHCube());
-app.provide('viewStoreQHCube', viewStoreQHCube());
+app.provide('viewStoreQHCube', useViewStoreQHCube());
 
 
 app.mount('#app')

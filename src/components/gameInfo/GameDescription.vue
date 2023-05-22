@@ -272,8 +272,6 @@
             </scroll-panel>
         </div>
     </div>
-
-
 </template>
 
 <script>

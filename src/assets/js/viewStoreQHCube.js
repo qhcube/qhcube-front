@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const viewStoreQHCube = defineStore('viewStoreQHCube', {
+export const useViewStoreQHCube = defineStore('viewStoreQHCube', {
     state: () => ({
         gameInfoComponent: 'brief-game-description',
         userComponent: 'login-and-register',

@@ -12,6 +12,7 @@
                 <component :is="this.viewStoreQHCube.getUserComponent" />
             </user-layout>
          </div>
+
          <div v-else class="flex flex-nowrap flex-column gap-3 w-full">
             <error-layout>
                <component is="general-error" />
@@ -40,7 +41,12 @@ export default {
     inject: ["userStoreQHCube" , "viewStoreQHCube"],
     components: {
        ErrorLayout, UserLayout, GameInfoLayout, MainGame, BriefGameDescription,
-        GameDescription, LoginAndRegister, NewRecord, RegisteredPlayer, GeneralError}
+        GameDescription, LoginAndRegister, NewRecord, RegisteredPlayer, GeneralError},
+   mounted() {
+       if (this.userStoreQHCube.isAuthenticated) {
+            this.viewStoreQHCube.setUserComponent("registered-player");
+       }
+   }
 }
 </script>
 

@@ -51,22 +51,16 @@ export default {
             }
         }
     },
-    methods: {
-        performLogin() {
-            // TODO: Borrar esto y poner lo que hay en los campos de texto.
-            const userAux = {
-                email: this.user.email,
-                password: this.user.password,
-            }
+   methods: {
+        async performLogin() {
+            await authUtils.login({
+               email: this.user.email,
+               password: this.user.password,
+            });
 
-            authUtils.login(userAux);
-
-            // TODO Añadir que vaya a un usuario registrado...
-            /*
             if (this.userStoreQHCube.isAuthenticated) {
-                this.userStoreQHCube.setUserComponent('registered-user');
-                }
-            */
+                this.viewStoreQHCube.setUserComponent('registered-player');
+             }
         }
     }
 }
