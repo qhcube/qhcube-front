@@ -39,6 +39,29 @@ export default {
             });
     },
 
+    async emailValidation(email, code) {
+        let result = {
+            status: "OK",
+            message: "Ya puedes iniciar sesión como usuario registrado."
+        }
+
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_FREEAPI + "/emailvalidation",
+            data: {email: email, code: code},
+            headers: {"Content-Type": "application/json"},
+        }).then((response) => {
+            result.status = response.data.respStatus;
+            result.message = response.data.respMessage;
+        }).catch((error) => {
+            result.status = "ERROR";
+            result.message = "Ha habido un problema con servidor.";
+            console.log("AuthUtils.emailValidation(email, code): Error en servidor al validar el email.\n--- " + error.message + " ---");
+        });
+
+        return result;
+    },
+
     async registerNewPlayer(user) {
         const userStoreQHCube = useUserStoreQHCube();
 

@@ -5,28 +5,31 @@
             <h1>Nuevo registro de Jugador</h1>
          </div>
       </div>
-      <div v-if="!this.successMessageVisibility && !this.errorMessageVisibility"
+      <div v-if="!this.successMessageVisibility"
            class="flex flex-column px-2 align-items-start">
 
-         <div v-for="(field, value, key) in this.user" class="flex gap-2">
-            <div class="flex flex-column mb-3 gap-2">
-               <label :id="'lbl' + value" :for="value" class="block text-900 font-medium mb-2 mt-2">
-                  {{ value.charAt(0).toUpperCase() + value.substring(1) }}
-               </label>
-               <InputText :id="value" :placeholder="value.charAt(0).toUpperCase() + value.substring(1)"
-                          :type="key > 2 ? 'password' : 'text'" v-model="this.user[value]"/>
+         <form>
+            <div v-for="(field, value, key) in this.user" class="flex gap-2">
+               <div class="flex flex-column mb-3 gap-2">
+                  <label :id="'lbl' + value" :for="value" class="block text-900 font-medium mb-2 mt-2">
+                     {{ value.charAt(0).toUpperCase() + value.substring(1) }}
+                  </label>
+                  <InputText :id="value" :placeholder="value.charAt(0).toUpperCase() + value.substring(1)"
+                             :type="key > 2 ? 'password' : 'text'" v-model="this.user[value]" autocomplete="on"/>
+               </div>
+               <InlineMessage v-if="this.checkMsgs[key].length > 0" class="h-min align-self-end mb-3">
+                  {{ this.checkMsgs[key] }}
+               </InlineMessage>
             </div>
-            <InlineMessage v-if="this.checkMsgs[key].length > 0" class="h-min align-self-end mb-3">
-               {{ this.checkMsgs[key] }}
-            </InlineMessage>
-         </div>
 
-         <div class="flex flex-row gap-2">
-            <Button label="Registrar" severity="success" @click="this.registrar()" class="mt-4 mb-2"/>
-            <Button label="Reiniciar Formulario" severity="warning" @click="this.reiniciar()" class="mt-4 mb-2"/>
-            <Button label="Cancelar" severity="danger" @click="this.cancel()" class="mt-4 mb-2"/>
-         </div>
+            <div class="flex flex-row gap-2">
+               <Button label="Registrar" severity="success" @click="this.registrar()" class="mt-4 mb-2"/>
+               <Button label="Reiniciar Formulario" severity="warning" @click="this.reiniciar()" class="mt-4 mb-2"/>
+               <Button label="Cancelar" severity="danger" @click="this.cancel()" class="mt-4 mb-2"/>
+            </div>
+         </form>
       </div>
+
 
       <div class="flex" v-if="this.successMessageVisibility">
          <Message
