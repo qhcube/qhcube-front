@@ -56,7 +56,7 @@ export default {
         }).catch((error) => {
             result.status = "ERROR";
             result.message = "Ha habido un problema con servidor.";
-            console.log("AuthUtils.emailValidation(email, code): Error en servidor al validar el email.\n--- " + error.message + " ---"
+            console.log("AuthUtils.emailValidation(email, code): Error en servidor al validar el email.\n--- " + error.message + " ---");
         });
 
         return result;
