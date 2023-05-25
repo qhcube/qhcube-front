@@ -2,7 +2,7 @@
     <header>
         <div class="flex flex-nowrap max-w-fit align-items-center gap-6 py-4 px-4" style="margin: auto">
            <div>
-               <img alt="ETSISI logo" src="/src/assets/etsisi-logo-100-sombra.png" style="width: calc(100%); opacity: 0.5"/>
+               <img src="@/assets/images/etsisi-logo-100-sombra.png" alt="ETSISI logo" style="width: calc(100%); opacity: 0.5"/>
            </div>
           <div class="two">
               <h1>Juego del Hipercubo Cuántico
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-    name: "MainTitle"
+    nombre: "MainTitle"
 }
 </script>
 

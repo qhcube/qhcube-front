@@ -1,14 +1,28 @@
 <template>
-    <main-title></main-title>
+    <router-view name="MainTitle"/>
     <router-view />
+    <div class="flex gap-3">
+        <router-view name="MainFooter" />
+    </div>
 </template>
 
 <script>
-import {defineComponent} from "vue";
-import MainTitle from "./components/MainTitle.vue";
 
-export default defineComponent({
-    components: {MainTitle}
+import MainHome from "@/components/MainHome.vue";
+import MainTitle from "@/components/MainTitle.vue";
+import MainFooter from "@/components/MainFooter.vue";
+
+export default ({
+    name: "App",
+    inject: ["userStoreQHCube", "viewStoreQHCube"],
+    components: {
+        MainTitle,
+        MainHome,
+        MainFooter
+    },
+   mounted() {
+       this.viewStoreQHCube.$reset();
+   }
 })
 </script>
 

@@ -1,29 +1,23 @@
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import path from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
+    root: 'src',
+    base: '/',
+    publicDir: 'public',
+    build: {
+        outDir: '../dist',
+        assetsDir: 'assets',
+    },
     plugins: [
-        vue(),
-        {
-            name: 'build-html',
-            apply: 'build',
-            transformIndexHtml: (html) => {
-                return {
-                    html,
-                    tags: [
-                        {
-                            tag: 'script',
-                            attrs: {
-                                src: '/assets/juego.js',
-                            },
-                            injectTo: 'head',
-                        },
-                    ],
-                };
-            },
-        },
+        vue()
     ],
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src')
+        }
+    },
     server: {
         port: 8080
     }
