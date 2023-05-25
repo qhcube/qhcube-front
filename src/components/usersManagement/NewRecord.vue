@@ -7,8 +7,6 @@
       </div>
       <div v-if="!this.successMessageVisibility"
            class="flex flex-column px-2 align-items-start">
-
-         <form>
             <div v-for="(field, value, key) in this.user" class="flex gap-2">
                <div class="flex flex-column mb-3 gap-2">
                   <label :id="'lbl' + value" :for="value" class="block text-900 font-medium mb-2 mt-2">
@@ -27,7 +25,6 @@
                <Button label="Reiniciar Formulario" severity="warning" @click="this.reiniciar()" class="mt-4 mb-2"/>
                <Button label="Cancelar" severity="danger" @click="this.cancel()" class="mt-4 mb-2"/>
             </div>
-         </form>
       </div>
 
 
