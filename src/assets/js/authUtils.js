@@ -29,6 +29,9 @@ export default {
                     userStoreQHCube.nombre = response.data.nombre;
                     userStoreQHCube.apellidos = response.data.apellidos;
                     userStoreQHCube.jwttoken = response.data.jwttoken;
+                    if (userStoreQHCube.isAuthenticated) {
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + userStoreQHCube.jwttoken;
+                    }
                 } else {
                     viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage);
                 }

@@ -11,18 +11,18 @@
          </p>
          <table class="w-max ml-4 m-2">
             <tbody class="p-datatable p-datatable-tbody">
-               <tr>
-                  <td class="left-column font-semibold">Nombre:</td>
-                  <td class="right-column">{{ this.userStoreQHCube.nombre }}</td>
-               </tr>
-               <tr>
-                  <td class="left-column font-semibold">Apellidos:</td>
-                  <td class="right-column">{{ this.userStoreQHCube.apellidos }}</td>
-               </tr>
-               <tr>
-                  <td class="left-column font-semibold">E-Mail:</td>
-                  <td class="right-column">{{ this.userStoreQHCube.email }}</td>
-               </tr>
+            <tr>
+               <td class="left-column font-semibold">Nombre:</td>
+               <td class="right-column">{{ this.userStoreQHCube.nombre }}</td>
+            </tr>
+            <tr>
+               <td class="left-column font-semibold">Apellidos:</td>
+               <td class="right-column">{{ this.userStoreQHCube.apellidos }}</td>
+            </tr>
+            <tr>
+               <td class="left-column font-semibold">E-Mail:</td>
+               <td class="right-column">{{ this.userStoreQHCube.email }}</td>
+            </tr>
             </tbody>
          </table>
          <p>Si quieres modificarlos, escribe un correo a
@@ -32,14 +32,18 @@
             Si te das de baja, borraremos todos tus datos de nuestra base de datos, incluyendo partidas y puntuaciones.
          </p>
          <div class="flex flex-row gap-2">
-            <Button label="Borrar usuario" severity="warn" onclick="alert('Borrando...')" class="mt-4 mb-2"/>
-            <Button label="Volver" severity="success" @click="this.viewStoreQHCube.setUserComponent('registered-player')" class="mt-4 mb-2"/>
+            <Button label="Borrar usuario" severity="warn" @click="this.deletePlayer()" class="mt-4 mb-2"/>
+            <Button label="Volver" severity="success"
+                    @click="this.viewStoreQHCube.setUserComponent('registered-player')" class="mt-4 mb-2"/>
          </div>
       </div>
    </div>
 </template>
 
 <script>
+import axios from "axios";
+import authUtils from "@/assets/js/authUtils.js";
+
 export default {
    name: "UserProfile",
    inject: ['userStoreQHCube', 'viewStoreQHCube'],
@@ -50,6 +54,25 @@ export default {
    },
    mounted() {
       this.systemEmail = import.meta.env.VITE_APP_SYSTEM_EMAIL;
+   },
+   methods: {
+      async deletePlayer() {
+         await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_API + "/player/delete",
+            data: {
+               "email": this.userStoreQHCube.email
+            },
+            headers: {"Content-Type": "application/json"},
+            })
+               .then((response) => {
+                  console.log("Player deleted: " + response.data);
+                  authUtils.logout();
+               }).catch((error) => {
+                  console.log("Error deleting player: " + error);
+               });
+
+      }
    }
 }
 </script>
