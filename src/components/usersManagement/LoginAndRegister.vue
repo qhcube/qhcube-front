@@ -16,26 +16,24 @@
          </p>
 
          <div class="flex align-items-start pl-3">
-            <form>
-               <div class="flex flex-nowrap align-content-center align-items-start gap-2 pb-4">
-                  <div class="flex p-inputgroup w-15rem">
+            <div class="flex flex-nowrap align-content-center align-items-start gap-2 pb-4">
+               <div class="flex p-inputgroup w-15rem">
                         <span class="p-inputgroup-addon">
                             <i class="pi pi-user"></i>
                         </span>
-                     <InputText placeholder="eMail" type="email" v-model="this.user.email" autocomplete="on"/>
-                  </div>
-                  <div class="flex p-inputgroup w-9rem">
+                  <InputText placeholder="eMail" type="email" v-model="this.user.email" autocomplete="on"/>
+               </div>
+               <div class="flex p-inputgroup w-9rem">
                         <span class="p-inputgroup-addon">
                             <i class="pi pi-key"></i>
                         </span>
-                     <InputText placeholder="Password" name="password" type="password" v-model="this.user.password"
-                                autocomplete="on"/>
-                  </div>
-                  <div class="flex p-inputgroup w-fit">
-                     <Button label="Login" type="submit" @click="this.performLogin() "/>
-                  </div>
+                  <InputText placeholder="Password" name="password" type="password" v-model="this.user.password"
+                             autocomplete="on"/>
                </div>
-            </form>
+               <div class="flex p-inputgroup w-fit">
+                  <Button label="Login" type="submit" @click="this.performLogin() "/>
+               </div>
+            </div>
          </div>
       </div>
    </div>
