@@ -19,10 +19,12 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-   name: "ActivatedAccountAlert",
+   name: "EmailValidation",
    inject: ["viewStoreQHCube"],
    data() {
       return {
+         code: "",
+         email: "",
          status: "",
          message: "",
          optionalMessage: ""

@@ -39,6 +39,10 @@ export default {
             });
     },
 
+    async emailValidation(email, code) {
+
+    },
+
     async registerNewPlayer(user) {
         const userStoreQHCube = useUserStoreQHCube();
 
