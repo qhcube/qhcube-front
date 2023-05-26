@@ -6,8 +6,8 @@
         <div class="flex flex-nowrap">
             <p>
                 El hipercubo cuántico representa una <i>puerta cuántica discreta de dos cúbits</i>,
-                es decir, una <u>matriz 4x4</u>
-                cuyas entradas son <u>números complejos</u> de la forma <b>a+bi</b> con <i>a</i> y <i>b</i> enteros.
+                es decir, una matriz 4x4
+                cuyas entradas son números complejos de la forma <b>a+bi</b> con <i>a</i> y <i>b</i> enteros.
             </p>
         </div>
         <div class="flex flex-nowrap">
