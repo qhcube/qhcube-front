@@ -1,5 +1,5 @@
 import {usePlayerStoreQHCube} from "./playerSotorageQHCube.js";
-import { useViewStoreQHCube } from ".viewStoreQHCube.js";
+import { useViewStoreQHCube } from "./viewStoreQHCube.js";
 import axios from "axios";
 
 
