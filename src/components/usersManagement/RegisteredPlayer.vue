@@ -6,7 +6,7 @@
          </div>
          <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
             <Button label="Mi perfil" icon="pi pi-user" severity="success"
-                    @click="this.viewStoreQHCube.setUserComponent('user-profile')"
+                    @click="this.viewStoreQHCube.setUserComponent('player-profile')"
                     class="p-button-raised p-button-outlined p-button-rounded"/>
          </div>
       </div>

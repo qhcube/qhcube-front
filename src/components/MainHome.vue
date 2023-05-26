@@ -34,15 +34,14 @@ import LoginAndRegister from "@/components/usersManagement/LoginAndRegister.vue"
 import NewRecord from "@/components/usersManagement/NewRecord.vue";
 import RegisteredPlayer from "@/components/usersManagement/RegisteredPlayer.vue";
 import GeneralError from "@/components/errors/GeneralError.vue";
-import UserProfile from "@/components/usersManagement/UserProfile.vue";
+import PlayerProfile from "@/components/usersManagement/PlayerProfile.vue";
 
 export default {
     name: "MainHome",
-
     inject: ["userStoreQHCube" , "viewStoreQHCube"],
     components: {
        ErrorLayout, UserLayout, GameInfoLayout, MainGame, BriefGameDescription,
-        GameDescription, LoginAndRegister, NewRecord, RegisteredPlayer, UserProfile, GeneralError},
+        GameDescription, LoginAndRegister, NewRecord, RegisteredPlayer, PlayerProfile, GeneralError},
    mounted() {
        if (this.userStoreQHCube.isAuthenticated) {
             this.viewStoreQHCube.setUserComponent("registered-player");
