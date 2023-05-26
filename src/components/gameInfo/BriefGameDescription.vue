@@ -31,7 +31,5 @@ export default {
 </script>
 
 <style scoped>
-p {
-    line-height: 1.2em;
-}
+
 </style>
