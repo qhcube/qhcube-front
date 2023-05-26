@@ -22,7 +22,7 @@
                 </p>
 
                 <div class="flex align-self-center">
-                    <img src="@/assets/images/figura_1.png" alt="figura 1" style="max-width: 100%; margin: auto"/>
+                    <img src="../../assets/images/figura_1.png" alt="figura 1" style="max-width: 100%; margin: auto"/>
                 </div>
 
                 <div class="two">
@@ -35,7 +35,7 @@
                 </p>
 
                 <div class="flex align-self-center">
-                    <img src="@/assets/images/figura_2.png" alt="figura 2" style="max-width: 100%; margin: auto"/>
+                    <img src="../../assets/images/figura_2.png" alt="figura 2" style="max-width: 100%; margin: auto"/>
                 </div>
 
                 <div class="two">
@@ -103,7 +103,7 @@
                     que resultan de combinaciones específicas de puertas <i>G</i> y <i>H</i>.
                 </p>
                 <div class="flex align-self-center">
-                    <img src="@/assets/images/figura_3.png" alt="figura 3" style="max-width: 100%; margin: auto"/>
+                    <img src="../../assets/images/figura_3.png" alt="figura 3" style="max-width: 100%; margin: auto"/>
                 </div>
                 <p>
                     Entonces, para bajar el nivel del hipercubo hay que conseguir que las filas 1 y 2, por un lado, y 3
@@ -138,7 +138,7 @@
                             Pinchar fuera del hipercubo y arrastar
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_4.png"
+                            <img src="../../assets/images/figura_4.png"
                                  alt="Figura tabla 1" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -149,7 +149,7 @@
                             las filas 1-2, 2-3 y 3-4.
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_permutacion-rotacion_filas.png"
+                            <img src="../../assets/images/figura_permutacion-rotacion_filas.png"
                                  alt="Figura tabla 2" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -160,7 +160,7 @@
                             permutar las columnas 1-2, 2-3, 3-4 y 4-1.
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_permutacion-rotacion_columnas.png"
+                            <img src="../../assets/images/figura_permutacion-rotacion_columnas.png"
                                  alt="Figura tabla 3" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -171,7 +171,7 @@
                             caras posibles).
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_intercambio_fila.png"
+                            <img src="../../assets/images/figura_intercambio_fila.png"
                                  alt="Figura tabla 4" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -182,7 +182,7 @@
                             columna (hay 4 caras posibles).
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_intercambio_columna.png"
+                            <img src="../../assets/images/figura_intercambio_columna.png"
                                  alt="Figura tabla 5" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -193,7 +193,7 @@
                             puden rotar las filas 1-2, 2-3 y 3-4.
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_permutacion-rotacion_filas.png"
+                            <img src="../../assets/images/figura_permutacion-rotacion_filas.png"
                                  alt="Figura tabla 6" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -204,7 +204,7 @@
                             puden rotar las columnas 1-2, 2-3, 3-4 y 4-1.
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_permutacion-rotacion_columnas.png"
+                            <img src="../../assets/images/figura_permutacion-rotacion_columnas.png"
                                  alt="Figura tabla 7" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -215,7 +215,7 @@
                             caras posibles).
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_reduccion_filas.png"
+                            <img src="../../assets/images/figura_reduccion_filas.png"
                                  alt="Figura tabla 8" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -226,7 +226,7 @@
                             (hay 16 caras posibles).
                         </td>
                         <td>
-                            <img src="@/assets/images/figura_reduccion_columnas.png"
+                            <img src="../../assets/images/figura_reduccion_columnas.png"
                                  alt="Figura tabla 9" style="max-width: 100%; margin: auto"/>
                         </td>
                     </tr>
@@ -243,7 +243,7 @@
                     resto de pares es idéntico.
                 </p>
                 <div class="flex align-self-center">
-                    <img src="@/assets/images/figura_5.png" alt="Figura 4" style="max-width: 100%; margin: auto"/>
+                    <img src="../../assets/images/figura_5.png" alt="Figura 4" style="max-width: 100%; margin: auto"/>
                 </div>
                 <p>
                     El factor 1/sqrt(2) de <i>H</i> aumenta el nivel en uno, pero si todas las coordenadas quedan pares
@@ -262,7 +262,7 @@
                     efecto sobre un par de coordenadas dado que sobre el resto de pares es idéntico.
                 </p>
                 <div class="flex align-self-center">
-                    <img src="@/assets/images/figura_6.png" alt="Figura 5" style="max-width: 100%; margin: auto"/>
+                    <img src="../../assets/images/figura_6.png" alt="Figura 5" style="max-width: 100%; margin: auto"/>
                 </div>
                 <p>
                     El factor 1/2 de <i>R</i> aumenta el nivel en dos, pero si todas las coordenadas quedan pares se
