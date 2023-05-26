@@ -8,7 +8,7 @@
                 <component :is="this.viewStoreQHCube.getGameInfoComponent" />
             </game-info-layout>
 
-            <player-layout v-if="this.viewStoreQHCube.getGameInfoComponent !== 'game-description'">
+            <player-layout v-if="this.viewStoreQHCube.getGameInfoComponent === 'brief-game-description'">
                 <component :is="this.viewStoreQHCube.getPlayerComponent" />
             </player-layout>
          </div>
@@ -28,7 +28,8 @@ import MainGame from "./MainGame.vue";
 import GameInfoLayout from "./layouts/GameInfoLayout.vue";
 import PlayerLayout from "./layouts/PlayerLayout.vue";
 import ErrorLayout from "./layouts/ErrorLayout.vue";
-import GameDescription from "./gameInfo/GameDescription.vue";
+import LearnToPlay from "./gameInfo/LearnToPlay.vue";
+import GameMeaning from "./gameInfo/GameMeaning.vue";
 import BriefGameDescription from "./gameInfo/BriefGameDescription.vue";
 import LoginAndRegister from "./playersManagement/LoginAndRegister.vue";
 import NewRecord from "./playersManagement/NewRecord.vue";
@@ -41,7 +42,8 @@ export default {
     inject: ["playerStoreQHCube" , "viewStoreQHCube"],
     components: {
        ErrorLayout, PlayerLayout, GameInfoLayout, MainGame, BriefGameDescription,
-        GameDescription, LoginAndRegister, NewRecord, RegisteredPlayer, PlayerProfile, GeneralError},
+       LearnToPlay, GameMeaning, LoginAndRegister, NewRecord, RegisteredPlayer,
+       PlayerProfile, GeneralError},
    mounted() {
        if (this.playerStoreQHCube.isAuthenticated) {
             this.viewStoreQHCube.setPlayerComponent("registered-player");
