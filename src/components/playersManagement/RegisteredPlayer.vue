@@ -4,14 +4,14 @@
          <div class="flex">
             <h1>Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
          </div>
-         <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
-            <Button label="Mi perfil" icon="pi pi-user" severity="success"
+         <div v-if=" !this.logOutRegretMessage && !this.loggedOutMessage" class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
+            <Button label="Mi perfil" icon="pi pi-user" severity="info"
                     @click="this.viewStoreQHCube.setPlayerComponent('player-profile')"
                     class="p-button-raised p-button-outlined p-button-rounded"/>
          </div>
       </div>
-      <div v-if=" !this.logOutRegretMessage && !this.loggedOutMessage" class="flex flex-column">
-         <div class="flex flex-column px-2 align-items-start">
+      <div v-if=" !this.logOutRegretMessage && !this.loggedOutMessage" class="flex flex-column px-3">
+         <div class="flex flex-column align-items-start">
             <p v-if="!this.startedGame">
                Ahora puedes comenzar el juego pulsando el botón. Si así lo haces, se te asignará una
                puntuación si consigues completarlo.
@@ -20,9 +20,9 @@
                El juego ya ha comenzado. ¡ Buena Suerte !
             </p>
          </div>
-         <div class="flex flex-row gap-2" style="margin: auto">
+         <div class="flex flex-row gap-2 align-items-start">
             <Button label="Comenzar juego" v-if="!this.startedGame" @click="this.startGame()" severity="success"
-                    class=" mt-4 mb-3"/>
+                    class="mt-4 mb-3"/>
             <Button label="Cancelar juego" v-else @click="this.cancelGame()" severity="warning" class=" mt-4 mb-3"/>
             <Button label="Salir" @click="this.logout()" severity="danger" class=" mt-4 mb-3"/>
          </div>
@@ -57,7 +57,7 @@ export default {
       logout() {
          this.$confirm.require({
             header: 'Logging out...',
-            message: 'Realmente quieres salir?',
+            message: '¿Realmente quieres salir?',
             icon: 'pi pi-info-circle',
             acceptClass: 'p-button-danger',
             accept: () => {
