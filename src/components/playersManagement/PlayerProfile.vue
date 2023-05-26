@@ -2,7 +2,7 @@
    <div class="flex flex-column bg-indigo-50 p-2 shadow-6">
       <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
          <div class="flex">
-            <h1>Usuario: {{ this.userStoreQHCube.nombre }} {{ this.userStoreQHCube.apellidos }}</h1>
+            <h1>Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
          </div>
       </div>
       <div class="flex flex-column">
@@ -13,15 +13,15 @@
             <tbody class="p-datatable p-datatable-tbody">
             <tr>
                <td class="left-column font-semibold">Nombre:</td>
-               <td class="right-column">{{ this.userStoreQHCube.nombre }}</td>
+               <td class="right-column">{{ this.playerStoreQHCube.nombre }}</td>
             </tr>
             <tr>
                <td class="left-column font-semibold">Apellidos:</td>
-               <td class="right-column">{{ this.userStoreQHCube.apellidos }}</td>
+               <td class="right-column">{{ this.playerStoreQHCube.apellidos }}</td>
             </tr>
             <tr>
                <td class="left-column font-semibold">E-Mail:</td>
-               <td class="right-column">{{ this.userStoreQHCube.email }}</td>
+               <td class="right-column">{{ this.playerStoreQHCube.email }}</td>
             </tr>
             </tbody>
          </table>
@@ -34,7 +34,7 @@
          <div class="flex flex-row gap-2">
             <Button label="Borrar usuario" severity="warn" @click="this.deletePlayer()" class="mt-4 mb-2"/>
             <Button label="Volver" severity="success"
-                    @click="this.viewStoreQHCube.setUserComponent('registered-player')" class="mt-4 mb-2"/>
+                    @click="this.viewStoreQHCube.setPlayerComponent('registered-player')" class="mt-4 mb-2"/>
          </div>
       </div>
    </div>
@@ -46,7 +46,7 @@ import authUtils from "@/assets/js/authUtils.js";
 
 export default {
    name: "PlayerProfile",
-   inject: ['userStoreQHCube', 'viewStoreQHCube'],
+   inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
          systemEmail: "",
@@ -61,7 +61,7 @@ export default {
             method: "post",
             url: import.meta.env.VITE_APP_API + "/player/delete",
             data: {
-               "email": this.userStoreQHCube.email
+               "email": this.playerStoreQHCube.email
             },
             headers: {"Content-Type": "application/json"},
             })

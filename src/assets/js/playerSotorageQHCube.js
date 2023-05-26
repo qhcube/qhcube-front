@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const useUserStoreQHCube = defineStore('userStoreQHCube', {
+export const usePlayerStoreQHCube = defineStore('playerStoreQHCube', {
     state: () => ({
         email: '',
         nombre: '',

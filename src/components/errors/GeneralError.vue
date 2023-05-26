@@ -11,7 +11,7 @@ import authUtils from "@/assets/js/authUtils.js";
 
 export default defineComponent({
    name: "GeneralError",
-   inject: ["userStoreQHCube" , "viewStoreQHCube"],
+   inject: ["playerStoreQHCube" , "viewStoreQHCube"],
    methods: {
       closeError() {
          this.viewStoreQHCube.setError("", "");

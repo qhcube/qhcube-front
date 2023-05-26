@@ -26,7 +26,7 @@
 
 export default {
     nombre: "BriefGameDescription",
-    inject: ["userStoreQHCube", "viewStoreQHCube"]
+    inject: ["playerStoreQHCube", "viewStoreQHCube"]
 }
 </script>
 

@@ -3,13 +3,13 @@ import { defineStore } from 'pinia';
 export const useViewStoreQHCube = defineStore('viewStoreQHCube', {
     state: () => ({
         gameInfoComponent: 'brief-game-description',
-        userComponent: 'login-and-register',
+        playerComponent: 'login-and-register',
         errorStatus: '',
         errorMessage: ''
     }),
     getters: {
         getGameInfoComponent: (state) => state.gameInfoComponent,
-        getUserComponent: (state) => state.userComponent,
+        getPlayerComponent: (state) => state.playerComponent,
         getErrorStatus: (state) => state.errorStatus,
         getErrorMessage: (state) => state.errorMessage
     },
@@ -17,8 +17,8 @@ export const useViewStoreQHCube = defineStore('viewStoreQHCube', {
         setGameInfoComponent(component) {
             this.gameInfoComponent = component;
         },
-        setUserComponent(component) {
-            this.userComponent = component;
+        setPlayerComponent(component) {
+            this.playerComponent = component;
         },
         setError(errorStatus, errorMessage) {
             this.errorStatus = errorStatus;

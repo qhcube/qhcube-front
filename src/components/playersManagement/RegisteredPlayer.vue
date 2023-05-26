@@ -2,11 +2,11 @@
    <div class="flex flex-column bg-indigo-50 shadow-6">
       <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
          <div class="flex">
-            <h1>Usuario: {{ this.userStoreQHCube.nombre }} {{ this.userStoreQHCube.apellidos }}</h1>
+            <h1>Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
          </div>
          <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
-            <Button label="Mi perfil" icon="pi pi-user" severity="success"
-                    @click="this.viewStoreQHCube.setUserComponent('player-profile')"
+            <Button label="Mi perfil" icon="pi pi-player" severity="success"
+                    @click="this.viewStoreQHCube.setPlayerComponent('player-profile')"
                     class="p-button-raised p-button-outlined p-button-rounded"/>
          </div>
       </div>
@@ -29,7 +29,7 @@
       </div>
       <ConfirmDialog/>
       <Message v-if="this.loggedOutMessage" severity="warn"
-               @close="this.loggedOutMessage = false; this.userStoreQHCube.$reset(); this.viewStoreQHCube.$reset()"
+               @close="this.loggedOutMessage = false; this.playerStoreQHCube.$reset(); this.viewStoreQHCube.$reset()"
                style="margin: 2rem auto 4rem auto">
          <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">¡Gracias por jugar!</span><br/><br/>
          <span style="margin-left: 1rem; margin-right: 1rem">Esperamos volver a verte pronto.</span>
@@ -45,7 +45,7 @@
 
 export default {
    name: "RegisteredPlayer",
-   inject: ['userStoreQHCube', 'viewStoreQHCube'],
+   inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
          startedGame: false,

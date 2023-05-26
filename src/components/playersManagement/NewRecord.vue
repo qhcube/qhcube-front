@@ -7,13 +7,13 @@
       </div>
       <div v-if="!this.successMessageVisibility"
            class="flex flex-column px-2 align-items-start">
-            <div v-for="(field, value, key) in this.user" class="flex gap-2">
+            <div v-for="(field, value, key) in this.player" class="flex gap-2">
                <div class="flex flex-column mb-3 gap-2">
                   <label :id="'lbl' + value" :for="value" class="block text-900 font-medium mb-2 mt-2">
                      {{ value.charAt(0).toUpperCase() + value.substring(1) }}
                   </label>
                   <InputText :id="value" :placeholder="value.charAt(0).toUpperCase() + value.substring(1)"
-                             :type="key > 2 ? 'password' : 'text'" v-model="this.user[value]" autocomplete="on"/>
+                             :type="key > 2 ? 'password' : 'text'" v-model="this.player[value]" autocomplete="on"/>
                </div>
                <InlineMessage v-if="this.checkMsgs[key].length > 0" class="h-min align-self-end mb-3">
                   {{ this.checkMsgs[key] }}
@@ -30,17 +30,17 @@
 
       <div class="flex" v-if="this.successMessageVisibility">
          <Message
-               @close="this.successMessageVisibility = false; this.viewStoreQHCube.setUserComponent('login-and-register')"
+               @close="this.successMessageVisibility = false; this.viewStoreQHCube.setPlayerComponent('login-and-register')"
                icon="pi" severity="success" style="margin: 4rem auto 6rem auto">
             <div class="flex flex-column">
                <span class="align-self-center font-bold text-lg" style="margin-left: 1rem; margin-right: 3rem"> ¡Usuario registrado con éxito!</span><br/>
                <div class="flex flex-column bg-green-50 mr-4 border-round-2xl">
                   <span class="font-semibold" style="margin: 1rem 3rem 0 2rem">{{
-                        this.user.nombre
-                     }} {{ this.user.apellidos }},</span>
+                        this.player.nombre
+                     }} {{ this.player.apellidos }},</span>
                   <span style="margin: 1rem 3rem 1rem 2rem;">Recibirás en breve un correo electrónico en</span>
                   <span class="align-self-center font-semibold" style="margin: 0 3rem 1rem 2rem;">{{
-                        this.user.email
+                        this.player.email
                      }}</span>
                   <span style="margin: 0 3rem 1rem 2rem;">para que puedas activar tu cuenta.</span>
                </div>
@@ -55,10 +55,10 @@ import authUtils from "@/assets/js/authUtils.js";
 
 export default {
    name: "NewRecord",
-   inject: ["userStoreQHCube", "viewStoreQHCube"],
+   inject: ["playerStoreQHCube", "viewStoreQHCube"],
    data() {
       return {
-         user: {
+         player: {
             nombre: "",
             apellidos: "",
             email: "",
@@ -70,7 +70,7 @@ export default {
       }
    },
    watch: {
-      user: {
+      player: {
          handler: function (val) {
             if (val.nombre.length > 0) {
                this.checkMsgs[0] = "";
@@ -102,42 +102,42 @@ export default {
    },
    methods: {
       cancel() {
-         this.viewStoreQHCube.setUserComponent('login-and-register');
+         this.viewStoreQHCube.setPlayerComponent('login-and-register');
       },
       reiniciar() {
-         Object.keys(this.user).forEach(key => {
-            this.user[key] = "";
+         Object.keys(this.player).forEach(key => {
+            this.player[key] = "";
             this.$el.querySelector("#" + key).classList.remove("p-invalid");
          });
          this.checkMsgs = ["", "", "", "", ""];
       },
       async registrar() {
-         if (this.user.nombre.length < 1) {
+         if (this.player.nombre.length < 1) {
             this.checkMsgs[0] = "El nombre no puede estar vacío.";
             this.$el.querySelector("#nombre").classList.add("p-invalid");
          }
-         if (this.user.apellidos.length < 1) {
+         if (this.player.apellidos.length < 1) {
             this.checkMsgs[1] = "Los apellidos no pueden estar vacíos.";
             this.$el.querySelector("#apellidos").classList.add("p-invalid");
          }
-         if (this.user.email.length < 1) {
+         if (this.player.email.length < 1) {
             this.checkMsgs[2] = "El email no puede estar vacío.";
             this.$el.querySelector("#email").classList.add("p-invalid");
-         } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.user.email))) {
-            this.checkMsgs[2] = "El email no es válido: '" + this.user.email + "'";
+         } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.player.email))) {
+            this.checkMsgs[2] = "El email no es válido: '" + this.player.email + "'";
             this.$el.querySelector("#email").classList.add("p-invalid");
          }
-         if (this.user.password.length < 6) {
+         if (this.player.password.length < 6) {
             this.checkMsgs[3] = "La contraseña debe tener al menos 6 caracteres.";
             this.$el.querySelector("#password").classList.add("p-invalid");
          }
-         if (this.user.password !== this.user.passwordConfirm) {
+         if (this.player.password !== this.player.passwordConfirm) {
             this.checkMsgs[4] = "Las contraseñas no coinciden.";
             this.$el.querySelector("#passwordConfirm").classList.add("p-invalid");
          }
 
          if (this.isValidPlayerInfo()) {
-            this.checkMsgs[0] = await authUtils.registerNewPlayer(this.user);
+            this.checkMsgs[0] = await authUtils.registerNewPlayer(this.player);
             if (this.checkMsgs[0] === "OK") {
                this.successMessageVisibility = true;
             } else {

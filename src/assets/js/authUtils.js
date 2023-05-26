@@ -1,4 +1,4 @@
-import { useUserStoreQHCube } from "@/assets/js/userSotorageQHCube.js";
+import { usePlayerStoreQHCube } from "@/assets/js/playerSotorageQHCube.js";
 import { useViewStoreQHCube } from "@/assets/js/viewStoreQHCube.js";
 
 import axios from "axios";
@@ -6,38 +6,38 @@ import axios from "axios";
 export default {
 
     logout() {
-        const userStoreQHCube = useUserStoreQHCube();
+        const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube()
-        userStoreQHCube.$reset();
+        playerStoreQHCube.$reset();
         viewStoreQHCube.$reset();
         axios.defaults.headers.common['Authorization'] = '';
     },
 
-    async login(user) {
+    async login(player) {
 
-        const userStoreQHCube = useUserStoreQHCube();
+        const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
         await axios({
             method: "post",
             url: import.meta.env.VITE_APP_FREEAPI + "/login",
-            data: user,
+            data: player,
             headers: {"Content-Type": "application/json"},
         })
             .then((response) => {
-                userStoreQHCube.email = user.email;
+                playerStoreQHCube.email = player.email;
                 if (response.data.respStatus === "OK") {
-                    userStoreQHCube.nombre = response.data.nombre;
-                    userStoreQHCube.apellidos = response.data.apellidos;
-                    userStoreQHCube.jwttoken = response.data.jwttoken;
-                    if (userStoreQHCube.isAuthenticated) {
-                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + userStoreQHCube.jwttoken;
+                    playerStoreQHCube.nombre = response.data.nombre;
+                    playerStoreQHCube.apellidos = response.data.apellidos;
+                    playerStoreQHCube.jwttoken = response.data.jwttoken;
+                    if (playerStoreQHCube.isAuthenticated) {
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + playerStoreQHCube.jwttoken;
                     }
                 } else {
                     viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage);
                 }
             })
             .catch((error) => {
-                console.log("AuthUtils.login(user): Error al hacer login del usuario.\n--- " + error.message + " ---");
+                console.log("AuthUtils.login(player): Error al hacer login del usuario.\n--- " + error.message + " ---");
                 viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.");
             });
     },
@@ -65,30 +65,30 @@ export default {
         return result;
     },
 
-    async registerNewPlayer(user) {
-        const userStoreQHCube = useUserStoreQHCube();
+    async registerNewPlayer(player) {
+        const playerStoreQHCube = usePlayerStoreQHCube();
 
         let resultado = "OK";
 
         await axios({
             method: "post",
             url: import.meta.env.VITE_APP_FREEAPI + "/register",
-            data: user,
+            data: player,
             headers: {"Content-Type": "application/json"},
         })
             .then((response) => {
                 if (response.data.respStatus === "OK") {
-                    userStoreQHCube.nombre = response.data.nombre;
-                    userStoreQHCube.apellidos = response.data.apellidos;
-                    userStoreQHCube.email = response.data.email;
-                    userStoreQHCube.jwttoken = response.data.jwttoken;
+                    playerStoreQHCube.nombre = response.data.nombre;
+                    playerStoreQHCube.apellidos = response.data.apellidos;
+                    playerStoreQHCube.email = response.data.email;
+                    playerStoreQHCube.jwttoken = response.data.jwttoken;
                 } else {
                     resultado = response.data.respMessage;
                 }
             })
             .catch((error) => {
                 resultado = "Error en la petición/respuesta.";
-                console.log("AuthUtils.registrar(user): Error al registrar el usuario.\n--- " + error.message + " ---");
+                console.log("AuthUtils.registrar(player): Error al registrar el usuario.\n--- " + error.message + " ---");
                 viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.");
                 }
             );
