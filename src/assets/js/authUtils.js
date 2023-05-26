@@ -14,7 +14,6 @@ export default {
     },
 
     async login(player) {
-
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
         await axios({
@@ -33,19 +32,19 @@ export default {
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + playerStoreQHCube.jwttoken;
                     }
                 } else {
-                    viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage);
+                    viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
                 }
             })
             .catch((error) => {
-                console.log("AuthUtils.login(player): Error al hacer login del usuario.\n--- " + error.message + " ---");
-                viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.");
+                viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
             });
     },
 
     async emailValidation(email, code) {
         let result = {
             status: "OK",
-            message: "Ya puedes iniciar sesión como usuario registrado."
+            message: "Ya puedes iniciar sesión como usuario registrado.",
+            optionalMessage: ""
         }
 
         await axios({
@@ -59,6 +58,7 @@ export default {
         }).catch((error) => {
             result.status = "ERROR";
             result.message = "Ha habido un problema con servidor.";
+            result.optionalMessage = error.message;
             console.log("AuthUtils.emailValidation(email, code): Error en servidor al validar el email.\n--- " + error.message + " ---");
         });
 
@@ -89,7 +89,7 @@ export default {
             .catch((error) => {
                 resultado = "Error en la petición/respuesta.";
                 console.log("AuthUtils.registrar(player): Error al registrar el usuario.\n--- " + error.message + " ---");
-                viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.");
+                viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
                 }
             );
 

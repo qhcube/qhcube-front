@@ -1,7 +1,8 @@
 <template>
-   <Message severity="warn" style="margin: 5rem auto" @close="this.closeError()">
-      <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem"> {{ this.viewStoreQHCube.getErrorStatus }} </span><br /><br />
-      <span style="margin-left: 1rem; margin-right: 1rem"> {{ this.viewStoreQHCube.getErrorMessage }} </span>
+   <Message severity="error" icon="pi" class="flex flex-column w-fit align-self-center" @close="this.closeError()">
+      <span class="flex font-bold m-1 mr-3"> {{ this.viewStoreQHCube.getErrorStatus }} </span>
+      <span class="flex m-1 mt-3 mr-3"> {{ this.viewStoreQHCube.getErrorMessage }} </span>
+      <span v-if="this.viewStoreQHCube.getOptionalErrorMessage" class="flex text-xs m-1 mt-3 mr-3"> ({{ this.viewStoreQHCube.getOptionalErrorMessage }}) </span>
    </Message>
 </template>
 
@@ -14,7 +15,7 @@ export default defineComponent({
    inject: ["playerStoreQHCube" , "viewStoreQHCube"],
    methods: {
       closeError() {
-         this.viewStoreQHCube.setError("", "");
+         this.viewStoreQHCube.setError("", "", "");
       }
    },
    beforeUpdate() {

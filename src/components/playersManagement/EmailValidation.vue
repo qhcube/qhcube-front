@@ -6,7 +6,7 @@
          <span class="font-bold text-lg align-self-center">¡{{ this.result.status }}!</span>
          <div class="flex flex-column bg-green-50 mr-4 border-round-2xl">
             <span class="font-semibold m-3"> {{ this.result.message }} </span>
-            <span class="m-3 mb-1 text-sm"> {{ this.optionalMessage }} </span>
+            <span class="m-3 mb-1 text-sm"> {{ this.result.optionalMessage }} </span>
             <span v-if="this.result.status !== 'OK'" class="text-xs m-3">
                Si crees que hay algún error, puedes ponerte en <br />
                contacto con nosotros a través de correo electrónico:<br />
@@ -32,8 +32,9 @@ export default defineComponent({
          email: "",
          result: {
             status: "",
-            message: ""},
-         optionalMessage: ""
+            message: "",
+            optionalMessage: ""
+         },
       }
    },
    async mounted() {
@@ -46,7 +47,8 @@ export default defineComponent({
       if (this.result.status === "OK") {
          this.optionalMessage = "Ya puedes iniciar sesión como usuario registrado.";
       } else {
-         this.optionalMessage = "No se ha podido llevar a cabo la activación de la cuenta.";
+         if (this.result.optionalMessage === "")
+            this.result.optionalMessage = "No se ha podido llevar a cabo la activación de la cuenta.";
       }
    },
    methods: {

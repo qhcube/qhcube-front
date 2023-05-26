@@ -5,13 +5,15 @@ export const useViewStoreQHCube = defineStore('viewStoreQHCube', {
         gameInfoComponent: 'brief-game-description',
         playerComponent: 'login-and-register',
         errorStatus: '',
-        errorMessage: ''
+        errorMessage: '',
+        optionalErrorMessage: ''
     }),
     getters: {
         getGameInfoComponent: (state) => state.gameInfoComponent,
         getPlayerComponent: (state) => state.playerComponent,
         getErrorStatus: (state) => state.errorStatus,
-        getErrorMessage: (state) => state.errorMessage
+        getErrorMessage: (state) => state.errorMessage,
+        getOptionalErrorMessage: (state) => state.optionalErrorMessage
     },
     actions: {
         setGameInfoComponent(component) {
@@ -20,9 +22,10 @@ export const useViewStoreQHCube = defineStore('viewStoreQHCube', {
         setPlayerComponent(component) {
             this.playerComponent = component;
         },
-        setError(errorStatus, errorMessage) {
+        setError(errorStatus, errorMessage, optionalErrorMessage) {
             this.errorStatus = errorStatus;
             this.errorMessage = errorMessage;
+            this.optionalErrorMessage = optionalErrorMessage;
         }
     },
     persist: {

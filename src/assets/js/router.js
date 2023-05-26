@@ -23,7 +23,6 @@ router.beforeEach((to, from, next) => {
     const playerStoreQHCube = usePlayerStoreQHCube();
 
     if (playerStoreQHCube.isAuthenticated && !axios.defaults.headers.common['Authorization']) {
-        console.log("Poniendo el token en el header " + 'Bearer ' + playerStoreQHCube.jwttoken);
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + playerStoreQHCube.jwttoken;
     }
     next();

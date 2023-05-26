@@ -141,7 +141,7 @@ export default {
             if (this.checkMsgs[0] === "OK") {
                this.successMessageVisibility = true;
             } else {
-               this.viewStoreQHCube.setError("¡ ERROR !", this.checkMsgs[0]);
+               this.viewStoreQHCube.setError("¡ ERROR !", this.checkMsgs[0], "");
             }
          }
       },
