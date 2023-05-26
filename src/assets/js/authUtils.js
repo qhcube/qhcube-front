@@ -1,7 +1,7 @@
-import { usePlayerStoreQHCube } from "@/assets/js/playerSotorageQHCube.js";
-import { useViewStoreQHCube } from "@/assets/js/viewStoreQHCube.js";
-
+import {usePlayerStoreQHCube} from "./playerSotorageQHCube.js";
+import { useViewStoreQHCube } from ".viewStoreQHCube.js";
 import axios from "axios";
+
 
 export default {
 

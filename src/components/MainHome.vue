@@ -24,17 +24,17 @@
 
 <script>
 
-import MainGame from "@/components/MainGame.vue";
-import GameInfoLayout from "@/components/layouts/GameInfoLayout.vue";
-import PlayerLayout from "@/components/layouts/PlayerLayout.vue";
-import ErrorLayout from "@/components/layouts/ErrorLayout.vue";
-import GameDescription from "@/components/gameInfo/GameDescription.vue";
-import BriefGameDescription from "@/components/gameInfo/BriefGameDescription.vue";
-import LoginAndRegister from "@/components/playersManagement/LoginAndRegister.vue";
-import NewRecord from "@/components/playersManagement/NewRecord.vue";
-import RegisteredPlayer from "@/components/playersManagement/RegisteredPlayer.vue";
-import GeneralError from "@/components/errors/GeneralError.vue";
-import PlayerProfile from "@/components/playersManagement/PlayerProfile.vue";
+import MainGame from "./MainGame.vue";
+import GameInfoLayout from "./layouts/GameInfoLayout.vue";
+import PlayerLayout from "./layouts/PlayerLayout.vue";
+import ErrorLayout from "./layouts/ErrorLayout.vue";
+import GameDescription from "./gameInfo/GameDescription.vue";
+import BriefGameDescription from "./gameInfo/BriefGameDescription.vue";
+import LoginAndRegister from "./playersManagement/LoginAndRegister.vue";
+import NewRecord from "./playersManagement/NewRecord.vue";
+import RegisteredPlayer from "./playersManagement/RegisteredPlayer.vue";
+import GeneralError from "./errors/GeneralError.vue";
+import PlayerProfile from "./playersManagement/PlayerProfile.vue";
 
 export default {
     name: "MainHome",

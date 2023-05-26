@@ -7,7 +7,7 @@
 
 <script>
 import {defineComponent} from 'vue'
-import authUtils from "@/assets/js/authUtils.js";
+import authUtils from "../../assets/js/authUtils.js";
 
 export default defineComponent({
    name: "GeneralError",

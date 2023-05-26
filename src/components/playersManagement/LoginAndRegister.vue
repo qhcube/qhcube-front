@@ -40,17 +40,17 @@
 </template>
 
 <script>
-import authUtils from "@/assets/js/authUtils.js";
+import authUtils from "../../assets/js/authUtils.js";
 
 export default {
    name: "LoginAndRegister",
-   inject: ["playerStoreQHCube", "viewStoreQHCube"],
+   inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
          player: {
             email: "",
             password: ""
-         }
+         },
       }
    },
    methods: {

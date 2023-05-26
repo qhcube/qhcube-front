@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import authUtils from "@/assets/js/authUtils.js";
+import authUtils from "../../assets/js/authUtils.js";
 
 export default {
    name: "NewRecord",
