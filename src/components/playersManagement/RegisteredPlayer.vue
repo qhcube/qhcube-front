@@ -28,7 +28,7 @@
          </div>
       </div>
       <ConfirmDialog/>
-      <Message v-if="this.loggedOutMessage" severity="warn"
+      <Message v-if="this.loggedOutMessage" severity="info"
                @close="this.loggedOutMessage = false; this.playerStoreQHCube.$reset(); this.viewStoreQHCube.$reset()"
                style="margin: 2rem auto 4rem auto">
          <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">¡Gracias por jugar!</span><br/><br/>

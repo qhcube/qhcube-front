@@ -18,8 +18,8 @@
                   <div class="col-9">
                      <div class="flex">
                         <span class="p-inputgroup-addon">
-                               <i class="pi pi-user"></i>
-                           </span>
+                           <i class="pi pi-user"></i>
+                        </span>
                         <InputText placeholder="eMail" type="email" v-model="this.player.email" autocomplete="on"/>
                      </div>
                   </div>
@@ -29,10 +29,10 @@
                   <div class="col-9">
                      <div class="flex">
                         <span class="p-inputgroup-addon">
-                               <i class="pi pi-key"></i>
-                           </span>
+                           <i class="pi pi-key"></i>
+                        </span>
                         <InputText placeholder="Password" name="password" type="password" v-model="this.player.password"
-                                autocomplete="on"/>
+                                   autocomplete="on"/>
                      </div>
                   </div>
                </div>
