@@ -60,6 +60,7 @@ export default {
             message: '¿Realmente quieres salir?',
             icon: 'pi pi-info-circle',
             acceptClass: 'p-button-danger',
+            acceptLabel: 'Sí',
             accept: () => {
                this.loggedOutMessage = true;
                gameType = 0;

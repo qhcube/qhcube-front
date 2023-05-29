@@ -76,6 +76,7 @@ export default {
             message: "¿Estás seguro de que quieres borrar tu usuario?",
             icon: "pi pi-info-circle",
             acceptClass: "p-button-danger",
+            acceptLabel: "Sí",
             accept: async () => {
                await axios({
                      method: "post",
