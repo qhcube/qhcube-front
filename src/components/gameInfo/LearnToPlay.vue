@@ -2,7 +2,7 @@
     <div class="flex flex-column bg-red-50 shadow-6">
         <div class="flex flex-row flex-nowrap three px-2" style="height: 90px">
             <div class="flex">
-                <h1>Aprende a Jugar</h1>
+                <h1>Aprende a jugar</h1>
             </div>
             <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
                 <Button icon="pi pi-times" severity="danger" size="small"
@@ -12,12 +12,39 @@
         </div>
         <div class="flex flex-auto">
             <scroll-panel class="custombar1" style="width: 100%; height: 510px">
-                <div class="two -mt-3">
+               <p>
+                  El hipercubo cuántico representa una puerta cuántica discreta de dos cúbits, es decir, una
+                  matriz <i>4x4</i>
+                  cuyas entradas son números complejos de la forma <i>a+bi</i> con <i>a</i> y <i>b</i> enteros. Pero en
+                  el hipercubo no se representan los enteros (partes reales e imaginarias) de los elmentos de la
+                  matriz, sino sus paridades, mediante un código de dos colores: <span style="color: #f2c005; text-shadow: 1px 1px #888888">par</span>
+                  e <span style="color: #2690f1; text-shadow: 1px 1px #888888">impar</span>. En la siguiente
+                  figura se puede ver el hipercubo correspondiente a una puerta cuántica discreta.
+               </p>
+
+               <div class="flex align-self-center">
+                  <img src="../../assets/images/figura_1.png" alt="figura 1" style="max-width: 100%; margin: auto"/>
+               </div>
+
+               <div class="two">
+                  <h3>Objetivo del juego</h3>
+               </div>
+               <p>
+                  El objetivo del juego es conseguir, mediante una serie de movimientos, que el hipercubo represente
+                  la matriz identidad. Para ello hay que ir bajando el nivel del hipercubo hasta cero, tal como se
+                  observa en la siguiente figura.
+               </p>
+
+               <div class="flex align-self-center">
+                  <img src="../../assets/images/figura_2.png" alt="figura 2" style="max-width: 100%; margin: auto"/>
+               </div>
+
+               <div class="two -mt-3">
                     <h3>Movimientos del hipercubo cuántico</h3>
                 </div>
                 <p>
-                    Para ejecutar estos movimientos el hipercubo utiliza dos puertas cuánticas concretas
-                    llamadas<i>H</i> y <i>G</i>. En general, al aplicar <i>H</i> a un cúbit, éste aumenta en uno su
+                    Para ejecutar los movimientos el hipercubo utiliza dos puertas cuánticas concretas
+                    llamadas <i>H</i> y <i>G</i>. En general, al aplicar <i>H</i> a un cúbit, éste aumenta en uno su
                     nivel, pero, si cuando se aplica, las partes real e imaginaria de las dos coordenadas tienen las
                     mismas paridades –es decir, que ambas son pares o ambas son impares– se reduce el nivel en uno. La
                     puerta <i>G</i> intercambia las partes reales e imaginarias de ciertas coordenadas, pero deja
@@ -35,18 +62,12 @@
                     1.b y 2.b. El movimiento reducción también puede realizarse, de manera análoga, por columnas.
                 </p>
                 <p>
-                    Pero, ¡ojo!, si no se tiene cuidado con los movimientos escogidos se puede ampliar el nivel del
+                    Pero, ¡ojo!, si no se tiene cuidado con los movimientos escogidos se puede aumentar el nivel del
                     hipercubo, en vez de reducirlo. Si el hipercubo no tiene la configuración de paridades indicada, al
                     aplicar <i>H</i> se aumentará el nivel. Lo mismo ocurre con la rotación de filas o columnas, si la
                     configuración no es adecuada aumenta el nivel del hipercubo mientras que, si ésta es adecuada,
                     mantiene el nivel. Sin embargo, si jugamos siguiendo una estrategia adecuada, siempre podremos
                     resolver este juego.
-                </p>
-                <p>
-                    Que siempre se pueda resolver el hipercubo cuántico equivale a que cualquier puerta cuántica
-                    discreta de dos cúbits se puede construir utilizando exclusivamente las dos puertas cuánticas
-                    elementales H y G. Se conjetura que el resultado es cierto para cualquier número de cúbits, aunque
-                    esto todavía no se ha demostrado.
                 </p>
 
                 <div class="two">
@@ -153,44 +174,6 @@
                         </td>
                     </tr>
                 </table>
-
-                <div class="two">
-                    <h3>Detalles del movimiento reducción</h3>
-                </div>
-                <p>
-                    Este movimiento se realiza aplicando <i>H</i> sobre la puerta cuántica discreta que representa el
-                    hipercubo. Si la aplicamos por la izquierda (derecha) actúa sobre las filas (columnas) del
-                    hipercubo. En la siguiente figura se ve el efecto que produce en las coordenadas de las filas 1 y 2,
-                    por un lado, y 3 y 4 por otro. Se muestra el efecto sobre un par de coordenadas dado que sobre el
-                    resto de pares es idéntico.
-                </p>
-                <div class="flex align-self-center">
-                    <img src="../../assets/images/figura_5.png" alt="Figura 4" style="max-width: 100%; margin: auto"/>
-                </div>
-                <p>
-                    El factor 1/sqrt(2) de <i>H</i> aumenta el nivel en uno, pero si todas las coordenadas quedan pares
-                    se dividen por 2 y el nivel se reduce en 2, quedando como efecto global una redución del nivel en
-                    uno.
-                </p>
-
-                <div class="two">
-                    <h3>Detalles del movimiento rotación</h3>
-                </div>
-                <p>
-                    Este movimiento se realiza aplicando <i>R</i> (combinación de dos puertas <i>H</i> y dos puertas <i>G</i>)
-                    sobre la puerta cuántica discreta que representa el hipercubo. Si la aplicamos por la izquierda
-                    (derecha) actúa sobre las filas (columnas) del hipercubo. En la siguiente figura se ve el efecto que
-                    produce en las coordenadas de las filas 1 y 2 (las filas 3 y 4 se quedan igual). Se muestra el
-                    efecto sobre un par de coordenadas dado que sobre el resto de pares es idéntico.
-                </p>
-                <div class="flex align-self-center">
-                    <img src="../../assets/images/figura_6.png" alt="Figura 5" style="max-width: 100%; margin: auto"/>
-                </div>
-                <p>
-                    El factor 1/2 de <i>R</i> aumenta el nivel en dos, pero si todas las coordenadas quedan pares se
-                    dividen por 2 y el nivel se vuelve a reducir en 2, quedando la puerta cuántica discreta del
-                    hipercubo en el mismo nivel.
-                </p>
             </scroll-panel>
         </div>
     </div>
