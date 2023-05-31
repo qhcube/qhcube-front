@@ -74,7 +74,7 @@
                     <h3>Lista de movimientos</h3>
                 </div>
 
-                <table>
+                <table class="mb-3">
                     <tr>
                         <td class="movimiento">Mover el hipercubo</td>
                         <td class="descripcion">
