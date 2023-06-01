@@ -20,7 +20,7 @@
         let gameType = 0;
 
         var var_width = 960.0;
-        var var_height = 600.0;
+        var var_height = 550.0;
         var var_l = 3.0;
         var var_escala_cubo = 1.85;
         var var_L = var_l * var_escala_cubo;
@@ -751,15 +751,17 @@
 
             // Información
 
+            /*
             var_delta_alt = 100;
             context_oculto.font = "16pt Roboto";
             context_oculto.fillStyle = var_cinf;
             context_oculto.fillText("Información", var_origen_text_x, var_delta_alt + var_origen_text_y);
-            var_delta_alt = 140;
+             */
+            var_delta_alt = 100;
             context_oculto.font = "16pt Roboto";
             context_oculto.fillStyle = var_cblack;
             context_oculto.fillText(var_mensaje, var_origen_text_x, var_delta_alt + var_origen_text_y);
-            var_delta_alt = 240;
+            var_delta_alt = 140;
             context_oculto.fillText(var_mensaje2, var_origen_text_x, var_delta_alt + var_origen_text_y);
             var_mensaje2 = "";
 
