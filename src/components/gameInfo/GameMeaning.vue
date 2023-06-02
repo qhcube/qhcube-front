@@ -11,7 +11,7 @@
          </div>
       </div>
       <div class="flex flex-auto">
-         <scroll-panel class="custombar1" style="width: 100%; height: 510px">
+         <scroll-panel class="custombar1" style="width: 100%; height: 460px">
             <div class="two -mt-2">
                <h3>Estados cuánticos discretos</h3>
             </div>

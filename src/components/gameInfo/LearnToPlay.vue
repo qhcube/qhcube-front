@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="flex flex-auto">
-            <scroll-panel class="custombar1" style="width: 100%; height: 510px">
+            <scroll-panel class="custombar1" style="width: 100%; height: 460px">
                <p>
                   El hipercubo cuántico representa una puerta cuántica discreta de dos cúbits, es decir, una
                   matriz <i>4x4</i>
