@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-06-02T10:14:24.017Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="ewswGQw_8R7Qe9Qiiide" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-06-02T10:29:42.746Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="Up9fgEjHsaFQSOyhQT2h" version="21.2.8" type="device">
   <diagram name="Page-1" id="5f0bae14-7c28-e335-631c-24af17079c00">
     <mxGraphModel dx="1434" dy="879" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
@@ -273,7 +273,7 @@
             <mxPoint x="940" y="274.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ae3FSQJiL2LFQuzNeL_P-8" value="PlayerProfile" style="shape=component;align=left;spacingLeft=36;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;html=1;snapToPoint=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+        <mxCell id="ae3FSQJiL2LFQuzNeL_P-8" value="PlayerProfile" style="shape=component;align=left;spacingLeft=36;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;html=1;snapToPoint=1;fillColor=#DAE8FC;strokeColor=#b85450;" parent="1" vertex="1">
           <mxGeometry x="630" y="820" width="180" height="60" as="geometry" />
         </mxCell>
         <mxCell id="ae3FSQJiL2LFQuzNeL_P-9" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" parent="1" target="ae3FSQJiL2LFQuzNeL_P-8" edge="1">
