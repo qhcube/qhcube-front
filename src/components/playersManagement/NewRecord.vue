@@ -140,8 +140,6 @@ export default {
             this.checkMsgs[0] = await authUtils.registerNewPlayer(this.player);
             if (this.checkMsgs[0] === "OK") {
                this.successMessageVisibility = true;
-            } else {
-               this.viewStoreQHCube.setError("¡ ERROR !", this.checkMsgs[0], "");
             }
          }
       },

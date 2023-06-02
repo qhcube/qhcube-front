@@ -67,6 +67,7 @@ export default {
 
     async registerNewPlayer(player) {
         const playerStoreQHCube = usePlayerStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
 
         let resultado = "OK";
 
@@ -83,15 +84,14 @@ export default {
                     playerStoreQHCube.email = response.data.email;
                     playerStoreQHCube.jwttoken = response.data.jwttoken;
                 } else {
+                    viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
                     resultado = response.data.respMessage;
                 }
             })
             .catch((error) => {
                 resultado = "Error en la petición/respuesta.";
-                console.log("AuthUtils.registrar(player): Error al registrar el usuario.\n--- " + error.message + " ---");
                 viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
-                }
-            );
+            });
 
         return resultado;
     }
