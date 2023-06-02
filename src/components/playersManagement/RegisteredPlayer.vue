@@ -1,5 +1,6 @@
 <template>
    <div class="flex flex-column bg-indigo-50 shadow-6">
+
       <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
          <div class="flex">
             <h1>Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
@@ -10,24 +11,31 @@
                     class="p-button-raised p-button-outlined p-button-rounded"/>
          </div>
       </div>
+
       <div v-if=" !this.logOutRegretMessage && !this.loggedOutMessage" class="flex flex-column px-3">
          <div class="flex flex-column align-items-start">
-            <p v-if="!this.startedGame">
-               Ahora puedes comenzar el juego pulsando el botón. Si así lo haces, se te asignará una
-               puntuación si consigues completarlo.
+            <p v-if="this.activeGameType === 0">
+               Ahora estás en modo <b>Juego Práctica</b>.
+            </p>
+            <p v-else-if="this.activeGameType === 1">
+               Ahora estás en modo <b>Juego Registrado</b>.
             </p>
             <p v-else>
-               El juego ya ha comenzado. ¡ Buena Suerte !
+               Ahora estás en modo <b>Presentación</b>. No estás jugando en ningún modo concreto, pero que por defecto
+               debería ser el modo Práctica.
             </p>
          </div>
-         <div class="flex flex-row gap-2 align-items-start">
-            <Button label="Comenzar juego" v-if="!this.startedGame" @click="this.startGame()" severity="success"
-                    class="mt-4 mb-3"/>
-            <Button label="Cancelar juego" v-else @click="this.cancelGame()" severity="warning" class=" mt-4 mb-3"/>
-            <Button label="Salir" @click="this.logout()" severity="danger" class=" mt-4 mb-3"/>
+         <div class="flex flex-row gap-2 align-items-start mt-4 mb-3">
+            <Button label="Iniciar Práctica" @click="this.initPractice()" severity="success" />
+            <Button label="Iniciar Juego Registrado" @click="this.initRegisteredGame()" severity="success" />
+            <Button label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success" />
+            <Button label="Cancelar Juego Actual" @click="this.cancelGame()" severity="warning"/>
+            <!-- <Button label="Salir" @click="this.logout()" severity="danger"/> -->
          </div>
       </div>
+
       <ConfirmDialog/>
+
       <Message v-if="this.loggedOutMessage" severity="info"
                @close="this.loggedOutMessage = false; this.playerStoreQHCube.$reset(); this.viewStoreQHCube.$reset()"
                style="margin: 2rem auto 4rem auto">
@@ -48,9 +56,14 @@ export default {
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
-         startedGame: false,
+         activeGameType: 0, // 0: Practice, 1: Registered Game, 2: Contest, 3: Presentation
          loggedOutMessage: false,
          logOutRegretMessage: false
+      }
+   },
+   watch: {
+      activeGameType: function (newVal) {
+         gameType = newVal;
       }
    },
    methods: {
@@ -70,14 +83,17 @@ export default {
             }
          });
       },
-      startGame() {
-         this.startedGame = true;
-         gameType = 1;
-      }
-      ,
+      initPractice() {
+         this.activeGameType = 0;
+      },
+      initRegisteredGame() {
+         this.activeGameType = 1;
+      },
+      loadRegisteredGame() {
+         this.activeGameType = 1;
+      },
       cancelGame() {
-         this.startedGame = false;
-         gameType = 0;
+         this.activeGameType = 3;
       }
    }
 }
