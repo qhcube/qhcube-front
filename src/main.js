@@ -8,6 +8,7 @@ import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
 import InlineMessage from "primevue/inlinemessage";
 import InputText from "primevue/inputtext";
+import Menubar from 'primevue/menubar';
 import Message from "primevue/message";
 import ScrollPanel from 'primevue/scrollpanel';
 
@@ -37,6 +38,7 @@ app.component('InputText', InputText);
 app.component('InlineMessage', InlineMessage);
 app.component('Message', Message);
 app.component('ScrollPanel', ScrollPanel);
+app.component('Menubar', Menubar);
 
 app.provide('playerStoreQHCube', usePlayerStoreQHCube());
 app.provide('viewStoreQHCube', useViewStoreQHCube());
