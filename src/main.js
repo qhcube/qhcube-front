@@ -22,6 +22,7 @@ import piniaPersist from 'pinia-plugin-persist'
 import { usePlayerStoreQHCube } from "./assets/js/playerSotorageQHCube.js";
 import {router} from "./assets/js/router.js";
 import {useViewStoreQHCube} from "./assets/js/viewStoreQHCube.js";
+import axios from "axios";
 
 const app = createApp(App);
 
@@ -43,5 +44,16 @@ app.component('Menubar', Menubar);
 app.provide('playerStoreQHCube', usePlayerStoreQHCube());
 app.provide('viewStoreQHCube', useViewStoreQHCube());
 
-
 app.mount('#app')
+
+axios.interceptors.request.use(
+    config => {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+        if (config.headers.Authorization) {
+            const recievedToken = config.headers.Authorization.slice(7);
+            if (recievedToken !== playerStoreQHCube.token) {
+                playerStoreQHCube.token = recievedToken;
+            }
+        }
+    }
+);
