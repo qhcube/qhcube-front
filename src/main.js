@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 import App from './App.vue'
 
 import PrimeVue from 'primevue/config';
@@ -46,14 +46,27 @@ app.provide('viewStoreQHCube', useViewStoreQHCube());
 
 app.mount('#app')
 
-axios.interceptors.request.use(
+axios.interceptors.response.use(
     config => {
         const playerStoreQHCube = usePlayerStoreQHCube();
-        if (config.headers.Authorization) {
-            const recievedToken = config.headers.Authorization.slice(7);
-            if (recievedToken !== playerStoreQHCube.token) {
-                playerStoreQHCube.token = recievedToken;
-            }
+        if (config.headers["authorization"]) {
+            playerStoreQHCube.jwttoken = config.headers["authorization"].slice(7);
         }
+        return config;
+    },
+    error => {
+        const viewStoreQHCube = useViewStoreQHCube();
+
+        if (error.response.status === 401) {
+            if (JSON.stringify(error.response.data).includes("Token expired")) {
+                viewStoreQHCube.setError("¡ ERROR !",
+                    import.meta.env.VITE_APP_TOKEN_EXPIRED_MESSAGE, "Vuelve a iniciar sesión para continuar.");
+            } else {
+                viewStoreQHCube.setError("¡ ERROR !", "Acceso NO autorizado.", error.message);
+            }
+            return null;
+        }
+
+        return Promise.reject(error);
     }
 );
