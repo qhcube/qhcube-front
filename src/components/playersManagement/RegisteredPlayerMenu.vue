@@ -60,11 +60,9 @@ export default defineComponent({
    watch: {
       loggedOutMessage (newVal) {
          this.$emit('hideComponentEvent', newVal);
-         console.log("loggedOutMessage: " + this.loggedOutMessage + " -> " + newVal);
       },
       logOutRegretMessage (newVal) {
          this.$emit('hideComponentEvent', newVal);
-         console.log("logOutRegretMessage: " + this.logOutRegretMessage + " -> " + newVal);
       }
    },
    methods: {

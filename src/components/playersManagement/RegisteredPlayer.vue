@@ -31,7 +31,7 @@
 
 <script>
 
-import RegisteredPlayerMenu from "@/components/playersManagement/RegisteredPlayerMenu.vue";
+import RegisteredPlayerMenu from "./RegisteredPlayerMenu.vue";
 
 export default {
    name: "RegisteredPlayer",
@@ -51,7 +51,6 @@ export default {
             return "Juego Registrado";
          else if (this.activeGameType === 2)
             return "Concurso";
-
       }
    },
    watch: {
@@ -62,7 +61,6 @@ export default {
    methods: {
       onHideComponent(newVal) {
          this.hiddenComponent = newVal;
-         console.log("hideComponenttttttttttttttt: " + newVal);
       },
       initPractice() {
          this.activeGameType = 0;
