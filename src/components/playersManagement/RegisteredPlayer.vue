@@ -3,7 +3,7 @@
       <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
          <div class="flex flex-row gap-7 align-items-center">
             <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
-            <h4 class="flex font-light" style="padding-bottom: 15px">(Modo {{ this.gameMode }})</h4>
+            <h4 v-if="!this.hiddenComponent" class="flex font-light" style="padding-bottom: 15px">(Modo {{ this.gameMode }})</h4>
          </div>
          <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
             <registered-player-menu @hide-component-event="this.onHideComponent"/>
