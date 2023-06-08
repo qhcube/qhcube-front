@@ -1,14 +1,14 @@
 <template>
    <div class="flex flex-column bg-indigo-50 shadow-6" :class="this.hiddenComponent ? 'h-12rem' : ''">
-         <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
-            <div class="flex flex-row gap-7 align-items-center">
-               <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
-               <h4 class="flex font-light" style="padding-bottom: 15px">(Modo {{ this.gameMode }})</h4>
-            </div>
-            <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
-               <registered-player-menu @hide-component-event="this.onHideComponent"/>
-            </div>
+      <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
+         <div class="flex flex-row gap-7 align-items-center">
+            <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
+            <h4 class="flex font-light" style="padding-bottom: 15px">(Modo {{ this.gameMode }})</h4>
          </div>
+         <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
+            <registered-player-menu @hide-component-event="this.onHideComponent"/>
+         </div>
+      </div>
 
       <div v-if="!this.hiddenComponent">
          <div class="flex flex-column px-3">
@@ -19,10 +19,11 @@
 
             </div>
             <div class="flex flex-row gap-2 align-items-start mt-4 mb-3">
-               <Button label="Iniciar Práctica" @click="this.initPractice()" severity="success" />
-               <Button label="Iniciar Juego Registrado" @click="this.initRegisteredGame()" severity="success" />
-               <Button label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success" />
-               <Button v-if="this.activeGameType !== 0" label="Cancelar Juego Actual" @click="this.cancelGame()" severity="warning"/>
+               <Button label="Iniciar Práctica" @click="this.initPractice()" severity="success"/>
+               <Button label="Iniciar Juego Registrado" @click="this.initRegisteredGame()" severity="success"/>
+               <Button label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success"/>
+               <Button v-if="this.activeGameType !== 0" label="Cancelar Juego Actual" @click="this.cancelGame()"
+                       severity="warning"/>
             </div>
          </div>
       </div>
@@ -64,6 +65,14 @@ export default {
       },
       initPractice() {
          this.activeGameType = 0;
+         var_coor = [
+               [
+                  [7, -2, 1, 0], [3, 6, 1, 0], [-1, -1, 7, -1], [0, 1, -1, 6]],
+               [
+                  [2, -2, -1, 1], [0, 4, 1, -1], [-1, 1, 1, 3], [0, -1, 3, 4]]
+         ];
+         var_mensaje = "Bienvenidos al juego del QHCube";
+         pageLoaded();
       },
       initRegisteredGame() {
          this.activeGameType = 1;
