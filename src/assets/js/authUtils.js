@@ -31,7 +31,10 @@ export default {
                     if (playerStoreQHCube.isAuthenticated) {
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + playerStoreQHCube.jwttoken;
                     }
+                } else if (response.data.respMessage === "Usuario no activado.") {
+                    viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
                 } else {
+                    playerStoreQHCube.$reset();
                     viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
                 }
             })
@@ -51,7 +54,7 @@ export default {
             method: "post",
             url: import.meta.env.VITE_APP_FREEAPI + "/emailvalidation",
             data: {email: email, code: code},
-            headers: {"Content-Type": "application/json"},
+            headers: {"Content-Type": "application/json"}
         }).then((response) => {
             result.status = response.data.respStatus;
             result.message = response.data.respMessage;
@@ -60,6 +63,32 @@ export default {
             result.message = "Ha habido un problema con servidor.";
             result.optionalMessage = error.message;
             console.log("AuthUtils.emailValidation(email, code): Error en servidor al validar el email.\n--- " + error.message + " ---");
+        });
+
+        return result;
+    },
+
+    async resendValidationEmail(email) {
+        let result = {
+            status: "OK",
+            message: "Ya se ha reenviado el correo electrónico.",
+            optionalMessage: ""
+        }
+
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_FREEAPI + "/resend-email",
+            data: {email: email},
+            headers: {"Content-Type": "application/json"}
+        }).then((response) => {
+            result.status = response.data.respStatus;
+            result.message = response.data.respMessage;
+
+        }).catch((error) => {
+            result.status = "ERROR";
+            result.message = "Ha habido un problema con servidor.";
+            result.optionalMessage = error.message;
+            console.log("AuthUtils.resendValidationEmail(email): Error en servidor al validar el email.\n--- " + error.message + " ---");
         });
 
         return result;

@@ -1,4 +1,3 @@
-
 export default {
     resetPracticeGame() {
         var_coor = [
