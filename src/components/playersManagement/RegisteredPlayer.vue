@@ -33,6 +33,7 @@
 <script>
 
 import RegisteredPlayerMenu from "./RegisteredPlayerMenu.vue";
+import gameUtils from "../../assets/js/gameUtils.js";
 
 export default {
    name: "RegisteredPlayer",
@@ -65,14 +66,7 @@ export default {
       },
       initPractice() {
          this.activeGameType = 0;
-         var_coor = [
-               [
-                  [7, -2, 1, 0], [3, 6, 1, 0], [-1, -1, 7, -1], [0, 1, -1, 6]],
-               [
-                  [2, -2, -1, 1], [0, 4, 1, -1], [-1, 1, 1, 3], [0, -1, 3, 4]]
-         ];
-         var_mensaje = "Bienvenidos al juego del QHCube";
-         pageLoaded();
+         gameUtils.resetPracticeGame();
       },
       initRegisteredGame() {
          this.activeGameType = 1;
