@@ -15,12 +15,10 @@ export default defineComponent({
    inject: ["playerStoreQHCube" , "viewStoreQHCube"],
    methods: {
       closeError() {
+         if (this.viewStoreQHCube.getErrorMessage === import.meta.env.VITE_APP_TOKEN_EXPIRED_MESSAGE) {
+            authUtils.logout();
+         }
          this.viewStoreQHCube.setError("", "", "");
-      }
-   },
-   beforeUpdate() {
-      if (this.viewStoreQHCube.getErrorStatus === "401") {
-         authUtils.logout();
       }
    }
 })
