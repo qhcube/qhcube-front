@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link rel='icon' href="assets/images/favicon.ico">
     <link rel="stylesheet" href="assets/css/default.css">
+    <script lang="javascript" type="text/javascript" src="assets/js/dist_axios.min.js"></script>
     <script type="text/javascript">
         // Variables globales
         /*
@@ -17,6 +18,7 @@
                 1: Modo juego registrado
                 2: Modo juego concurso
         */
+
         let gameType = 0;
 
         var var_width = 960.0;
@@ -1293,6 +1295,35 @@
             SistemaReferencia();
             CalcularVista();
             RepresentacionVista();
+        }
+
+        // TODO: Borrar prueba de axios
+        // enviarInputTest(var_coor);
+
+        // TODO: Esta función envía un input al servidor. Hay que implementar la respuesta.
+        //  También hay que cambiar la URL según corresponda.
+        async function enviarInputTest(input) {
+            let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
+            if (playerStored) {
+                await axios({
+                    method: "post",
+                    url: "http://localhost:9000/api/game/test-game",
+                    data: input,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + playerStored.jwttoken
+                    },
+                })
+                    .then((response) => {
+                        if (response.headers["authorization"]) {
+                            playerStored.jwttoken = response.headers["authorization"].slice(7);
+                            localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("index.enviarInputTest(input) error: " + error);
+                    });
+            }
         }
     </script>
 </head>
