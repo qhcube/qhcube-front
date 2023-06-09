@@ -68,7 +68,8 @@ export default {
          this.activeGameType = 0;
          gameUtils.resetPracticeGame();
       },
-      initRegisteredGame() {
+      async initRegisteredGame() {
+         await gameUtils.initRegisteredGame();
          this.activeGameType = 1;
       },
       loadRegisteredGame() {
