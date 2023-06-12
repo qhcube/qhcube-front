@@ -561,7 +561,10 @@
                     }
                     if (producto != 0) {
                         if (var_modo_tutorial) alert("Error en la unitariedad el QHCube (parte real): filas " + String(var_j) + " y " + String(var_k));
-                        var_mensaje = "Error en la unitariedad el QHCube (parte real): filas " + String(var_j) + " y " + String(var_k);
+                        // TODO: CHECK. He cambiado el mensaje de error en dos líneas porque no cabía en el canvas.
+                        //      original --> var_mensaje = "Error en la unitariedad el QHCube (parte real): filas " + String(var_j) + " y " + String(var_k)";
+                        var_mensaje = "Error en la unitariedad el QHCube";
+                        var_mensaje2 = "(parte real): filas " + String(var_j) + " y " + String(var_k);
                     }
                     producto = 0;
                     for (var_i = 0; var_i < 4; ++var_i) {
@@ -569,7 +572,10 @@
                     }
                     if (producto != 0) {
                         if (var_modo_tutorial) alert("Error en la unitariedad el QHCube (parte imaginaria): filas " + String(var_j) + " y " + String(var_k));
-                        var_mensaje = "Error en la unitariedad el QHCube (parte imaginaria): filas " + String(var_j) + " y " + String(var_k);
+                        // TODO: CHECK. He cambiado el mensaje de error en dos líneas porque no cabía en el canvas.
+                        //      original --> var_mensaje = "Error en la unitariedad el QHCube (parte imaginaria): filas " + String(var_j) + " y " + String(var_k)";
+                        var_mensaje = "Error en la unitariedad el QHCube";
+                        var_mensaje2 = "(parte imaginaria): filas " + String(var_j) + " y " + String(var_k);
                     }
                 }
             }
@@ -1295,6 +1301,9 @@
             SistemaReferencia();
             CalcularVista();
             RepresentacionVista();
+
+
+
         }
 
         // TODO: Borrar prueba de axios
