@@ -30,12 +30,14 @@ export default {
             data: {email: playerStoreQHCube.email, jwttoken: playerStoreQHCube.jwttoken},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-                    console.log("EMPEZANDO JUEGO... " + JSON.stringify(response.data));
-                    this.resetGame(JSON.parse(response.data.input));
-                    //viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
+            //console.log("EMPEZANDO JUEGO... " + JSON.stringify(response.data));
+            gameType = 1;
+            this.resetGame(JSON.parse(response.data.input));
+
+            //viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
         }).catch((error) => {
-                console.log("ERROR AL EMPEZAR JUEGO... " + error.message);
-                //viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
+            console.log("ERROR AL EMPEZAR JUEGO... " + error.message);
+            //viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
         });
     }
 }
