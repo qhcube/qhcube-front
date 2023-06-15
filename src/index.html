@@ -1016,6 +1016,9 @@
                     Permutar(const_columna, 0, 3);
                 }
             }
+            Ajustar_nivel();
+            Chequeo();
+            RepresentacionVista();
         }
 
         function Reducir(elem) {
@@ -1062,6 +1065,9 @@
                     var_coor[1][var_k][3] = x - y;
                 }
             }
+            Ajustar_nivel();
+            Chequeo();
+            RepresentacionVista();
         }
 
         function on_mouse_down(event) {
@@ -1235,7 +1241,6 @@
                             Rotar(const_columna, 3, 0);
                         }
                     }
-                    Ajustar_nivel();
                 } else {
                     if (var_t_c[var_cara_clicked][0] === const_cara_real) {
                         if (var_modo_tutorial) alert("Reducción por filas");
@@ -1246,10 +1251,7 @@
                         var_mensaje = "Reducción por columnas";
                         Reducir(const_columna);
                     }
-                    Ajustar_nivel();
                 }
-                Chequeo();
-                RepresentacionVista();
             }
         }
 
