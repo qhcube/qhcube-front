@@ -1276,12 +1276,15 @@
 
         // TODO: Esta función envía un input al servidor. Hay que implementar la respuesta.
         //  También hay que cambiar la URL según corresponda.
+
+        // const var_url = "http://localhost:9000/api/game/add-move";
+        const var_url = "https://qhcube.etsisi.upm.es:9000/api/game/add-move";
         async function addMove(move) {
             let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
             if (playerStored) {
                 await axios({
                     method: "post",
-                    url: "http://localhost:9000/api/game/add-move",
+                    url: var_url,
                     data: move,
                     headers: {
                         "Content-Type": "application/json",
