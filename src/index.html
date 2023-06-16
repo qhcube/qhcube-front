@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link rel='icon' href="assets/images/favicon.ico">
     <link rel="stylesheet" href="assets/css/default.css">
-    <script lang="javascript" type="text/javascript" src="assets/js/dist_axios.min.js"></script>
+    <script lang="javascript" type="module" src="assets/js/dist_axios.min.js"></script>
     <script type="text/javascript">
         // Variables globales
         /*
@@ -1277,9 +1277,13 @@
         // TODO: Esta función envía un input al servidor. Hay que implementar la respuesta.
         //  También hay que cambiar la URL según corresponda.
 
-        // const var_url = "http://localhost:9000/api/game/add-move";
-        const var_url = "https://qhcube.etsisi.upm.es:9000/api/game/add-move";
+        const var_url = "http://localhost:9000/api/game/add-move";
+        // const var_url = "https://qhcube.etsisi.upm.es:9000/api/game/add-move";
         async function addMove(move) {
+            console.log("-------------------------------");
+            console.log("¡OJO! USANDO URL: " + var_url);
+            console.log("-------------------------------");
+
             let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
             if (playerStored) {
                 await axios({
