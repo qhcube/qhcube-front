@@ -20,7 +20,6 @@ export default {
 
     },
 
-    // type: 0 -> init new game, 1 -> load last registered game
     async beginRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
@@ -32,19 +31,40 @@ export default {
             data: {email: playerStoreQHCube.email, jwttoken: playerStoreQHCube.jwttoken},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-            //console.log("EMPEZANDO JUEGO... " + JSON.stringify(response.data));
-            gameType = 1;
             result.status = response.data.player["respStatus"];
             result.input = response.data["input"];
             if (result.status !== "OK 0" && result.status !== "OK 1") {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
             }
-            this.resetGame(JSON.parse(response.data["input"]));
         }).catch((error) => {
             console.log("ERROR AL EMPEZAR JUEGO... " + error.message);
             viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
         });
 
+        return result;
+    },
+
+    async forceInitRegisteredGame() {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
+        let result = { status: "ERROR", input: "" };
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_API + "/game/init-registered-game-forced",
+            data: { email: playerStoreQHCube.email,
+                    jwttoken: playerStoreQHCube.jwttoken,
+                    games: [
+                        {id: 56, player: 83}
+                    ]
+            },
+            headers: {"Content-Type": "application/json"}
+        }).then((response) => {
+            result.status = response.data.player["respStatus"];
+            result.input = response.data["input"];
+        }).catch((error) => {
+            console.log("ERROR AL FORZAR PARTIDA NUEVA..." + error.message);
+            viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
+        });
         return result;
     },
 
@@ -60,7 +80,6 @@ export default {
             data: {email: playerStoreQHCube.email, jwttoken: playerStoreQHCube.jwttoken},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-            console.log("JUEGOS DEL JUGADOR... " + JSON.stringify(response.data));
             result = response.data;
         }).catch((error) => {
             console.log("ERROR PEDIR LOS JUEGOS DE UN JUGADOR... " + error.message);

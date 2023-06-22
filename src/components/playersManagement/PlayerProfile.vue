@@ -37,7 +37,8 @@
                     @click="this.viewStoreQHCube.setPlayerComponent('registered-player')" class="mt-4 mb-2"/>
          </div>
       </div>
-      <ConfirmDialog />
+
+      <ConfirmDialog key="deletePlayerConfirm" />
 
       <Message v-if="this.erasedPlayerMessage" severity="warn"
                @close="this.closeErasedPlayerMessage()"
@@ -72,6 +73,7 @@ export default {
    methods: {
       async deletePlayer() {
          this.$confirm.require ({
+            key: "deletePlayerConfirm",
             header: "Borrar jugador...",
             message: "¿Estás seguro de que quieres borrar tu usuario?",
             icon: "pi pi-info-circle",
@@ -92,9 +94,11 @@ export default {
                         this.viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
                         console.log("Error deleting player: " + error);
                   });
+               this.$confirm.close();
             },
             reject: () => {
                this.erasedRegretMessage = true;
+               this.$confirm.close();
             }
          });
       },
