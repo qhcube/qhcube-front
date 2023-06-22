@@ -1277,7 +1277,24 @@
         // TODO: Esta función envía un input al servidor. Hay que implementar la respuesta.
         //  También hay que cambiar la URL según corresponda.
 
+        /************************/
+        /* BEGIN DEV ENVIROMENT */
+        /************************/
         const var_url = "http://localhost:9000/api/game/add-move";
+        var_origen_y = var_width / 1.0;
+        var_origen_text_x = ((3.0*var_width)/8.0);
+        /************************/
+        /* END DEV ENVIROMENT   */
+        /************************/
+
+        /*************************/
+        /* BEGIN PROD ENVIROMENT */
+        /*************************/
+        // const var_url = "http://localhost:9000/api/game/add-move";
+        /*************************/
+        /* END PROD ENVIROMENT   */
+        /*************************/
+
         // const var_url = "https://qhcube.etsisi.upm.es:9000/api/game/add-move";
         async function addMove(move) {
             console.log("-------------------------------");
