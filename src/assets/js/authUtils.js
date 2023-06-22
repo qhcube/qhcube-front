@@ -24,18 +24,18 @@ export default {
         })
             .then((response) => {
                 playerStoreQHCube.email = player.email;
-                if (response.data.respStatus === "OK") {
+                if (response.data["respStatus"] === "OK") {
                     playerStoreQHCube.nombre = response.data.nombre;
                     playerStoreQHCube.apellidos = response.data.apellidos;
                     playerStoreQHCube.jwttoken = response.data.jwttoken;
                     if (playerStoreQHCube.isAuthenticated) {
                         axios.defaults.headers.common['Authorization'] = 'Bearer ' + playerStoreQHCube.jwttoken;
                     }
-                } else if (response.data.respMessage === "Usuario no activado.") {
-                    viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
+                } else if (response.data["respMessage"] === "Usuario no activado.") {
+                    viewStoreQHCube.setError(response.data["respStatus"], response.data["respMessage"], "");
                 } else {
                     playerStoreQHCube.$reset();
-                    viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
+                    viewStoreQHCube.setError(response.data["respStatus"], response.data["respMessage"], "");
                 }
             })
             .catch((error) => {
@@ -56,8 +56,8 @@ export default {
             data: {email: email, code: code},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-            result.status = response.data.respStatus;
-            result.message = response.data.respMessage;
+            result.status = response.data["respStatus"];
+            result.message = response.data["respMessage"];
         }).catch((error) => {
             result.status = "ERROR";
             result.message = "Ha habido un problema con servidor.";
@@ -81,8 +81,8 @@ export default {
             data: {email: email},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-            result.status = response.data.respStatus;
-            result.message = response.data.respMessage;
+            result.status = response.data["respStatus"];
+            result.message = response.data["respMessage"];
 
         }).catch((error) => {
             result.status = "ERROR";
@@ -107,14 +107,14 @@ export default {
             headers: {"Content-Type": "application/json"},
         })
             .then((response) => {
-                if (response.data.respStatus === "OK") {
+                if (response.data["respStatus"] === "OK") {
                     playerStoreQHCube.nombre = response.data.nombre;
                     playerStoreQHCube.apellidos = response.data.apellidos;
                     playerStoreQHCube.email = response.data.email;
                     playerStoreQHCube.jwttoken = response.data.jwttoken;
                 } else {
-                    viewStoreQHCube.setError(response.data.respStatus, response.data.respMessage, "");
-                    resultado = response.data.respMessage;
+                    viewStoreQHCube.setError(response.data["respStatus"], response.data["respMessage"], "");
+                    resultado = response.data["respMessage"];
                 }
             })
             .catch((error) => {
