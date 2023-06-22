@@ -21,7 +21,7 @@ export default {
     },
 
     // type: 0 -> init new game, 1 -> load last registered game
-    async beginRegisteredGame(type) {
+    async beginRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
         let result = { status: "ERROR", input: "" };
@@ -42,6 +42,28 @@ export default {
             this.resetGame(JSON.parse(response.data["input"]));
         }).catch((error) => {
             console.log("ERROR AL EMPEZAR JUEGO... " + error.message);
+            viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
+        });
+
+        return result;
+    },
+
+    async getGamesByPlayer() {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
+
+        let result = [];
+
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_API + "/game/get-games-by-player",
+            data: {email: playerStoreQHCube.email, jwttoken: playerStoreQHCube.jwttoken},
+            headers: {"Content-Type": "application/json"}
+        }).then((response) => {
+            console.log("JUEGOS DEL JUGADOR... " + JSON.stringify(response.data));
+            result = response.data;
+        }).catch((error) => {
+            console.log("ERROR PEDIR LOS JUEGOS DE UN JUGADOR... " + error.message);
             viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
         });
 
