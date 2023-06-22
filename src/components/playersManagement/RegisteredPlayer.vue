@@ -11,6 +11,8 @@
       </div>
 
       <div v-if="!this.hiddenComponent">
+         <game-list />
+
          <div class="flex flex-column px-3">
             <div class="flex flex-column align-items-start">
                <p>
@@ -34,10 +36,11 @@
 
 import RegisteredPlayerMenu from "./RegisteredPlayerMenu.vue";
 import gameUtils from "../../assets/js/gameUtils.js";
+import GameList from "../Games/GameList.vue";
 
 export default {
    name: "RegisteredPlayer",
-   components: {RegisteredPlayerMenu},
+   components: {GameList, RegisteredPlayerMenu},
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
@@ -64,12 +67,14 @@ export default {
       onHideComponent(newVal) {
          this.hiddenComponent = newVal;
       },
+
       initPractice() {
          this.activeGameType = 0;
          gameUtils.resetPracticeGame();
       },
+
       async initRegisteredGame() {
-         const result = await gameUtils.beginRegisteredGame(0);
+         const result = await gameUtils.beginRegisteredGame();
          console.log("INIT: " + JSON.stringify(result));
          if (result.status === "OK 0") {
             // TODO: Se ha creado uno nuevo. Todo bien. No había juego empezado.
@@ -80,8 +85,9 @@ export default {
          }
          this.activeGameType = 1;
       },
+
       async loadRegisteredGame() {
-         const result = await gameUtils.beginRegisteredGame(0);
+         const result = await gameUtils.beginRegisteredGame();
          console.log("LOAD: " + JSON.stringify(result));
          if (result.status === "OK 1") {
             // TODO: Se ha obtenido un juego empezado. Todo bien. Se continúa con este juego.
