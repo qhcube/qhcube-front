@@ -19,9 +19,9 @@
 
             </div>
             <div class="flex flex-row gap-2 align-items-start mt-4 mb-3">
-               <Button label="Iniciar Práctica" @click="this.initPractice()" severity="success"/>
-               <Button label="Iniciar Juego Registrado" @click="this.initRegisteredGame()" severity="success"/>
-               <Button label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success"/>
+               <Button v-if="this.activeGameType === 0" label="Reiniciar Práctica" @click="this.initPractice()" severity="success"/>
+               <Button v-if="this.activeGameType === 0" label="Iniciar Juego Registrado" @click="this.initRegisteredGame()" severity="success"/>
+               <Button v-if="this.activeGameType === 0" label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success"/>
                <Button v-if="this.activeGameType !== 0" label="Cancelar Juego Actual" @click="this.cancelGame()"
                        severity="warning"/>
             </div>
@@ -69,14 +69,33 @@ export default {
          gameUtils.resetPracticeGame();
       },
       async initRegisteredGame() {
-         await gameUtils.initRegisteredGame();
+         const result = await gameUtils.beginRegisteredGame(0);
+         console.log("INIT: " + JSON.stringify(result));
+         if (result.status === "OK 0") {
+            // TODO: Se ha creado uno nuevo. Todo bien. No había juego empezado.
+            console.log("Se ha creado uno nuevo. Todo bien. No había juego empezado.");
+         } else if (result.status === "OK 1") {
+            // TODO: Se ha obtenido un juego empezado. Hay que avisar de si se quiere cancelar o seguir con él.
+            console.log("Se ha obtenido un juego empezado. Hay que avisar de si se quiere cancelar o seguir con él.");
+         }
          this.activeGameType = 1;
       },
-      loadRegisteredGame() {
+      async loadRegisteredGame() {
+         const result = await gameUtils.beginRegisteredGame(0);
+         console.log("LOAD: " + JSON.stringify(result));
+         if (result.status === "OK 1") {
+            // TODO: Se ha obtenido un juego empezado. Todo bien. Se continúa con este juego.
+            console.log("Se ha obtenido un juego empezado. Todo bien. Se continúa con este juego.");
+         } else if (result.status === "OK 1") {
+            // TODO: Se ha creado uno nuevo. No había juego empezado. Se avisa y se sugiere crear uno nuevo.
+            console.log("Se ha creado uno nuevo. No había juego empezado. Se avisa y se sugiere crear uno nuevo.");
+         }
          this.activeGameType = 1;
+
       },
       cancelGame() {
-         this.activeGameType = 0;
+         // TODO: Sacar mensaje de confirmación y avisar de que se reinicia el modo práctica.
+         this.initPractice();
       }
    }
 }

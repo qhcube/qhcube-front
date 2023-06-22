@@ -20,9 +20,11 @@ export default {
 
     },
 
-    async initRegisteredGame() {
+    // type: 0 -> init new game, 1 -> load last registered game
+    async beginRegisteredGame(type) {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
+        let result = { status: "ERROR", input: "" };
 
         await axios({
             method: "post",
@@ -32,14 +34,17 @@ export default {
         }).then((response) => {
             //console.log("EMPEZANDO JUEGO... " + JSON.stringify(response.data));
             gameType = 1;
-            if (response.data.player["respStatus"] === "OK") {
-                this.resetGame(JSON.parse(response.data["input"]));
-            } else {
+            result.status = response.data.player["respStatus"];
+            result.input = response.data["input"];
+            if (result.status !== "OK 0" && result.status !== "OK 1") {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
             }
+            this.resetGame(JSON.parse(response.data["input"]));
         }).catch((error) => {
             console.log("ERROR AL EMPEZAR JUEGO... " + error.message);
             viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
         });
+
+        return result;
     }
 }
