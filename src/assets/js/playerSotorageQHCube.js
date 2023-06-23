@@ -5,7 +5,8 @@ export const usePlayerStoreQHCube = defineStore('playerStoreQHCube', {
         email: '',
         nombre: '',
         apellidos: '',
-        jwttoken: ''
+        jwttoken: '',
+        gameId: 0
     }),
     getters: {
         isAuthenticated: (state) => !!state.jwttoken,

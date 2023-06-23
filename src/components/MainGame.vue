@@ -1,7 +1,7 @@
 <template>
    <div class="flex flex-nowrrap flex-column">
       <!-- <canvas id="myCanvas" width="1000" height="600" style="border: 3px solid rgb(164,82,0);"> -->
-      <canvas id="myCanvas" width="560" height="550" class="shadow-6">
+      <canvas id="myCanvas" width="960" height="550" class="shadow-6">
          Your browser does not support HTML5 Canvas. Please shift to a newer browser.
       </canvas>
    </div>

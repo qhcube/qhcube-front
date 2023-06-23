@@ -20,6 +20,7 @@
         */
 
         let gameType = 0;
+        let var_e3_before = [Math.sqrt(14.0) / 5.0, Math.sqrt(10.0) / 5.0, 1.0 / 5.0];
 
         let var_width = 960.0;
         let var_height = 550.0;
@@ -236,16 +237,6 @@
             [const_cara_real, 3, 2], [const_cara_imag, 3, 2], [const_cara_real, 3, 3], [const_cara_imag, 3, 3]];
         let const_fila = 1;
         let const_columna = 2;
-        /*
-            let var_coor =
-            [
-                [
-                    [10, 11, 12, 13], [14, 15, 16, 17], [18, 19, 20, 21], [22, 23, 24, 25]],
-                [
-                    [50, 51, 52, 53], [54, 55, 56, 57], [58, 59, 60, 61], [62, 63, 64, 65]
-                ]
-            ];
-            */
         let var_coor = [[[7, -2, 1, 0],
             [3, 6, 1, 0],
             [-1, -1, 7, -1],
@@ -920,6 +911,10 @@
                     var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
                 }
             }
+
+            if (gameType === 1) {
+                addMove([1, elem, j, -1]);
+            }
         }
 
         function Rotar_filas_1_y_2() {
@@ -1016,6 +1011,11 @@
                     Permutar(const_columna, 0, 3);
                 }
             }
+
+            if (gameType === 1) {
+                addMove([3, elem, j, -1]);
+            }
+
             Ajustar_nivel();
             Chequeo();
             RepresentacionVista();
@@ -1065,6 +1065,11 @@
                     var_coor[1][var_k][3] = x - y;
                 }
             }
+
+            if (gameType === 1) {
+                addMove([2, elem, -1, -1]);
+            }
+
             Ajustar_nivel();
             Chequeo();
             RepresentacionVista();
@@ -1201,6 +1206,11 @@
 
         function on_mouse_up() {
             var_mouse_move = false;
+
+            if (gameType === 1 && JSON.stringify(var_e3) !== JSON.stringify(var_e3_before)) {
+                addMove([4, var_e3[0], var_e3[1], var_e3[2]]);
+                var_e3_before = var_e3.slice();
+            }
         }
 
         function mouse_dblclick_function() {
@@ -1281,8 +1291,8 @@
         /* BEGIN DEV ENVIROMENT */
         /************************/
         const var_url = "http://localhost:9000/api/game/add-move";
-        var_origen_y = var_width / 1.0;
-        var_origen_text_x = ((3.0*var_width)/8.0);
+        //var_origen_y = var_width / 1.0;
+        //var_origen_text_x = ((3.0*var_width)/8.0);
         /************************/
         /* END DEV ENVIROMENT   */
         /************************/
@@ -1306,7 +1316,7 @@
                 await axios({
                     method: "post",
                     url: var_url,
-                    data: move,
+                    data: JSON.stringify(move) + " " + playerStored.gameId,
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + playerStored.jwttoken

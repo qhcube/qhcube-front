@@ -11,6 +11,9 @@ export default {
     },
 
     resetPracticeGame() {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+        playerStoreQHCube.gameid = 0;
+
         this.resetGame([
             [
                 [7, -2, 1, 0], [3, 6, 1, 0], [-1, -1, 7, -1], [0, 1, -1, 6]],
@@ -23,7 +26,7 @@ export default {
     async beginRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
-        let result = { status: "ERROR", input: "" };
+        let result = { status: "ERROR", input: "", gameId: 0 };
 
         await axios({
             method: "post",
@@ -31,8 +34,11 @@ export default {
             data: {email: playerStoreQHCube.email, jwttoken: playerStoreQHCube.jwttoken},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
+            // TODO: Check response.data["input"] is not full of sensitive data
+            console.log("RESPONSE: " + JSON.stringify(response.data));
             result.status = response.data.player["respStatus"];
             result.input = response.data["input"];
+            result.gameId = response.data["id"];
             if (result.status !== "OK 0" && result.status !== "OK 1") {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
             }
@@ -83,7 +89,9 @@ export default {
             result = response.data;
         }).catch((error) => {
             console.log("ERROR PEDIR LOS JUEGOS DE UN JUGADOR... " + error.message);
-            viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
+
+            //viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
+
         });
 
         return result;

@@ -23,6 +23,8 @@ import { usePlayerStoreQHCube } from "./assets/js/playerSotorageQHCube.js";
 import {router} from "./assets/js/router.js";
 import {useViewStoreQHCube} from "./assets/js/viewStoreQHCube.js";
 import axios from "axios";
+import gameUtils from "./assets/js/gameUtils.js";
+import authUtils from "./assets/js/authUtils.js";
 
 const app = createApp(App);
 
@@ -57,6 +59,8 @@ axios.interceptors.response.use(
     error => {
         const viewStoreQHCube = useViewStoreQHCube();
 
+        console.log("AXIOS INTERCEPTOR ERROR: " + error.message);
+
         if (error.response.status === 401) {
             if (JSON.stringify(error.response.data).includes("Token expired")) {
                 viewStoreQHCube.setError("¡ ERROR !",
@@ -64,6 +68,7 @@ axios.interceptors.response.use(
             } else {
                 viewStoreQHCube.setError("¡ ERROR !", "Acceso NO autorizado.", error.message);
             }
+            authUtils.logout();
             return null;
         }
 

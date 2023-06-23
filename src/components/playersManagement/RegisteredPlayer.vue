@@ -30,7 +30,7 @@
          </div>
       </div>
 
-      <ConfirmDialog key="initGame" class="w-30rem">
+      <ConfirmDialog class="w-30rem">
          <template #message="slotProps">
             <div class="flex">
                <i class="align-self-center pr-3 text-yellow-700" :class="slotProps.message.icon" style="font-size: 1.5rem"></i>
@@ -90,25 +90,26 @@ export default {
          let result = await gameUtils.beginRegisteredGame();
 
          if (result.status === "OK 0") {
-            // TODO: Se ha creado uno nuevo. Todo bien. No había juego empezado.
             console.log("Se ha creado uno nuevo. Todo bien. No había juego empezado.");
+            console.log("RESULT: " + JSON.stringify(result));
+            this.playerStoreQHCube.gameId = result.gameId;
+            gameUtils.resetGame(JSON.parse(result.input));
+            // TODO: Mostrar mensaje para cerrar que solo diga que se ha empezado un nuevo juego.
          } else if (result.status === "OK 1") {
             this.$confirm.require({
-               key: "initGame",
                header: "Nuevo Juego Registrado",
                icon: "pi pi-exclamation-triangle",
                acceptLabel: "Continuar anterior",
                rejectLabel: "Comenzar nuevo",
                accept: () => {
+                  this.playerStoreQHCube.gameId = result.gameId;
                   gameUtils.resetGame(JSON.parse(result.input));
-                  this.$confirm.close();
                },
                reject: async () => {
                   // TODO: Decir al servidor que cancele el juego empezado y crear uno nuevo.
                   result = await gameUtils.forceInitRegisteredGame();
                   console.log("FORCE: " + JSON.stringify(result));
                   gameUtils.resetGame(JSON.parse(result.input));
-                  this.$confirm.close();
                }
             });
             console.log("Se ha obtenido un juego empezado. Hay que avisar de si se quiere cancelar o seguir con él.");
