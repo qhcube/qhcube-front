@@ -29,6 +29,11 @@
             </div>
          </div>
       </div>
+
+      <Message v-if="this.hiddenComponent && this.newGameStarted" severity="info" @close="this.newGameStarted=false; this.hiddenComponent=false"
+               style="margin: 2rem auto 4rem auto">
+         <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">Juego nuevo comenzado...</span><br/>
+      </Message>
    </div>
 </template>
 
@@ -37,15 +42,17 @@
 import RegisteredPlayerMenu from "./RegisteredPlayerMenu.vue";
 import gameUtils from "../../assets/js/gameUtils.js";
 import GameList from "../Games/GameList.vue";
+import Message from "primevue/message";
 
 export default {
    name: "RegisteredPlayer",
-   components: {GameList, RegisteredPlayerMenu},
+   components: {GameList, RegisteredPlayerMenu, Message},
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
          activeGameType: 0, // 0: Practice, 1: Registered Game, 2: Contest, 3: Presentation
-         hiddenComponent: false
+         hiddenComponent: false,
+         newGameStarted: false
       }
    },
    computed: {
@@ -79,7 +86,8 @@ export default {
          if (result.status === "OK 0") {
             this.playerStoreQHCube.gameId = result.gameId;
             gameUtils.resetGame(JSON.parse(result.input));
-            // TODO: Mostrar mensaje para cerrar que solo diga que se ha empezado un nuevo juego.
+            this.newGameStarted = true;
+            this.hiddenComponent = true;
          } else if (result.status === "OK 1") {
 
             this.$confirm.require({
@@ -90,12 +98,11 @@ export default {
                rejectLabel: "Comenzar nuevo",
                accept: () => {
                   this.playerStoreQHCube.gameId = result.gameId;
+                  this.playerStoreQHCube.movsList = result.movsList;
                   gameUtils.resetGame(JSON.parse(result.input));
                },
                reject: async () => {
-                  // TODO: Decir al servidor que cancele el juego empezado y crear uno nuevo.
                   result = await gameUtils.forceInitRegisteredGame();
-                  console.log("FORCE: " + JSON.stringify(result));
                   gameUtils.resetGame(JSON.parse(result.input));
                }
             });
