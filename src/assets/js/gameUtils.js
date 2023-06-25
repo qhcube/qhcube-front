@@ -60,7 +60,11 @@ export default {
             data: { email: playerStoreQHCube.email,
                     jwttoken: playerStoreQHCube.jwttoken,
                     games: [
-                        {id: 56, player: 83}
+                        {
+                            id: 56, player: {
+                                id: 83
+                            }
+                        }
                     ]
             },
             headers: {"Content-Type": "application/json"}
