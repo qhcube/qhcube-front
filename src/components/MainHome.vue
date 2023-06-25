@@ -1,25 +1,27 @@
 <template>
-    <div class="flex gap-3 py-4">
+   <div class="flex gap-3 py-4">
 
-         <main-game />
+      <main-game/>
 
-         <div v-if="this.viewStoreQHCube.getErrorStatus.length === 0" class="flex flex-nowrap flex-column gap-3 w-full">
-            <game-info-layout v-if="this.viewStoreQHCube.getPlayerComponent !== 'new-record'">
-                <component :is="this.viewStoreQHCube.getGameInfoComponent" />
-            </game-info-layout>
+      <confirm-dialog id="confirmDialog" class="w-30rem"/>
 
-            <player-layout v-if="this.viewStoreQHCube.getGameInfoComponent === 'brief-game-description'">
-                <component :is="this.viewStoreQHCube.getPlayerComponent" />
-            </player-layout>
-         </div>
+      <div v-if="this.viewStoreQHCube.getErrorStatus.length === 0" class="flex flex-nowrap flex-column gap-3 w-full">
+         <game-info-layout v-if="this.viewStoreQHCube.getPlayerComponent !== 'new-record'">
+            <component :is="this.viewStoreQHCube.getGameInfoComponent"/>
+         </game-info-layout>
 
-         <div v-else class="flex flex-nowrap flex-column gap-3 w-full">
-            <error-layout>
-               <component is="general-error" />
-            </error-layout>
-         </div>
+         <player-layout v-if="this.viewStoreQHCube.getGameInfoComponent === 'brief-game-description'">
+            <component :is="this.viewStoreQHCube.getPlayerComponent"/>
+         </player-layout>
+      </div>
 
-    </div>
+      <div v-else class="flex flex-nowrap flex-column gap-3 w-full">
+         <error-layout>
+            <component is="general-error"/>
+         </error-layout>
+      </div>
+
+   </div>
 </template>
 
 <script>
@@ -38,16 +40,17 @@ import GeneralError from "./errors/GeneralError.vue";
 import PlayerProfile from "./playersManagement/PlayerProfile.vue";
 
 export default {
-    name: "MainHome",
-    inject: ["playerStoreQHCube" , "viewStoreQHCube"],
-    components: {
-       ErrorLayout, PlayerLayout, GameInfoLayout, MainGame, BriefGameDescription,
-       LearnToPlay, GameMeaning, LoginAndRegister, NewRecord, RegisteredPlayer,
-       PlayerProfile, GeneralError},
+   name: "MainHome",
+   inject: ["playerStoreQHCube", "viewStoreQHCube"],
+   components: {
+      ErrorLayout, PlayerLayout, GameInfoLayout, MainGame, BriefGameDescription,
+      LearnToPlay, GameMeaning, LoginAndRegister, NewRecord, RegisteredPlayer,
+      PlayerProfile, GeneralError
+   },
    mounted() {
-       if (this.playerStoreQHCube.isAuthenticated) {
-            this.viewStoreQHCube.setPlayerComponent("registered-player");
-       }
+      if (this.playerStoreQHCube.isAuthenticated) {
+         this.viewStoreQHCube.setPlayerComponent("registered-player");
+      }
    }
 }
 </script>

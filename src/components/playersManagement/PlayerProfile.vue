@@ -38,8 +38,6 @@
          </div>
       </div>
 
-      <ConfirmDialog />
-
       <Message v-if="this.erasedPlayerMessage" severity="warn"
                @close="this.closeErasedPlayerMessage()"
                style="margin: 2rem auto 4rem auto">

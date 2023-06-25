@@ -2,8 +2,6 @@
 <template>
    <Menubar v-if="!this.loggedOutMessage && !this.logOutRegretMessage" :model="items" />
 
-   <ConfirmDialog />
-
    <Message v-if="this.loggedOutMessage" severity="info"
             @close="this.loggedOutMessage = false; this.playerStoreQHCube.$reset(); this.viewStoreQHCube.$reset()"
             style="z-index: 0; margin: 2rem auto 4rem auto">
@@ -68,11 +66,11 @@ export default defineComponent({
    methods: {
       logout() {
          this.$confirm.require({
-            header: 'Logging out...',
-            message: '¿Realmente quieres salir?',
-            icon: 'pi pi-info-circle',
-            acceptClass: 'p-button-danger',
-            acceptLabel: 'Sí',
+            header: "Logging out...",
+            message: "¿Realmente quieres salir?",
+            icon: "pi pi-info-circle",
+            acceptClass: "p-button-danger",
+            acceptLabel: "Sí",
             accept: () => {
                this.loggedOutMessage = true;
                gameType = 0;

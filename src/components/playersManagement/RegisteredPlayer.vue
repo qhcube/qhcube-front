@@ -29,19 +29,6 @@
             </div>
          </div>
       </div>
-
-      <ConfirmDialog class="w-30rem">
-         <template #message="slotProps">
-            <div class="flex">
-               <i class="align-self-center pr-3 text-yellow-700" :class="slotProps.message.icon" style="font-size: 1.5rem"></i>
-               <p class="pl-2 text-justify">
-                  Has querido empezar un nuevo juego pero tenías uno sin terminar.
-                  Puedes continuar el juego anterior o cancelarlo y crear uno nuevo,
-                  pero se perderá el progreso del juego anterior dejándolo como cancelado.
-               </p>
-            </div>
-         </template>
-      </ConfirmDialog>
    </div>
 </template>
 
@@ -90,14 +77,14 @@ export default {
          let result = await gameUtils.beginRegisteredGame();
 
          if (result.status === "OK 0") {
-            console.log("Se ha creado uno nuevo. Todo bien. No había juego empezado.");
-            console.log("RESULT: " + JSON.stringify(result));
             this.playerStoreQHCube.gameId = result.gameId;
             gameUtils.resetGame(JSON.parse(result.input));
             // TODO: Mostrar mensaje para cerrar que solo diga que se ha empezado un nuevo juego.
          } else if (result.status === "OK 1") {
+
             this.$confirm.require({
                header: "Nuevo Juego Registrado",
+               message: "Se ha encontrado un juego empezado. Si comienza uno  nuevo, se cerrará el anterior como cancelado. ¿Desea continuar con él o empezar uno nuevo?",
                icon: "pi pi-exclamation-triangle",
                acceptLabel: "Continuar anterior",
                rejectLabel: "Comenzar nuevo",
