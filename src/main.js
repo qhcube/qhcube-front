@@ -11,6 +11,10 @@ import InputText from "primevue/inputtext";
 import Menubar from 'primevue/menubar';
 import Message from "primevue/message";
 import ScrollPanel from 'primevue/scrollpanel';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import ColumnGroup from 'primevue/columngroup';
+import Row from 'primevue/row';
 
 import "primevue/resources/themes/saga-blue/theme.css"
 import "primevue/resources/primevue.min.css"
@@ -23,7 +27,6 @@ import { usePlayerStoreQHCube } from "./assets/js/playerSotorageQHCube.js";
 import {router} from "./assets/js/router.js";
 import {useViewStoreQHCube} from "./assets/js/viewStoreQHCube.js";
 import axios from "axios";
-import gameUtils from "./assets/js/gameUtils.js";
 import authUtils from "./assets/js/authUtils.js";
 
 const app = createApp(App);

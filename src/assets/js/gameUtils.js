@@ -84,6 +84,38 @@ export default {
         return result;
     },
 
+    getDate(date) {
+        const auxDate = new Date(date);
+        return ("0" + auxDate.getDate()).slice(-2) + "/"
+            + ("0" + (auxDate.getMonth() + 1)).slice(-2) + "/"
+            + auxDate.getFullYear();
+    },
+
+    getHour(date) {
+        const auxDate = new Date(date);
+        return ("0" + auxDate.getHours()).slice(-2) + ":"
+            + ("0" + auxDate.getMinutes()).slice(-2) + ":"
+            + ("0" + auxDate.getSeconds()).slice(-2);
+    },
+
+    getDiffTime(totalGameTime) {
+        let aux = new Date(totalGameTime).getTime();
+        let delta = Math.floor(aux / 1000);
+        let days = Math.floor(delta / 86400);
+        delta -= days * 86400;
+        let hours = Math.floor(delta / 3600) % 24;
+        delta -= hours * 3600;
+        let minutes = Math.floor(delta / 60) % 60;
+        delta -= minutes * 60;
+        let seconds = delta % 60;
+        return days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    },
+
+    getState(movsList) {
+        const lastMove = JSON.parse((movsList.replace(/],\[/g, "]:[").split(":").slice(-1))[0]);
+        return lastMove[0] === 5 ? (lastMove[1] === 1 ? "Resuelto" : "Cancelado") : "Abierto";
+    },
+
     async getGamesByPlayer() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
@@ -96,7 +128,19 @@ export default {
             data: {email: playerStoreQHCube.email, jwttoken: playerStoreQHCube.jwttoken},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-            result = response.data;
+            response.data.forEach((game) => {
+                const state = this.getState(game.movsList);
+                result.push({
+                    gameId: game.id,
+                    initialDate: this.getDate(game.initialTime),
+                    initialTime: this.getHour(game.initialTime),
+                    endDate: state === "Abierto" ? " - " : this.getDate(game.endTime),
+                    endTime: state === "Abierto" ? " - " : this.getHour(game.endTime),
+                    diffTime: this.getDiffTime(game.totalGameTime),
+                    state: state
+                });
+            });
+            console.log("JUEGOS DEL JUGADOR: " + JSON.stringify(result, undefined, 4));
         }).catch((error) => {
             console.log("ERROR PEDIR LOS JUEGOS DE UN JUGADOR... " + error.message);
             viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
