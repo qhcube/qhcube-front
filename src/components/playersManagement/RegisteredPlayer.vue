@@ -14,16 +14,10 @@
          <game-list />
 
          <div class="flex flex-column px-3">
-            <div class="flex flex-column align-items-start">
-               <p>
-                  Ahora estás en modo <b>{{ this.gameMode }}</b>
-               </p>
-
-            </div>
             <div class="flex flex-row gap-2 align-items-start mt-4 mb-3">
                <Button v-if="this.activeGameType === 0" label="Reiniciar Práctica" @click="this.initPractice()" severity="success"/>
                <Button v-if="this.activeGameType === 0" label="Iniciar Juego Registrado" @click="this.initRegisteredGame()" severity="success"/>
-               <Button v-if="this.activeGameType === 0" label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success"/>
+               <!-- <Button v-if="this.activeGameType === 0" label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success"/> -->
                <Button v-if="this.activeGameType !== 0" label="Cancelar Juego Actual" @click="this.cancelGame()"
                        severity="warning"/>
             </div>

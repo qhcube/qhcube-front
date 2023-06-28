@@ -1,27 +1,40 @@
 <template>
    <DataTable :value="this.games"
               scrollable
-              scrollHeight="218px"
-              class="p-datatable-sm p-datatable-striped"
-              style="min-width: 30rem">
+              scroll-height="218px"
+              class="p-datatable-sm p-datatable-striped p-2"
+              style="min-width: 660px">
       <ColumnGroup type="header">
          <Row>
-            <Column header="Inicio" :colspan="2" style="background-color: #cae6fc"/>
-            <Column header="Fin" :colspan="2" />
+            <Column header="Inicio" :colspan="2" style="background-color: var(--teal-200)"/>
+            <Column header="Fin" :colspan="2" style="background-color: var(--red-200)"/>
+            <Column header="" :colspan="2"/>
          </Row>
          <Row>
-            <Column header="Fecha" sortable field="initialDate" style="background-color: #cae6fc"/>
-            <Column header="Hora" field="initialTime" style="background-color: #cae6fc"/>
-            <Column header="Fecha" sortable field="endDate" />
-            <Column header="Hora" field="endTime" />
-            <Column header="Tiempo de juego" field="diffTime" />
+            <Column header="Fecha" sortable field="initialDate" style="background-color: var(--teal-200)"/>
+            <Column header="Hora" field="initialTime" style="background-color: var(--teal-200)"/>
+            <Column header="Fecha" sortable field="endDate" style="background-color: var(--red-200)"/>
+            <Column header="Hora" field="endTime" style="background-color: var(--red-200)"/>
+            <Column header="Tiempo de juego" field="diffTime" style="background-color: var(--orange-200)"/>
+            <Column header="" />
          </Row>
       </ColumnGroup>
-      <Column field="initialDate" style="background-color: #cae6fc"/>
-      <Column field="initialTime" style="background-color: #cae6fc"/>
-      <Column sortable field="endDate" />
-      <Column field="endTime" />
-      <Column field="diffTime" />
+      <Column field="initialDate" style="background-color: var(--teal-100)"/>
+      <Column field="initialTime" style="background-color: var(--teal-100)"/>
+      <Column sortable="true" field="endDate" style="background-color: var(--red-100)"/>
+      <Column field="endTime" style="background-color: var(--red-100)"/>
+      <Column field="diffTime" style="background-color: var(--orange-100)"/>
+
+      <Column header="Opciones">
+         <template #body="slotProps">
+            <div class="flex flex-nowrap">
+               <Button icon="pi pi-caret-right" class="p-button-sm btn-no-focus" text @click="alert('Play Clicked: ' + slotProps.data.gameId)"/>
+               <Button icon="pi pi-trash" class="p-button-sm btn-no-focus" text @click="alert('Trash Clicked: ' + slotProps.data.gameId)"/>
+               <Button icon="pi pi-replay" class="p-button-sm btn-no-focus" text @click="alert('Replay Clicked: ' + slotProps.data.gameId)"/>
+            </div>
+         </template>
+      </Column>
+
    </DataTable>
 </template>
 
@@ -32,11 +45,12 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import ColumnGroup from "primevue/columngroup";
 import Row from "primevue/row";
+import Button from "primevue/button";
 
 export default defineComponent({
    name: "GameList",
    inject: ["playerStoreQHCube", "viewStoreQHCube"],
-   components: {DataTable, Column, ColumnGroup, Row},
+   components: {DataTable, Column, ColumnGroup, Row, Button},
 
    data() {
       return {
@@ -47,13 +61,20 @@ export default defineComponent({
    async mounted() {
       this.games = await gameUtils.getGamesByPlayer();
       console.log(JSON.stringify(this.games, null, 4));
+   },
+
+   methods: {
+      alert(msg) {
+         alert(msg);
+      }
    }
 })
 
 </script>
 
 <style scoped>
-.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
-   background-color: red;
+.btn-no-focus:focus {
+   outline: none;
+   box-shadow: none;
 }
 </style>
