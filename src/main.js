@@ -11,10 +11,6 @@ import InputText from "primevue/inputtext";
 import Menubar from 'primevue/menubar';
 import Message from "primevue/message";
 import ScrollPanel from 'primevue/scrollpanel';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import ColumnGroup from 'primevue/columngroup';
-import Row from 'primevue/row';
 
 import "primevue/resources/themes/saga-blue/theme.css"
 import "primevue/resources/primevue.min.css"
