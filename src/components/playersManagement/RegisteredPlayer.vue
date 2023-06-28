@@ -11,12 +11,12 @@
       </div>
 
       <div v-if="!this.hiddenComponent">
-         <game-list />
+         <game-list ref="gameList" />
 
          <div class="flex flex-column px-3">
             <div class="flex flex-row gap-2 align-items-start mt-4 mb-3">
                <Button v-if="this.activeGameType === 0" label="Reiniciar Práctica" @click="this.initPractice()" severity="success"/>
-               <Button v-if="this.activeGameType === 0" label="Iniciar Juego Registrado" @click="this.initRegisteredGame()" severity="success"/>
+               <Button v-if="this.activeGameType === 0" label="Iniciar Juego Registrado" @click="this.createNewRegisteredGame()" severity="success"/>
                <!-- <Button v-if="this.activeGameType === 0" label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success"/> -->
                <Button v-if="this.activeGameType !== 0" label="Cancelar Juego Actual" @click="this.cancelGame()"
                        severity="warning"/>
@@ -72,6 +72,11 @@ export default {
       initPractice() {
          this.activeGameType = 0;
          gameUtils.resetPracticeGame();
+      },
+
+      async createNewRegisteredGame() {
+         await gameUtils.createNewRegisteredGame();
+         this.$refs.gameList.getGamesByPlayer();
       },
 
       async initRegisteredGame() {

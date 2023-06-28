@@ -25,6 +25,24 @@ export default {
 
     },
 
+    async createNewRegisteredGame() {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_API + "/game/create-new",
+            data: {email: playerStoreQHCube.email},
+            headers: {"Content-Type": "application/json"}
+        }).then((response) => {
+            console.log("createNewRegisteredGame: " + JSON.stringify(response.data, null, 2));
+            playerStoreQHCube.gameId = response.data.id;
+            playerStoreQHCube.movsList = response.data.movsList;
+            this.resetGame(JSON.parse(response.data.input));
+        }).catch((error) => {
+            console.log("ERROR in gameUtils.createNewRegisteredGame: " + error.message + " - " + error.response.status);
+        });
+    },
+
     async beginRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
@@ -138,7 +156,7 @@ export default {
                     state: state
                 });
             });
-            console.log("JUEGOS DEL JUGADOR: " + JSON.stringify(result, undefined, 4));
+            // console.log("JUEGOS DEL JUGADOR: " + JSON.stringify(result, undefined, 4));
         }).catch((error) => {
             console.log("ERROR in gameUtils.getGamesByPlayer: " + error.message + " - " + error.response.status);
         });
