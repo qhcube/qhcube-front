@@ -15,7 +15,7 @@ export default defineComponent({
    inject: ["playerStoreQHCube" , "viewStoreQHCube"],
    methods: {
       closeError() {
-         if (this.viewStoreQHCube.getErrorMessage === import.meta.env.VITE_APP_TOKEN_EXPIRED_MESSAGE) {
+         if (this.viewStoreQHCube.getOptionalErrorMessage.includes("401")) {
             authUtils.logout();
          }
          this.viewStoreQHCube.setError("", "", "");

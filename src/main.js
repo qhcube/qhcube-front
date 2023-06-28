@@ -23,7 +23,6 @@ import { usePlayerStoreQHCube } from "./assets/js/playerSotorageQHCube.js";
 import {router} from "./assets/js/router.js";
 import {useViewStoreQHCube} from "./assets/js/viewStoreQHCube.js";
 import axios from "axios";
-import authUtils from "./assets/js/authUtils.js";
 
 const app = createApp(App);
 
@@ -58,17 +57,19 @@ axios.interceptors.response.use(
     error => {
         const viewStoreQHCube = useViewStoreQHCube();
 
-        console.log("AXIOS INTERCEPTOR ERROR: " + error.message);
+        console.log("AXIOS INTERCEPTOR ERROR: " + error.message + " - " + error.response.status);
 
         if (error.response.status === 401) {
             if (JSON.stringify(error.response.data).includes("Token expired")) {
-                viewStoreQHCube.setError("¡ ERROR !",
-                    import.meta.env.VITE_APP_TOKEN_EXPIRED_MESSAGE, "Vuelve a iniciar sesión para continuar.");
+                viewStoreQHCube.setError("¡ ERROR ! ",
+                    "Tu sesión a expirado.", "Vuelve a iniciar sesión para continuar.");
             } else {
-                viewStoreQHCube.setError("¡ ERROR !", "Acceso NO autorizado.", error.message);
+                console.log("Acceso no autorizado");
+                viewStoreQHCube.setError("¡ ERROR ! ", "Acceso NO autorizado.", error.message);
             }
-            authUtils.logout();
-            return null;
+            //authUtils.logout();
+        } else {
+            viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
         }
 
         return Promise.reject(error);

@@ -44,7 +44,7 @@ export default {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
             }
         }).catch((error) => {
-            viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
+            console.log("ERROR in gameUtils.beginregisteredgame: " + error.message + " - " + error.response.status);
         });
 
         return result;
@@ -78,8 +78,7 @@ export default {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
             }
         }).catch((error) => {
-            console.log("ERROR AL FORZAR PARTIDA NUEVA..." + error.message);
-            viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
+            console.log("ERROR in gameUtils.forceInitRegisteredGame: " + error.message + " - " + error.response.status);
         });
         return result;
     },
@@ -118,7 +117,6 @@ export default {
 
     async getGamesByPlayer() {
         const playerStoreQHCube = usePlayerStoreQHCube();
-        const viewStoreQHCube = useViewStoreQHCube();
 
         let result = [];
 
@@ -142,8 +140,7 @@ export default {
             });
             console.log("JUEGOS DEL JUGADOR: " + JSON.stringify(result, undefined, 4));
         }).catch((error) => {
-            console.log("ERROR PEDIR LOS JUEGOS DE UN JUGADOR... " + error.message);
-            viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
+            console.log("ERROR in gameUtils.getGamesByPlayer: " + error.message + " - " + error.response.status);
         });
 
         return result;
