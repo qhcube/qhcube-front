@@ -15,7 +15,8 @@ export default defineComponent({
    inject: ["playerStoreQHCube" , "viewStoreQHCube"],
    methods: {
       closeError() {
-         if (this.viewStoreQHCube.getOptionalErrorMessage.includes("401")) {
+         const errorMsgFromServer = this.viewStoreQHCube.getOptionalErrorMessage;
+         if (errorMsgFromServer.includes("401") || errorMsgFromServer.includes("403")) {
             authUtils.logout();
          }
          this.viewStoreQHCube.setError("", "", "");

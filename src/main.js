@@ -57,8 +57,6 @@ axios.interceptors.response.use(
     error => {
         const viewStoreQHCube = useViewStoreQHCube();
 
-        console.log("AXIOS INTERCEPTOR ERROR: " + error.message + " - " + error.response.status);
-
         if (error.response.status === 401) {
             if (JSON.stringify(error.response.data).includes("Token expired")) {
                 viewStoreQHCube.setError("¡ ERROR ! ",
