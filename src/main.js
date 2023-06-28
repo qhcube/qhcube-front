@@ -60,7 +60,7 @@ axios.interceptors.response.use(
         if (error.response.status === 401) {
             if (JSON.stringify(error.response.data).includes("Token expired")) {
                 viewStoreQHCube.setError("¡ ERROR ! ",
-                    "Tu sesión a expirado.", "Vuelve a iniciar sesión para continuar.");
+                    "Tu sesión a expirado. Vuelve a iniciar sesión.", error.message);
             } else {
                 console.log("Acceso no autorizado");
                 viewStoreQHCube.setError("¡ ERROR ! ", "Acceso NO autorizado.", error.message);
