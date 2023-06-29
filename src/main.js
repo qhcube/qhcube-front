@@ -4,13 +4,19 @@ import App from './App.vue'
 import PrimeVue from 'primevue/config';
 import Button from 'primevue/button';
 import Card from 'primevue/card';
+import Column from "primevue/column";
+import ColumnGroup from "primevue/columngroup";
 import ConfirmDialog from 'primevue/confirmdialog';
 import ConfirmationService from 'primevue/confirmationservice';
+import DataTable from "primevue/datatable";
 import InlineMessage from "primevue/inlinemessage";
 import InputText from "primevue/inputtext";
 import Menubar from 'primevue/menubar';
 import Message from "primevue/message";
+import ProgressSpinner from "primevue/progressspinner";
+import Row from "primevue/row";
 import ScrollPanel from 'primevue/scrollpanel';
+import Tooltip from 'primevue/tooltip';
 
 import "primevue/resources/themes/saga-blue/theme.css"
 import "primevue/resources/primevue.min.css"
@@ -35,11 +41,18 @@ app.use(router);
 app.component('Button', Button);
 app.component('Card', Card);
 app.component('ConfirmDialog', ConfirmDialog);
+app.component('Column', Column);
+app.component('ColumnGroup', ColumnGroup);
+app.component('DataTable', DataTable);
 app.component('InputText', InputText);
 app.component('InlineMessage', InlineMessage);
-app.component('Message', Message);
-app.component('ScrollPanel', ScrollPanel);
 app.component('Menubar', Menubar);
+app.component('Message', Message);
+app.component('ProgressSpinner', ProgressSpinner);
+app.component('Row', Row);
+app.component('ScrollPanel', ScrollPanel);
+app.directive('Tooltip', Tooltip);
+
 
 app.provide('playerStoreQHCube', usePlayerStoreQHCube());
 app.provide('viewStoreQHCube', useViewStoreQHCube());

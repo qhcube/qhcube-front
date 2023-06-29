@@ -1,27 +1,28 @@
 <template>
    <div class="bg-red-50 p-2 shadow-6">
-      <div class="flex flex-nowrap three">
-         <h1>Descripción del juego</h1>
+      <div class="flex flex-nowrap three justify-content-between">
+         <div class="flex">
+            <h1>Descripción del juego</h1>
+         </div>
+         <div class="flex flex-nowrap gap-3 align-items-center">
+            <Button label="Aprende a jugar" rounded outlined
+                    @click="this.viewStoreQHCube.setGameInfoComponent('learn-to-play')"/>
+            <Button label="Significado del juego" rounded outlined
+                    @click="this.viewStoreQHCube.setGameInfoComponent('game-meaning')"/>
+
+         </div>
       </div>
-      <div class="flex flex-nowrap">
+
+      <div class="flex flex-column">
          <p>
             El hipercubo cuántico representa una <i>puerta cuántica discreta de dos cúbits</i>,
             es decir, una matriz 4x4
             cuyas entradas son números complejos de la forma <b>a+bi</b> con <i>a</i> y <i>b</i> enteros.
          </p>
-      </div>
-      <div class="flex flex-nowrap">
          <p>
             El <b>objetivo del juego</b> es
             conseguir, mediante una serie de movimientos, <b>que el hipercubo represente la matriz identidad</b>.
          </p>
-      </div>
-      <div class="flex flex-nowrap gap-3 align-items-start mb-2">
-         <Button label="Aprende a jugar" rounded outlined
-                 @click="this.viewStoreQHCube.setGameInfoComponent('learn-to-play')"/>
-         <Button label="Significado del juego" rounded outlined
-                 @click="this.viewStoreQHCube.setGameInfoComponent('game-meaning')"/>
-
       </div>
    </div>
 </template>

@@ -1,6 +1,8 @@
 
 <template>
-   <Menubar v-if="!this.loggedOutMessage && !this.logOutRegretMessage" :model="items" />
+   <Menubar v-if="!this.loggedOutMessage && !this.logOutRegretMessage" :model="items"
+            class="h-3rem"
+            style="font-size: 0.9rem"/>
 
    <Message v-if="this.loggedOutMessage" severity="info"
             @close="this.loggedOutMessage = false; this.playerStoreQHCube.$reset(); this.viewStoreQHCube.$reset()"

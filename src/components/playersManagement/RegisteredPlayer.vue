@@ -5,12 +5,12 @@
             <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
             <h4 v-if="!this.hiddenComponent" class="flex font-light" style="padding-bottom: 15px">(Modo {{ this.gameMode }})</h4>
          </div>
-         <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-4">
+         <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-6" style="z-index: 100">
             <registered-player-menu @hide-component-event="this.onHideComponent"/>
          </div>
       </div>
 
-      <div v-if="!this.hiddenComponent">
+      <div v-if="!this.hiddenComponent" style="z-index: 10">
          <game-list ref="gameList" />
 
          <div class="flex flex-column px-3">
@@ -79,6 +79,7 @@ export default {
          this.$refs.gameList.getGamesByPlayer();
       },
 
+      /*
       async initRegisteredGame() {
          let result = await gameUtils.beginRegisteredGame();
 
@@ -123,6 +124,8 @@ export default {
          this.activeGameType = 1;
 
       },
+      */
+
       cancelGame() {
          // TODO: Sacar mensaje de confirmación y avisar de que se reinicia el modo práctica.
          this.initPractice();
