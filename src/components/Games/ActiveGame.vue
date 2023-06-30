@@ -4,6 +4,7 @@
             class="z-2"
             style="margin: 2rem auto 4rem auto">
       <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">Juego nuevo comenzado...</span><br/>
+      <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">¡Buena suerte!</span>
    </Message>
 </template>
 

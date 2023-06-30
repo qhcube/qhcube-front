@@ -26,8 +26,7 @@
                        size="small"
                        severity="success"
                        class="button"
-               >
-               </Button>
+               />
                <Button v-if="this.activeGameType !== 0"
                        label="Cancelar Juego Actual"
                        @click="this.cancelGame()"
@@ -45,13 +44,6 @@
          </registered-player-layout>
       </div>
 
-      <!--
-      <div v-if="this.showGameList" class="z-1">
-         <game-list class="mt-3 mb-2" ref="gameList" />
-      </div>
-
-
-      -->
    </div>
 </template>
 
@@ -92,62 +84,16 @@ export default {
       async initPractice() {
          this.activeGameType = 0;
          gameUtils.resetPracticeGame();
-         await this.$refs.gameList.getGamesByPlayer();
+         this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
       },
 
       async createNewRegisteredGame() {
          await gameUtils.createNewRegisteredGame();
          if(this.viewStoreQHCube.errorStatus === "") {
+            this.activeGameType = 1;
             this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
          }
       },
-
-      /*
-      async initRegisteredGame() {
-         let result = await gameUtils.beginRegisteredGame();
-
-         if (result.status === "OK 0") {
-            this.playerStoreQHCube.gameId = result.gameId;
-            gameUtils.resetGame(JSON.parse(result.input));
-            this.newGameStarted = true;
-            this.hiddenComponent = true;
-         } else if (result.status === "OK 1") {
-
-            this.$confirm.require({
-               header: "Nuevo Juego Registrado",
-               message: "Se ha encontrado un juego empezado. Si comienza uno  nuevo, se cerrará el anterior como cancelado. ¿Desea continuar con él o empezar uno nuevo?",
-               icon: "pi pi-exclamation-triangle",
-               acceptLabel: "Continuar anterior",
-               rejectLabel: "Comenzar nuevo",
-               accept: () => {
-                  this.playerStoreQHCube.gameId = result.gameId;
-                  this.playerStoreQHCube.movsList = result.movsList;
-                  gameUtils.resetGame(JSON.parse(result.input));
-               },
-               reject: async () => {
-                  result = await gameUtils.forceInitRegisteredGame();
-                  gameUtils.resetGame(JSON.parse(result.input));
-               }
-            });
-            console.log("Se ha obtenido un juego empezado. Hay que avisar de si se quiere cancelar o seguir con él.");
-         }
-         this.activeGameType = 1;
-      },
-
-      async loadRegisteredGame() {
-         const result = await gameUtils.beginRegisteredGame();
-         console.log("LOAD: " + JSON.stringify(result));
-         if (result.status === "OK 1") {
-            // TODO: Se ha obtenido un juego empezado. Todo bien. Se continúa con este juego.
-            console.log("Se ha obtenido un juego empezado. Todo bien. Se continúa con este juego.");
-         } else if (result.status === "OK 1") {
-            // TODO: Se ha creado uno nuevo. No había juego empezado. Se avisa y se sugiere crear uno nuevo.
-            console.log("Se ha creado uno nuevo. No había juego empezado. Se avisa y se sugiere crear uno nuevo.");
-         }
-         this.activeGameType = 1;
-
-      },
-      */
 
       cancelGame() {
          // TODO: Sacar mensaje de confirmación y avisar de que se reinicia el modo práctica.

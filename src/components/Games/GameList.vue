@@ -100,6 +100,7 @@ export default defineComponent({
 
    async mounted() {
       await this.getGamesByPlayer();
+      console.log("MONTADO GAME LIST");
    },
 
    methods: {
