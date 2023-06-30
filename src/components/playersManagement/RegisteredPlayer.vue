@@ -163,4 +163,9 @@ export default {
    height: 40px;
    width: 120px;
 }
+
+.button:focus {
+   box-shadow: none !important;
+}
+
 </style>
