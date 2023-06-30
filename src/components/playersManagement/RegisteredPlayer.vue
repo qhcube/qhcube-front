@@ -1,27 +1,50 @@
 <template>
-   <div class="flex flex-column bg-indigo-50 shadow-6" :class="this.hiddenComponent ? 'h-12rem' : ''">
-      <div class="flex flex-row flex-nowrap three px-2" style="height: 75px">
-         <div class="flex flex-row gap-7 align-items-center">
+   <div class="flex flex-column bg-indigo-50 shadow-6"
+        :class="this.hiddenComponent ? 'h-12rem' : ''"
+        style="min-width: 860px">
+      <div class="flex flex-row flex-nowrap three pl-2 h-4rem"  style="height: 75px">
+         <div class="flex flex-row gap-6 align-items-center flex-grow-1">
             <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
-            <h4 v-if="!this.hiddenComponent" class="flex font-light" style="padding-bottom: 15px">(Modo {{ this.gameMode }})</h4>
+            <h4 v-if="!this.hiddenComponent" class="flex font-light" style="padding-bottom: 12px">
+               (Modo <span class="ml-1 font-semibold">{{ this.gameMode }}</span>)
+            </h4>
          </div>
-         <div class="flex flex-row-reverse flex-grow-1 align-self-start pt-4 pr-6" style="z-index: 100">
-            <registered-player-menu @hide-component-event="this.onHideComponent"/>
+
+         <div class="flex flex-row-reverse align-items-center gap-6 pr-6 z-2">
+            <registered-player-menu
+                  @hide-component-event="this.onHideComponent"
+
+            />
+
+            <div class="flex flex-nowrap gap-2 self">
+               <Button v-if="this.activeGameType === 0"
+                       label="Reiniciar Práctica"
+                       @click="this.initPractice()"
+                       size="small"
+                       severity="success"
+                       class="button"
+               />
+               <Button v-if="this.activeGameType === 0"
+                       label="Nuevo Juego Registrado"
+                       @click="this.createNewRegisteredGame()"
+                       size="small"
+                       severity="success"
+                       class="button"
+               >
+               </Button>
+               <Button v-if="this.activeGameType !== 0"
+                       label="Cancelar Juego Actual"
+                       @click="this.cancelGame()"
+                       size="small"
+                       severity="warning"
+                       class="button"
+               />
+            </div>
          </div>
       </div>
 
-      <div v-if="!this.hiddenComponent" style="z-index: 10">
-         <game-list ref="gameList" />
-
-         <div class="flex flex-column px-3">
-            <div class="flex flex-row gap-2 align-items-start mt-4 mb-3">
-               <Button v-if="this.activeGameType === 0" label="Reiniciar Práctica" @click="this.initPractice()" severity="success"/>
-               <Button v-if="this.activeGameType === 0" label="Iniciar Juego Registrado" @click="this.createNewRegisteredGame()" severity="success"/>
-               <!-- <Button v-if="this.activeGameType === 0" label="Continuar Último Juego Registrado" @click="this.loadRegisteredGame()" severity="success"/> -->
-               <Button v-if="this.activeGameType !== 0" label="Cancelar Juego Actual" @click="this.cancelGame()"
-                       severity="warning"/>
-            </div>
-         </div>
+      <div v-if="!this.hiddenComponent" class="z-1">
+         <game-list class="mt-3 mb-2" ref="gameList" />
       </div>
 
       <Message v-if="this.hiddenComponent && this.newGameStarted" severity="info" @close="this.newGameStarted=false; this.hiddenComponent=false"
@@ -54,7 +77,7 @@ export default {
          if (this.activeGameType === 0)
             return "Práctica";
          else if (this.activeGameType === 1)
-            return "Juego Registrado";
+            return "Registrado";
          else if (this.activeGameType === 2)
             return "Concurso";
       }
@@ -135,5 +158,8 @@ export default {
 </script>
 
 <style scoped>
-
+.button {
+   height: 40px;
+   width: 120px;
+}
 </style>

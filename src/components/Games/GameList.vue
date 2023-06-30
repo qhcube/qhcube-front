@@ -6,7 +6,7 @@
               :sortOrder="-1"
               scroll-height="218px"
               class="p-datatable-sm p-2"
-              style="min-width: 720px">
+              style="min-width: 860px">
       <template #empty>
          <div class="flex">
             <p class="mt-2 mb-2 m-auto">
@@ -56,7 +56,7 @@
       </Column>
 
 
-      <Column header="Opciones">
+      <Column header="Opciones" style="max-width: 80px">
          <template #body="slotProps">
             <div class="flex flex-nowrap">
                <Button
