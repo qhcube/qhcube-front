@@ -16,6 +16,8 @@ import Message from "primevue/message";
 import ProgressSpinner from "primevue/progressspinner";
 import Row from "primevue/row";
 import ScrollPanel from 'primevue/scrollpanel';
+import Toast from 'primevue/toast';
+import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
 
 import "primevue/resources/themes/saga-blue/theme.css"
@@ -51,8 +53,9 @@ app.component('Message', Message);
 app.component('ProgressSpinner', ProgressSpinner);
 app.component('Row', Row);
 app.component('ScrollPanel', ScrollPanel);
+app.component('Toast', Toast);
+app.use(ToastService);
 app.directive('Tooltip', Tooltip);
-
 
 app.provide('playerStoreQHCube', usePlayerStoreQHCube());
 app.provide('viewStoreQHCube', useViewStoreQHCube());
