@@ -3,7 +3,7 @@
    <ul>
       <li>{{ this.activeGame.id }}</li>
       <li>Fecha inicial: {{ gameUtils.getDate(this.activeGame.initialTime) }}</li>
-      <li>Hola</li>
+      <li>Hora inicial: {{ gameUtils.getHour(this.activeGame.initialTime)}}</li>
    </ul>
    <Toast position="center"/>
 </template>
@@ -15,15 +15,15 @@ import gameUtils from "../../assets/js/gameUtils.js";
 
 export default defineComponent({
    name: "ActiveGame",
-   computed: {
-      gameUtils() {
-         return gameUtils
-      }
-   },
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
         activeGame: {"id":0,"initialTime":"","endTime":"","totalGameTime":"","movsList":"","input":"","currentInput":"","player":{"respStatus":"","respMessage":""}}
+      }
+   },
+   computed: {
+      gameUtils() {
+         return gameUtils
       }
    },
    async mounted() {
