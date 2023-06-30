@@ -92,14 +92,15 @@ export default {
          this.hiddenComponent = newVal;
       },
 
-      initPractice() {
+      async initPractice() {
          this.activeGameType = 0;
          gameUtils.resetPracticeGame();
+         await this.$refs.gameList.getGamesByPlayer();
       },
 
       async createNewRegisteredGame() {
          await gameUtils.createNewRegisteredGame();
-         this.$refs.gameList.getGamesByPlayer();
+         await this.$refs.gameList.getGamesByPlayer();
       },
 
       /*
