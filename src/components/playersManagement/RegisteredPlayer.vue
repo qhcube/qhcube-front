@@ -83,6 +83,7 @@ export default {
    methods: {
       async initPractice() {
          this.activeGameType = 0;
+         this.playerStoreQHCube.gameId = 0;
          gameUtils.resetPracticeGame();
          this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
       },
