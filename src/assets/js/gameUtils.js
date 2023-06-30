@@ -25,6 +25,24 @@ export default {
 
     },
 
+    async getActiveGame() {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+        let result = {};
+
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_API + "/game/get-game",
+            data: {email: playerStoreQHCube.email, games: [{id: playerStoreQHCube.gameId}]},
+            headers: {"Content-Type": "application/json"}
+        }).then((response) => {
+            result = response.data;
+        }).catch((error) => {
+            console.log("ERROR in gameUtils.getActiveGame: " + error.message + " - " + error.response.status);
+        });
+
+        return result;
+    },
+
     async createNewRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
@@ -194,7 +212,5 @@ export default {
             }
             i--;
         }
-
-        console.log("MOVSLIST: " + playerStoreQHCube.movsList);
     }
 }
