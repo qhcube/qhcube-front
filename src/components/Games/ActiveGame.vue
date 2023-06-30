@@ -1,19 +1,24 @@
 <template>
-   <Message @close="this.viewStoreQHCube.setRegisteredPlayerComponent('game-list')"
-            severity="info"
-            class="z-2"
-            style="margin: 2rem auto 4rem auto">
-      <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">Juego nuevo comenzado...</span><br/>
-      <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">¡Buena suerte!</span>
-   </Message>
+
+   <Toast position="center"/>
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import {defineComponent} from 'vue';
+import {useToast} from "primevue/usetoast";
 
 export default defineComponent({
    name: "ActiveGame",
-   inject: ['playerStoreQHCube', 'viewStoreQHCube']
+   inject: ['playerStoreQHCube', 'viewStoreQHCube'],
+   mounted() {
+      const toast = useToast();
+      this.$toast.add({
+         severity: 'info',
+         summary: 'Juego nuevo comenzado...',
+         detail: '¡Buena suerte!',
+         life: 1700
+      });
+   }
 })
 </script>
 

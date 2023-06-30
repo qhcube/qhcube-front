@@ -5,7 +5,7 @@
               sortField="initialDate"
               :sortOrder="-1"
               scroll-height="218px"
-              class="p-datatable-sm p-2"
+              class="p-datatable-sm p-2 py-3"
               style="min-width: 860px">
       <template #empty>
          <div class="flex">
