@@ -97,7 +97,18 @@ export default {
 
       cancelGame() {
          // TODO: Sacar mensaje de confirmación y avisar de que se reinicia el modo práctica.
-         this.initPractice();
+         this.$confirm.require({
+            header: "Cancelar juego actual...",
+            message: "¿Realmente quieres salir y volver a la práctica?",
+            icon: "pi pi-info-circle",
+            acceptClass: "p-button-danger",
+            acceptLabel: "Sí",
+            accept: () => {
+               this.initPractice();
+            },
+            reject: () => {
+            }
+         });
       }
    }
 }
