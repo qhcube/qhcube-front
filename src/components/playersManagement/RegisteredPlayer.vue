@@ -100,7 +100,9 @@ export default {
 
       async createNewRegisteredGame() {
          await gameUtils.createNewRegisteredGame();
-         await this.$refs.gameList.getGamesByPlayer();
+         if(this.viewStoreQHCube.errorStatus === "") {
+            await this.$refs.gameList.getGamesByPlayer();
+         }
       },
 
       /*

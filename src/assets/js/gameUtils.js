@@ -27,6 +27,7 @@ export default {
 
     async createNewRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
 
         await axios({
             method: "post",
@@ -35,9 +36,15 @@ export default {
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
             console.log("createNewRegisteredGame: " + JSON.stringify(response.data, null, 2));
-            playerStoreQHCube.gameId = response.data.id;
-            playerStoreQHCube.movsList = response.data.movsList;
-            this.resetGame(JSON.parse(response.data.input));
+            console.log("ERROR: " + response.data.player["respStatus"] + " - " + response.data.player["respMessage"]);
+            if (response.data.player["respStatus"] === "OK") {
+                playerStoreQHCube.gameId = response.data.id;
+                playerStoreQHCube.movsList = response.data.movsList;
+                this.resetGame(JSON.parse(response.data.input));
+            } else {
+                viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
+            }
+
         }).catch((error) => {
             console.log("ERROR in gameUtils.createNewRegisteredGame: " + error.message + " - " + error.response.status);
         });
