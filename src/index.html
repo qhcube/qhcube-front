@@ -1325,9 +1325,13 @@
                     .then((response) => {
                         if (response.headers["authorization"]) {
                             playerStored.jwttoken = response.headers["authorization"].slice(7);
-                            localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
                         }
-                        console.log("index.enviarInputTest(input) response: " + JSON.stringify(response.data));
+                        // console.log("index.enviarInputTest(input) response: " + JSON.stringify(response.data));
+                        // TODO: Si el servidor responde con un error, hay que deshacer el movimiento y avisar al usuario.
+                        console.log("movs:" + JSON.stringify(playerStored.movsList));
+                        playerStored.movsList += ",[" + move + "]";
+                        console.log("movs:" + JSON.stringify(playerStored.movsList));
+                        localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
                     })
                     .catch((error) => {
                         console.log("index.enviarInputTest(input) error: " + error);
