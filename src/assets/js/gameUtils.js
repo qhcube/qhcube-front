@@ -35,8 +35,6 @@ export default {
             data: {email: playerStoreQHCube.email},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-            console.log("createNewRegisteredGame: " + JSON.stringify(response.data, null, 2));
-            console.log("ERROR: " + response.data.player["respStatus"] + " - " + response.data.player["respMessage"]);
             if (response.data.player["respStatus"] === "OK") {
                 playerStoreQHCube.gameId = response.data.id;
                 playerStoreQHCube.movsList = response.data.movsList;

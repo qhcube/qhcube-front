@@ -1,20 +1,16 @@
 <template>
-   <div class="flex flex-column bg-indigo-50 shadow-6"
-        :class="this.hiddenComponent ? 'h-12rem' : ''"
+   <div class="flex flex-column bg-indigo-50 shadow-6 h-20rem"
         style="min-width: 860px">
       <div class="flex flex-row flex-nowrap three pl-2 h-4rem"  style="height: 75px">
          <div class="flex flex-row gap-6 align-items-center flex-grow-1">
             <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
-            <h4 v-if="!this.hiddenComponent" class="flex font-light" style="padding-bottom: 12px">
+            <h4 class="flex font-light" style="padding-bottom: 12px">
                (Modo <span class="ml-1 font-semibold">{{ this.gameMode }}</span>)
             </h4>
          </div>
 
          <div class="flex flex-row-reverse align-items-center gap-6 pr-6 z-2">
-            <registered-player-menu
-                  @hide-component-event="this.onHideComponent"
-
-            />
+            <registered-player-menu />
 
             <div class="flex flex-nowrap gap-2 self">
                <Button v-if="this.activeGameType === 0"
@@ -43,14 +39,19 @@
          </div>
       </div>
 
-      <div v-if="!this.hiddenComponent" class="z-1">
+      <div class="z-1">
+         <registered-player-layout>
+            <component :is="this.viewStoreQHCube.getRegisteredPlayerComponent"/>
+         </registered-player-layout>
+      </div>
+
+      <!--
+      <div v-if="this.showGameList" class="z-1">
          <game-list class="mt-3 mb-2" ref="gameList" />
       </div>
 
-      <Message v-if="this.hiddenComponent && this.newGameStarted" severity="info" @close="this.newGameStarted=false; this.hiddenComponent=false"
-               style="margin: 2rem auto 4rem auto">
-         <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">Juego nuevo comenzado...</span><br/>
-      </Message>
+
+      -->
    </div>
 </template>
 
@@ -59,17 +60,17 @@
 import RegisteredPlayerMenu from "./RegisteredPlayerMenu.vue";
 import gameUtils from "../../assets/js/gameUtils.js";
 import GameList from "../Games/GameList.vue";
-import Message from "primevue/message";
+import PlayerLayout from "../layouts/PlayerLayout.vue";
+import RegisteredPlayerLayout from "../layouts/RegisteredPlayerLayout.vue";
+import ActiveGame from "../Games/ActiveGame.vue";
 
 export default {
    name: "RegisteredPlayer",
-   components: {GameList, RegisteredPlayerMenu, Message},
+   components: {RegisteredPlayerLayout, PlayerLayout, GameList, RegisteredPlayerMenu, ActiveGame},
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
          activeGameType: 0, // 0: Practice, 1: Registered Game, 2: Contest, 3: Presentation
-         hiddenComponent: false,
-         newGameStarted: false
       }
    },
    computed: {
@@ -88,10 +89,6 @@ export default {
       }
    },
    methods: {
-      onHideComponent(newVal) {
-         this.hiddenComponent = newVal;
-      },
-
       async initPractice() {
          this.activeGameType = 0;
          gameUtils.resetPracticeGame();
@@ -101,7 +98,7 @@ export default {
       async createNewRegisteredGame() {
          await gameUtils.createNewRegisteredGame();
          if(this.viewStoreQHCube.errorStatus === "") {
-            await this.$refs.gameList.getGamesByPlayer();
+            this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
          }
       },
 
