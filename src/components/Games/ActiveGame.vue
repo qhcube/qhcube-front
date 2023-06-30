@@ -15,6 +15,11 @@ import gameUtils from "../../assets/js/gameUtils.js";
 
 export default defineComponent({
    name: "ActiveGame",
+   computed: {
+      gameUtils() {
+         return gameUtils
+      }
+   },
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
