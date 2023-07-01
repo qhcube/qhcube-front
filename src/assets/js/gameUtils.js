@@ -212,5 +212,26 @@ export default {
             }
             i--;
         }
+    },
+
+    async deleteGame(gameId) {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
+        let result = { status: "", respMessage: ""};
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_API + "/game/delete",
+            data: { email: playerStoreQHCube.email, games: [{ id: gameId }] },
+            headers: {"Content-Type": "application/json"}
+        }).then((response) => {
+            result.status = response.data.player["respStatus"];
+            result.respMessage = response.data.player["respMessage"];
+            if (result.status !== "OK") {
+                viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
+            }
+            return result;
+        }).catch((error) => {
+            console.log("ERROR in gameUtils.deleteGame: " + error.message + " - " + error.response.status);
+        });
     }
 }

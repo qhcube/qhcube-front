@@ -66,7 +66,7 @@
                      v-tooltip.top="'Continuar juego'"
                      class="p-button-sm btn-no-focus"/>
                <Button
-                     @click="alert('Trash Clicked: ' + slotProps.data.gameId)"
+                     @click="this.deleteGame(slotProps.data.gameId)"
                      icon="pi pi-trash"
                      text
                      v-tooltip.top="'Eliminar juego'"
@@ -80,8 +80,23 @@
             </div>
          </template>
       </Column>
-
    </DataTable>
+
+   <Toast position="center">
+      <template #message="slotProps">
+         <div class="flex flex-column align-items-center" style="flex: 1">
+            <div class="text-center">
+               <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+               <div class="font-bold text-xl my-3">{{ slotProps.message.summary }}</div>
+               <div v-if="slotProps.message.detail" class="text-sm mb-5">{{ slotProps.message.detail }}</div>
+            </div>
+            <div class="flex gap-2">
+               <Button severity="secondary" label="No" @click="this.$toast.removeAllGroups()"></Button>
+               <Button severity="success" label="Sí" @click="this[this.confirmInfo.method]()"></Button>
+            </div>
+         </div>
+      </template>
+   </Toast>
 </template>
 
 <script>
@@ -94,13 +109,16 @@ export default defineComponent({
    data() {
       return {
          loading: false,
+         confirmInfo: {
+            method: "",
+            param: ""
+         },
          games: null
       }
    },
 
    async mounted() {
       await this.getGamesByPlayer();
-      console.log("MONTADO GAME LIST");
    },
 
    methods: {
@@ -114,9 +132,21 @@ export default defineComponent({
          });
          this.loading = false;
       },
-      alert(msg) {
-         alert(msg);
-      }
+      deleteGame(gameId) {
+         this.confirmInfo.method = "onConfirmDelete";
+         this.confirmInfo.param = gameId;
+         this.$toast.add({ severity: 'warn', summary: '¿Seguro que quieres borrar el juego?', detail: 'Esta acción no se puede deshacer'});
+      },
+
+      async onConfirmDelete() {
+         this.$toast.removeAllGroups();
+         await gameUtils.deleteGame(this.confirmInfo.param);
+         await this.getGamesByPlayer();
+      },
+
+      onReject() {
+         this.$toast.removeAllGroups();
+      },
    }
 })
 
