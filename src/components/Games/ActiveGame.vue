@@ -5,7 +5,7 @@
       <li>Fecha inicial: {{ gameUtils.getDate(this.activeGame.initialTime) }}</li>
       <li>Hora inicial: {{ gameUtils.getHour(this.activeGame.initialTime)}}</li>
    </ul>
-   <Toast position="center"/>
+   <Toast position="center" group="luck"/>
 </template>
 
 <script>
@@ -31,7 +31,9 @@ export default defineComponent({
          severity: 'info',
          summary: 'Juego nuevo comenzado...',
          detail: '¡Buena suerte!',
-         life: 1700
+         closable: false,
+         life: 1700,
+         group: 'luck',
       });
 
       this.activeGame = await gameUtils.getActiveGame();

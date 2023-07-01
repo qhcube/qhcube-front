@@ -3,7 +3,7 @@
               :loading="this.loading"
               scrollable
               sortField="initialDate"
-              :sortOrder="-1"
+              :sortOrder="1"
               scroll-height="218px"
               class="p-datatable-sm p-2 py-3"
               style="min-width: 860px">
@@ -82,7 +82,7 @@
       </Column>
    </DataTable>
 
-   <Toast position="center">
+   <Toast position="center" group="cc">
       <template #message="slotProps">
          <div class="flex flex-column align-items-center" style="flex: 1">
             <div class="text-center">
@@ -91,7 +91,7 @@
                <div v-if="slotProps.message.detail" class="text-sm mb-5">{{ slotProps.message.detail }}</div>
             </div>
             <div class="flex gap-2">
-               <Button severity="secondary" label="No" @click="this.$toast.removeAllGroups()"></Button>
+               <Button severity="secondary" label="No" @click="alert('ddd')"></Button>
                <Button severity="success" label="Sí" @click="this[this.confirmInfo.method]()"></Button>
             </div>
          </div>
@@ -135,7 +135,7 @@ export default defineComponent({
       deleteGame(gameId) {
          this.confirmInfo.method = "onConfirmDelete";
          this.confirmInfo.param = gameId;
-         this.$toast.add({ severity: 'warn', summary: '¿Seguro que quieres borrar el juego?', detail: 'Esta acción no se puede deshacer'});
+         this.$toast.add({ severity: 'warn', summary: '¿Seguro que quieres borrar el juego?', detail: 'Esta acción no se puede deshacer', group: 'cc' });
       },
 
       async onConfirmDelete() {
