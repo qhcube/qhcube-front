@@ -172,15 +172,16 @@ export default defineComponent({
       width: 100%;
       display: flex;
       align-items: center;
-
-      &.open {
-         background-color: var(--purple-100);
-      }
-      &.cancelled {
-         background-color: var(--red-200);
-      }
-      &.solved {
-         background-color: var(--green-200);
-      }
    }
+
+   .open {
+      background-color: var(--purple-100);
+   }
+   .cancelled {
+      background-color: var(--red-200);
+   }
+   .solved {
+      background-color: var(--green-200);
+   }
+
 </style>
