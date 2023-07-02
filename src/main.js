@@ -34,7 +34,17 @@ import axios from "axios";
 
 const app = createApp(App);
 
-app.use(PrimeVue, { ripple: true , inputStyle: 'filled' });
+app.use(PrimeVue, {
+    ripple: true ,
+    inputStyle: 'filled',
+    zIndex: {
+        modal: 1100,        //dialog, sidebar
+        overlay: 1000,      //dropdown, overlaypanel
+        menu: 1000,         //overlay menus
+        tooltip: 1100       //tooltip
+    }
+});
+
 
 app.use(createPinia().use(piniaPersist));
 app.use(router);

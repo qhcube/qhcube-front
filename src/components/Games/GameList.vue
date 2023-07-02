@@ -84,6 +84,8 @@
 
    <Toast position="center" group="cc"/>
 
+   <ConfirmDialog group="gameList"/>
+
 </template>
 
 <script>
@@ -119,11 +121,12 @@ export default defineComponent({
 
       async deleteGame(gameId) {
          this.$confirm.require({
-            message: '¿Seguro que quieres borrar el juego?',
-            header: 'Borrar juego',
-            icon: 'pi pi-exclamation-triangle',
+            message: "¿Seguro que quieres borrar el juego?",
+            header: "Borrar juego",
+            icon: "pi pi-exclamation-triangle",
             acceptClass: "p-button-danger",
             acceptLabel: "Sí",
+            group: "gameList",
             accept: async () => {
                await gameUtils.deleteGame(gameId);
                this.$toast.add({severity: 'info', summary: 'Juego eliminado.', group: 'cc', life: 1500 });
@@ -134,6 +137,9 @@ export default defineComponent({
             }
          });
       },
+      alert(msg) {
+         this.$toast.add({severity: 'info', summary: msg, group: 'cc', life: 1500 });
+      }
    }
 })
 
