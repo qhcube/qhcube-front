@@ -38,7 +38,6 @@ export default defineComponent({
    },
    methods: {
          refreshGame(game) {
-            console.log("GAME: " + JSON.stringify(game));
             this.activeGame = game;
          }
    }
