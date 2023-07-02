@@ -82,21 +82,8 @@
       </Column>
    </DataTable>
 
-   <Toast position="bottom-right" group="cc">
-      <template #message="slotProps">
-         <div class="flex flex-column align-items-center" style="flex: 1">
-            <div class="text-center">
-               <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-               <div class="font-bold text-xl my-3">{{ slotProps.message.summary }}</div>
-               <div v-if="slotProps.message.detail" class="text-sm mb-5">{{ slotProps.message.detail }}</div>
-            </div>
-            <div class="flex gap-2">
-               <Button severity="secondary" label="No" @click="alert('ddd')"></Button>
-               <Button severity="success" label="Sí" @click="this[this.confirmInfo.method]()"></Button>
-            </div>
-         </div>
-      </template>
-   </Toast>
+   <Toast position="center" group="cc"/>
+
 </template>
 
 <script>
@@ -109,10 +96,7 @@ export default defineComponent({
    data() {
       return {
          loading: false,
-         confirmInfo: {
-            method: "",
-            param: ""
-         },
+
          games: null
       }
    },
@@ -132,20 +116,23 @@ export default defineComponent({
          });
          this.loading = false;
       },
-      deleteGame(gameId) {
-         this.confirmInfo.method = "onConfirmDelete";
-         this.confirmInfo.param = gameId;
-         this.$toast.add({ severity: 'warn', summary: '¿Seguro que quieres borrar el juego?', detail: 'Esta acción no se puede deshacer', group: 'cc' });
-      },
 
-      async onConfirmDelete() {
-         this.$toast.removeAllGroups();
-         await gameUtils.deleteGame(this.confirmInfo.param);
-         await this.getGamesByPlayer();
-      },
-
-      onReject() {
-         this.$toast.removeAllGroups();
+      async deleteGame(gameId) {
+         this.$confirm.require({
+            message: '¿Seguro que quieres borrar el juego?',
+            header: 'Borrar juego',
+            icon: 'pi pi-exclamation-triangle',
+            acceptClass: "p-button-danger",
+            acceptLabel: "Sí",
+            accept: async () => {
+               await gameUtils.deleteGame(gameId);
+               this.$toast.add({severity: 'info', summary: 'Juego eliminado.', group: 'cc', life: 1500 });
+               await this.getGamesByPlayer();
+            },
+            reject: () => {
+               this.$toast.add({ severity: 'info', summary: 'Cancelado. No se borra el juego', group: 'cc', life: 1500 });
+            }
+         });
       },
    }
 })

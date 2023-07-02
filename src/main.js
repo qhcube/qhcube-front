@@ -37,12 +37,12 @@ const app = createApp(App);
 app.use(PrimeVue, { ripple: true , inputStyle: 'filled' });
 
 app.use(createPinia().use(piniaPersist));
-app.use(ConfirmationService);
 app.use(router);
 
 app.component('Button', Button);
 app.component('Card', Card);
 app.component('ConfirmDialog', ConfirmDialog);
+app.use(ConfirmationService);
 app.component('Column', Column);
 app.component('ColumnGroup', ColumnGroup);
 app.component('DataTable', DataTable);

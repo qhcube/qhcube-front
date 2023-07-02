@@ -1,34 +1,31 @@
-
 <template>
-   <Menubar v-if="!this.loggedOutMessage && !this.logOutRegretMessage" :model="items"
+   <Menubar :model="items"
             class="h-3rem"
             style="font-size: 0.9rem;"/>
 
-   <Message v-if="this.loggedOutMessage" severity="info"
-            @close="this.loggedOutMessage = false; this.playerStoreQHCube.$reset(); this.viewStoreQHCube.$reset()"
-            style="z-index: 0; margin: 2rem auto 4rem auto">
-      <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">¡Gracias por jugar!</span><br/><br/>
-      <span style="margin-left: 1rem; margin-right: 1rem">Esperamos volver a verte pronto.</span>
-   </Message>
+   <Toast position="center" group="playerMenu"/>
 
-   <Message v-if="this.logOutRegretMessage" severity="info" @close="this.logOutRegretMessage=false"
-            style="z-index: 0; margin: 2rem auto 4rem auto">
-      <span style="font-weight: bold; margin-left: 1rem; margin-right: 1rem">Seguimos jugando...</span><br/>
-   </Message>
+   <ConfirmDialog
+         group="pt"
+         :pt="{
+            headerTitle: { class: 'text-primary bg-blue-600' }
+        }"
+   />
 
 </template>
 
 <script>
 import {defineComponent} from 'vue'
-import ConfirmDialog from "primevue/confirmdialog";
 import Menubar from "primevue/menubar";
 import Message from "primevue/message";
+import ConfirmDialog from "primevue/confirmdialog";
+import gameUtils from "@/assets/js/gameUtils.js";
+import authUtils from "@/assets/js/authUtils.js";
 
 export default defineComponent({
    name: "RegisteredPlayerMenu",
-   components: { Message, Menubar, ConfirmDialog },
+   components: {Message, Menubar, ConfirmDialog},
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
-   emits: ['hideComponentEvent'],
    data() {
       return {
          items: [
@@ -53,18 +50,9 @@ export default defineComponent({
                ]
             }
          ],
-         loggedOutMessage: false,
-         logOutRegretMessage: false
       }
    },
-   watch: {
-      loggedOutMessage (newVal) {
-         this.$emit('hideComponentEvent', newVal);
-      },
-      logOutRegretMessage (newVal) {
-         this.$emit('hideComponentEvent', newVal);
-      }
-   },
+
    methods: {
       logout() {
          this.$confirm.require({
@@ -73,12 +61,17 @@ export default defineComponent({
             icon: "pi pi-info-circle",
             acceptClass: "p-button-danger",
             acceptLabel: "Sí",
-            accept: () => {
-               this.loggedOutMessage = true;
-               gameType = 0;
+            group: "pt",
+            accept: async () => {
+               gameUtils.resetPracticeGame();
+               this.$toast.add({severity: 'info', summary: 'Hasta pronto...', group: 'playerMenu', life: 1500});
+               setTimeout(() => {
+                  authUtils.logout();
+               }, 1500);
+               this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
             },
             reject: () => {
-               this.logOutRegretMessage = true;
+               this.$toast.add({severity: 'info', summary: 'Cancelado. Seguimos jugando...', group: 'playerMenu', life: 1500});
             }
          });
       }

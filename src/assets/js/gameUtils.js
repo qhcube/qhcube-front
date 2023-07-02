@@ -15,7 +15,7 @@ export default {
         const playerStoreQHCube = usePlayerStoreQHCube();
         playerStoreQHCube.gameid = 0;
         playerStoreQHCube.movsList = "[4,0.7483314773547882,0.6324555320336759,0.2]";
-
+        gameType = 0;
         this.resetGame([
             [
                 [7, -2, 1, 0], [3, 6, 1, 0], [-1, -1, 7, -1], [0, 1, -1, 6]],
