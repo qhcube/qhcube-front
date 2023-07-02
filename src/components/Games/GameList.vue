@@ -56,11 +56,11 @@
       </Column>
 
 
-      <Column header="Opciones" style="max-width: 80px">
+      <Column header="Opciones" style="max-width: 85px">
          <template #body="slotProps">
             <div class="flex flex-nowrap">
                <Button
-                     @click="alert('Play Clicked: ' + slotProps.data.gameId)"
+                     @click="this.loadGame(slotProps.data.gameId)"
                      icon="pi pi-download"
                      text
                      v-tooltip.top="'Continuar juego'"
@@ -77,6 +77,7 @@
                      text
                      v-tooltip.top="'Reproducir juego'"
                      class="p-button-sm btn-no-focus" />
+               &nbsp;
             </div>
          </template>
       </Column>
@@ -119,7 +120,7 @@ export default defineComponent({
          this.loading = false;
       },
 
-      async deleteGame(gameId) {
+      deleteGame(gameId) {
          this.$confirm.require({
             message: "¿Seguro que quieres borrar el juego?",
             header: "Borrar juego",
@@ -137,6 +138,16 @@ export default defineComponent({
             }
          });
       },
+
+      async loadGame(gameId) {
+         await gameUtils.loadRegisteredGame(gameId);
+         if(this.viewStoreQHCube.errorStatus === "") {
+            this.playerStoreQHCube.setActiveGameMode(1);
+            this.$toast.add({severity: 'info', summary: 'Juego cargado...', group: 'cc', life: 1500});
+            this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
+         }
+      },
+
       alert(msg) {
          this.$toast.add({severity: 'info', summary: msg, group: 'cc', life: 1500 });
       }
@@ -155,6 +166,7 @@ export default defineComponent({
       outline: none;
       box-shadow: none;
    }
+
    .game-state {
       height: 100%;
       width: 100%;

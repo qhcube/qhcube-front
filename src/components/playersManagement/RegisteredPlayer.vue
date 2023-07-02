@@ -5,7 +5,7 @@
          <div class="flex flex-row gap-6 align-items-center flex-grow-1">
             <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
             <h4 class="flex font-light" style="padding-bottom: 12px">
-               (Modo <span class="ml-1 font-semibold">{{ this.gameMode }}</span>)
+               (Modo <span class="ml-1 font-semibold">{{ this.playerStoreQHCube.getactiveGameModeAsString() }}</span>)
             </h4>
          </div>
 
@@ -13,21 +13,21 @@
             <registered-player-menu />
 
             <div class="flex flex-nowrap gap-2 self">
-               <Button v-if="this.activeGameType === 0"
+               <Button v-if="this.playerStoreQHCube.activeGameMode === 0"
                        label="Reiniciar Práctica"
                        @click="this.initPractice()"
                        size="small"
                        severity="success"
                        class="button"
                />
-               <Button v-if="this.activeGameType === 0"
+               <Button v-if="this.playerStoreQHCube.activeGameMode === 0"
                        label="Nuevo Juego Registrado"
                        @click="this.createNewRegisteredGame()"
                        size="small"
                        severity="success"
                        class="button"
                />
-               <Button v-if="this.activeGameType !== 0"
+               <Button v-if="this.playerStoreQHCube.activeGameMode !== 0"
                        label="Cancelar Juego Actual"
                        @click="this.cancelGame()"
                        size="small"
@@ -62,39 +62,20 @@ export default {
    name: "RegisteredPlayer",
    components: {RegisteredPlayerLayout, PlayerLayout, GameList, RegisteredPlayerMenu, ActiveGame},
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
-   data() {
-      return {
-         activeGameType: 0, // 0: Practice, 1: Registered Game, 2: Contest, 3: Presentation
-      }
-   },
-   computed: {
-      gameMode() {
-         if (this.activeGameType === 0)
-            return "Práctica";
-         else if (this.activeGameType === 1)
-            return "Registrado";
-         else if (this.activeGameType === 2)
-            return "Concurso";
-      }
-   },
-   watch: {
-      activeGameType: function (newVal) {
-         gameType = newVal;
-      }
-   },
+
    mounted() {
       if (this.playerStoreQHCube.gameId !== 0) {
-         this.activeGameType = 1;
+         this.playerStoreQHCube.setActiveGameMode(1);
          this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
       } else {
-         this.activeGameType = 0;
+         this.playerStoreQHCube.setActiveGameMode(0);
          this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
       }
    },
 
    methods: {
       async initPractice() {
-         this.activeGameType = 0;
+         this.playerStoreQHCube.setActiveGameMode(0);
          this.playerStoreQHCube.gameId = 0;
          gameUtils.resetPracticeGame();
          this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
@@ -103,12 +84,12 @@ export default {
       async createNewRegisteredGame() {
          await gameUtils.createNewRegisteredGame();
          if(this.viewStoreQHCube.errorStatus === "") {
-            this.activeGameType = 1;
+            this.playerStoreQHCube.setActiveGameMode(1);
             this.$toast.add({
                severity: 'info',
                summary: 'Juego nuevo comenzado...',
                detail: '¡Buena suerte!',
-               life: 1700,
+               life: 1500,
                group: 'luck',
             });
             this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");

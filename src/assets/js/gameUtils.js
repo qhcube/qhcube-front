@@ -66,6 +66,29 @@ export default {
         });
     },
 
+    async loadRegisteredGame(gameId) {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
+
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_API + "/game/get-game",
+            data: {email: playerStoreQHCube.email, games: [{id: gameId}]},
+            headers: {"Content-Type": "application/json"}
+        }).then((response) => {
+            if (response.data.player["respStatus"] === "OK") {
+                playerStoreQHCube.gameId = response.data.id;
+                playerStoreQHCube.movsList = response.data.movsList;
+                this.resetGame(JSON.parse(response.data.currentInput));
+            } else {
+                viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
+            }
+
+        }).catch((error) => {
+            console.log("ERROR in gameUtils.createNewRegisteredGame: " + error.message + " - " + error.response.status);
+        });
+    },
+
     async beginRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
