@@ -89,61 +89,29 @@ export default {
         });
     },
 
-    async beginRegisteredGame() {
+    async reinitRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
-        let result = { status: "ERROR", input: "", movsList: "", gameId: 0 };
+        let result = {};
 
         await axios({
             method: "post",
-            url: import.meta.env.VITE_APP_API + "/game/init-registered-game",
-            data: {email: playerStoreQHCube.email, jwttoken: playerStoreQHCube.jwttoken},
+            url: import.meta.env.VITE_APP_API + "/game/reinit-game",
+            data: {email: playerStoreQHCube.email, games: [{id: playerStoreQHCube.gameId}]},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-            result.status = response.data.player["respStatus"];
-            result.input = response.data["input"];
-            result.gameId = response.data["id"];
-            result.movsList = response.data["movsList"];
-            if (result.status !== "OK 0" && result.status !== "OK 1") {
+            if (response.data.player["respStatus"] === "OK") {
+                playerStoreQHCube.movsList = response.data.movsList;
+                this.resetGame(JSON.parse(response.data.input));
+                result = response.data;
+            } else {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
             }
+
         }).catch((error) => {
-            console.log("ERROR in gameUtils.beginregisteredgame: " + error.message + " - " + error.response.status);
+            console.log("ERROR in gameUtils.reinitRegisteredGame: " + error.message + " - " + error.response.status);
         });
 
-        return result;
-    },
-
-    async forceInitRegisteredGame() {
-        const playerStoreQHCube = usePlayerStoreQHCube();
-        const viewStoreQHCube = useViewStoreQHCube();
-        let result = { status: "ERROR", input: "", movsList: "", gameId: 0 };
-        await axios({
-            method: "post",
-            url: import.meta.env.VITE_APP_API + "/game/init-registered-game-forced",
-            data: { email: playerStoreQHCube.email,
-                    jwttoken: playerStoreQHCube.jwttoken,
-                    games: [
-                        {
-                            id: 56, player: {
-                                id: 83
-                            }
-                        }
-                    ]
-            },
-            headers: {"Content-Type": "application/json"}
-        }).then((response) => {
-            result.status = response.data.player["respStatus"];
-            result.input = response.data["input"];
-            result.gameId = response.data["id"];
-            result.movsList = response.data["movsList"];
-            result.input = response.data["input"];
-            if (result.status !== "OK 0" && result.status !== "OK 1") {
-                viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
-            }
-        }).catch((error) => {
-            console.log("ERROR in gameUtils.forceInitRegisteredGame: " + error.message + " - " + error.response.status);
-        });
         return result;
     },
 

@@ -34,18 +34,13 @@ export default defineComponent({
       }
    },
    async mounted() {
-
       this.activeGame = await gameUtils.getActiveGame();
-      // TODO: Actualizar los movimentos para var_coor, que pone siempre el input inicial y no continua el juego
-      /*
-      gameId: game.id,
-                    initialDate: this.getDate(game.initialTime),
-                    initialTime: this.getHour(game.initialTime),
-                    endDate: state === "Abierto" ? " - " : this.getDate(game.endTime),
-                    endTime: state === "Abierto" ? " - " : this.getHour(game.endTime),
-                    diffTime: this.getDiffTime(game.totalGameTime),
-                    state: state
-       */
+   },
+   methods: {
+         refreshGame(game) {
+            console.log("GAME: " + JSON.stringify(game));
+            this.activeGame = game;
+         }
    }
 })
 </script>

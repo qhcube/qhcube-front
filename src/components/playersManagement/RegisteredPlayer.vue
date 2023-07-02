@@ -28,6 +28,13 @@
                        class="button"
                />
                <Button v-if="this.playerStoreQHCube.activeGameMode !== 0"
+                       label="Reiniciar Juego Actual"
+                       @click="this.reinitRegisteredGame()"
+                       size="small"
+                       severity="warning"
+                       class="button"
+               />
+               <Button v-if="this.playerStoreQHCube.activeGameMode !== 0"
                        label="Cancelar Juego Actual"
                        @click="this.cancelGame()"
                        size="small"
@@ -42,7 +49,7 @@
 
       <div class="z-1">
          <registered-player-layout>
-            <component :is="this.viewStoreQHCube.getRegisteredPlayerComponent"/>
+            <component ref="activeComponent" :is="this.viewStoreQHCube.getRegisteredPlayerComponent"/>
          </registered-player-layout>
       </div>
 
@@ -107,6 +114,36 @@ export default {
                this.initPractice();
             },
             reject: () => {
+            }
+         });
+      },
+
+      reinitRegisteredGame() {
+         this.$confirm.require({
+            header: "Reiniciar juego actual...",
+            message: "¿Realmente quieres reiniciar el juego actual?",
+            icon: "pi pi-info-circle",
+            acceptClass: "p-button-danger",
+            acceptLabel: "Sí",
+            accept: async () => {
+               const game = await gameUtils.reinitRegisteredGame();
+               this.$toast.add({
+                  severity: 'info',
+                  summary: 'Juego reiniciado...',
+                  detail: '¡Buena suerte!',
+                  life: 1500,
+                  group: 'luck',
+               });
+               this.$refs.activeComponent.refreshGame(game);
+            },
+            reject: () => {
+               this.$toast.add({
+                  severity: 'info',
+                  summary: 'Juego no reiniciado...',
+                  detail: '¡Buena suerte!',
+                  life: 1500,
+                  group: 'luck',
+               });
             }
          });
       }
