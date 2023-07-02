@@ -82,7 +82,7 @@
       </Column>
    </DataTable>
 
-   <Toast position="center" group="cc">
+   <Toast position="bottom-right" group="cc">
       <template #message="slotProps">
          <div class="flex flex-column align-items-center" style="flex: 1">
             <div class="text-center">

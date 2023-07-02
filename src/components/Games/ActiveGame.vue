@@ -4,8 +4,12 @@
       <li>{{ this.activeGame.id }}</li>
       <li>Fecha inicial: {{ gameUtils.getDate(this.activeGame.initialTime) }}</li>
       <li>Hora inicial: {{ gameUtils.getHour(this.activeGame.initialTime)}}</li>
+      <li>Input Inicial: {{ this.activeGame.input }}</li>
+      <li>Input Actual: {{ this.activeGame.currentInput }}</li>
+      <li>Últimos movs: {{ this.activeGame.movsList.slice(25) }}</li>
+      <li>Store Mmovs: {{ this.storeMovs.slice(25) }}</li>
    </ul>
-   <Toast position="center" group="luck"/>
+
 </template>
 
 <script>
@@ -23,20 +27,16 @@ export default defineComponent({
    },
    computed: {
       gameUtils() {
-         return gameUtils
+         return gameUtils;
+      },
+      storeMovs() {
+         return this.playerStoreQHCube.movsList;
       }
    },
    async mounted() {
-      this.$toast.add({
-         severity: 'info',
-         summary: 'Juego nuevo comenzado...',
-         detail: '¡Buena suerte!',
-         closable: false,
-         life: 1700,
-         group: 'luck',
-      });
 
       this.activeGame = await gameUtils.getActiveGame();
+      // TODO: Actualizar los movimentos para var_coor, que pone siempre el input inicial y no continua el juego
       /*
       gameId: game.id,
                     initialDate: this.getDate(game.initialTime),

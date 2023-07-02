@@ -12,6 +12,11 @@ export const usePlayerStoreQHCube = defineStore('playerStoreQHCube', {
     getters: {
         isAuthenticated: (state) => !!state.jwttoken,
     },
+    actions: {
+        addMoveToMovsList(move) {
+            this.movsList = this.movsList + move;
+        }
+    },
     persist: {
         enabled: true,
         strategies: [

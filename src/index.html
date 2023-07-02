@@ -1328,9 +1328,7 @@
                         }
                         // console.log("index.enviarInputTest(input) response: " + JSON.stringify(response.data));
                         // TODO: Si el servidor responde con un error, hay que deshacer el movimiento y avisar al usuario.
-                        console.log("movs:" + JSON.stringify(playerStored.movsList));
                         playerStored.movsList += ",[" + move + "]";
-                        console.log("movs:" + JSON.stringify(playerStored.movsList));
                         localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
                     })
                     .catch((error) => {

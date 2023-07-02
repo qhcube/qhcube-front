@@ -38,6 +38,8 @@
          </div>
       </div>
 
+      <Toast position="center" group="luck"/>
+
       <div class="z-1">
          <registered-player-layout>
             <component :is="this.viewStoreQHCube.getRegisteredPlayerComponent"/>
@@ -80,6 +82,16 @@ export default {
          gameType = newVal;
       }
    },
+   mounted() {
+      if (this.playerStoreQHCube.gameId !== 0) {
+         this.activeGameType = 1;
+         this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
+      } else {
+         this.activeGameType = 0;
+         this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
+      }
+   },
+
    methods: {
       async initPractice() {
          this.activeGameType = 0;
@@ -92,6 +104,13 @@ export default {
          await gameUtils.createNewRegisteredGame();
          if(this.viewStoreQHCube.errorStatus === "") {
             this.activeGameType = 1;
+            this.$toast.add({
+               severity: 'info',
+               summary: 'Juego nuevo comenzado...',
+               detail: '¡Buena suerte!',
+               life: 1700,
+               group: 'luck',
+            });
             this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
          }
       },
