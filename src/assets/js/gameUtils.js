@@ -81,7 +81,6 @@ export default {
             if (response.data.player["respStatus"] === "OK") {
                 playerStoreQHCube.gameId = response.data.id;
                 playerStoreQHCube.movsList = response.data.movsList;
-                this.resetGame(JSON.parse(response.data.currentInput));
                 result = response.data;
             } else {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
@@ -180,6 +179,10 @@ export default {
         });
 
         return result;
+    },
+
+    getMovsListAsArray(movsList) {
+        console.log("MOVSLIST: " + JSON.parse('[' + movsList + ']').length);
     },
 
     // String [4, x, y, z] or Array [4, x, y, z]

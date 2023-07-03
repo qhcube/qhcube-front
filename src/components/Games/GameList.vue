@@ -72,7 +72,7 @@
                      v-tooltip.top="'Eliminar juego'"
                      class="p-button-sm btn-no-focus" />
                <Button
-                     @click="alert('Replay Clicked: ' + slotProps.data.gameId)"
+                     @click="this.replayGame(slotProps.data.gameId)"
                      icon="pi pi-replay"
                      text
                      v-tooltip.top="'Reproducir juego'"
@@ -120,6 +120,14 @@ export default defineComponent({
          this.loading = false;
       },
 
+      async replayGame(gameId) {
+         this.$toast.add({severity: 'info', summary: 'Reproduciendo juego...' + gameId, group: 'cc', life: 1500 });
+
+         const game = await gameUtils.loadRegisteredGame(gameId);
+         gameUtils.getMovsListAsArray(game.movsList);
+
+      },
+
       deleteGame(gameId) {
          this.$confirm.require({
             message: "¿Seguro que quieres borrar el juego?",
@@ -140,17 +148,14 @@ export default defineComponent({
       },
 
       async loadGame(gameId) {
-         await gameUtils.loadRegisteredGame(gameId);
+         let game = await gameUtils.loadRegisteredGame(gameId);
          if(this.viewStoreQHCube.errorStatus === "") {
+            this.resetGame(JSON.parse(game.currentInput));
             this.playerStoreQHCube.setActiveGameMode(1);
             this.$toast.add({severity: 'info', summary: 'Juego cargado...', group: 'cc', life: 1500});
             this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
          }
       },
-
-      alert(msg) {
-         this.$toast.add({severity: 'info', summary: msg, group: 'cc', life: 1500 });
-      }
    }
 })
 
