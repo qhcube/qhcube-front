@@ -70,6 +70,8 @@ export default {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
 
+        let result = {};
+
         await axios({
             method: "post",
             url: import.meta.env.VITE_APP_API + "/game/get-game",
@@ -80,13 +82,15 @@ export default {
                 playerStoreQHCube.gameId = response.data.id;
                 playerStoreQHCube.movsList = response.data.movsList;
                 this.resetGame(JSON.parse(response.data.currentInput));
+                result = response.data;
             } else {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
             }
-
         }).catch((error) => {
             console.log("ERROR in gameUtils.createNewRegisteredGame: " + error.message + " - " + error.response.status);
         });
+
+        return result;
     },
 
     async reinitRegisteredGame() {
