@@ -181,10 +181,6 @@ export default {
         return result;
     },
 
-    getMovsListAsArray(movsList) {
-        console.log("MOVSLIST: " + JSON.parse('[' + movsList + ']').length);
-    },
-
     // String [4, x, y, z] or Array [4, x, y, z]
     setQHCUbePosition(mov) {
         if (typeof mov === "string") {

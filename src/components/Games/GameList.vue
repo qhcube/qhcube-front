@@ -120,14 +120,6 @@ export default defineComponent({
          this.loading = false;
       },
 
-      async replayGame(gameId) {
-         this.$toast.add({severity: 'info', summary: 'Reproduciendo juego...' + gameId, group: 'cc', life: 1500 });
-
-         const game = await gameUtils.loadRegisteredGame(gameId);
-         gameUtils.getMovsListAsArray(game.movsList);
-
-      },
-
       deleteGame(gameId) {
          this.$confirm.require({
             message: "¿Seguro que quieres borrar el juego?",
@@ -150,12 +142,53 @@ export default defineComponent({
       async loadGame(gameId) {
          let game = await gameUtils.loadRegisteredGame(gameId);
          if(this.viewStoreQHCube.errorStatus === "") {
-            this.resetGame(JSON.parse(game.currentInput));
+            gameUtils.resetGame(JSON.parse(game.currentInput));
             this.playerStoreQHCube.setActiveGameMode(1);
             this.$toast.add({severity: 'info', summary: 'Juego cargado...', group: 'cc', life: 1500});
             this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
          }
       },
+
+      async replayGame(gameId) {
+         this.$toast.add({severity: 'info', summary: 'Reproduciendo juego...' + gameId, group: 'cc', life: 1500 });
+
+         const game = await gameUtils.loadRegisteredGame(gameId);
+         const movsList = JSON.parse('[' + game.movsList + ']');
+
+         gameUtils.resetGame(JSON.parse(game.input));
+
+         console.log("AAA");
+         for (let i = 0; i < movsList.length; i++) {
+            setTimeout(() => {
+               console.log("MOV: " + i );
+               this.makeMov(movsList[i]);
+            }, 1000 * i);
+         }
+         console.log("BBB");
+      },
+
+      makeMov(mov) {
+         switch (mov[0]) {
+            case 0:
+               Permutar(mov[1], mov[2], mov[3]);
+               break;
+            case 1:
+               Intercambiar(mov[1], mov[2]);
+               break;
+            case 2:
+               Reducir(mov[1]);
+               break;
+            case 3:
+               Rotar(mov[1], mov[2]);
+               break;
+            case 4:
+               gameUtils.setQHCUbePosition(mov);
+               SistemaReferencia();
+               CalcularVista();
+               RepresentacionVista();
+               break;
+         }
+      }
    }
 })
 
