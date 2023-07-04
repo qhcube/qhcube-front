@@ -41,6 +41,20 @@
                        severity="warning"
                        class="button"
                />
+               <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'replay-game'"
+                       label="Continuar desde aquí"
+                       @click="this.continueFromReplay()"
+                       size="small"
+                       severity="warning"
+                       class="button"
+               />
+               <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'replay-game'"
+                       label="Salir de Reproducción"
+                       @click="this.exitReplay()"
+                       size="small"
+                       severity="warning"
+                       class="button"
+               />
             </div>
          </div>
       </div>
@@ -70,6 +84,12 @@ export default {
    name: "RegisteredPlayer",
    components: {RegisteredPlayerLayout, PlayerLayout, GameList, RegisteredPlayerMenu, ActiveGame, ReplayGame},
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
+   data() {
+      return {
+         playerStoreQHCube: this.playerStoreQHCube,
+         viewStoreQHCube: this.viewStoreQHCube
+      }
+   },
 
    mounted() {
       if (this.playerStoreQHCube.gameId !== 0) {
@@ -82,6 +102,27 @@ export default {
    },
 
    methods: {
+      continueFromReplay() {
+         this.$toast.add({
+            severity: 'info',
+            summary: 'Has pulsado continuar desde aquí...',
+            detail: '(Por implementar)',
+            life: 1500,
+            group: 'luck',
+         });
+      },
+
+      exitReplay() {
+         this.$toast.add({
+            severity: 'info',
+            summary: 'Saliendo de reproducción...',
+            life: 1500,
+            group: 'luck',
+         });
+
+         this.initPractice();
+      },
+
       async initPractice() {
          this.playerStoreQHCube.setActiveGameMode(0);
          this.playerStoreQHCube.gameId = 0;
