@@ -20,7 +20,7 @@ export const usePlayerStoreQHCube = defineStore('playerStoreQHCube', {
         getactiveGameModeAsString() {
             switch (this.activeGameMode) {
                 case 0:
-                    return "Pŕacita";
+                    return "Prácita";
                 case 1:
                     return "Registrado";
                 case 2:
