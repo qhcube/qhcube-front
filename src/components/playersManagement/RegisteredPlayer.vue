@@ -13,28 +13,28 @@
             <registered-player-menu />
 
             <div class="flex flex-nowrap gap-2 self">
-               <Button v-if="this.playerStoreQHCube.activeGameMode === 0"
+               <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'game-list'"
                        label="Reiniciar Práctica"
                        @click="this.initPractice()"
                        size="small"
                        severity="success"
                        class="button"
                />
-               <Button v-if="this.playerStoreQHCube.activeGameMode === 0"
+               <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'game-list'"
                        label="Nuevo Juego Registrado"
                        @click="this.createNewRegisteredGame()"
                        size="small"
                        severity="success"
                        class="button"
                />
-               <Button v-if="this.playerStoreQHCube.activeGameMode !== 0"
+               <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'active-game'"
                        label="Reiniciar Juego Actual"
                        @click="this.reinitRegisteredGame()"
                        size="small"
                        severity="warning"
                        class="button"
                />
-               <Button v-if="this.playerStoreQHCube.activeGameMode !== 0"
+               <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'active-game'"
                        label="Cancelar Juego Actual"
                        @click="this.cancelGame()"
                        size="small"
@@ -64,10 +64,11 @@ import GameList from "../Games/GameList.vue";
 import PlayerLayout from "../layouts/PlayerLayout.vue";
 import RegisteredPlayerLayout from "../layouts/RegisteredPlayerLayout.vue";
 import ActiveGame from "../Games/ActiveGame.vue";
+import ReplayGame from "@/components/Games/ReplayGame.vue";
 
 export default {
    name: "RegisteredPlayer",
-   components: {RegisteredPlayerLayout, PlayerLayout, GameList, RegisteredPlayerMenu, ActiveGame},
+   components: {RegisteredPlayerLayout, PlayerLayout, GameList, RegisteredPlayerMenu, ActiveGame, ReplayGame},
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
 
    mounted() {
