@@ -86,8 +86,7 @@ export default {
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
-         playerStoreQHCube: this.playerStoreQHCube,
-         viewStoreQHCube: this.viewStoreQHCube
+
       }
    },
 
@@ -110,6 +109,17 @@ export default {
             life: 1500,
             group: 'luck',
          });
+         /* TODO:
+         1.- Enviar al servidor el juego con la lista de moviemientos desde la 0 hasta la
+               posición que indique el índice del replay.
+         2.- El servidor comprueba que ese juego le pertenece a ese jugador y que la
+               lista de movimientos se corresponde con los N primeros movimientos del
+               juego que tiene almacenado.
+         3.- Si es correcto, el servidor graba en la base de datos el juego con la lista
+               de movimientos cortada y devuelve el mismo juego con dicho corte y el
+               currentInput actualizado. No se altera el timestamp inicial del juego.
+         4.- El cliente recibe el juego y pasa a juego registrado con ese juego.
+          */
       },
 
       exitReplay() {

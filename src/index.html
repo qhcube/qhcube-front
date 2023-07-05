@@ -17,6 +17,7 @@
                 0: Modo práctica
                 1: Modo juego registrado
                 2: Modo juego concurso
+                3: Modo reproducción
         */
 
         let gameType = 0;
@@ -1281,11 +1282,6 @@
             RepresentacionVista();
         }
 
-        // TODO: Borrar prueba de axios
-        // enviarInputTest(var_coor);
-
-        // TODO: Esta función envía un input al servidor. Hay que implementar la respuesta.
-        //  También hay que cambiar la URL según corresponda.
 
         /************************/
         /* BEGIN DEV ENVIROMENT */
@@ -1309,6 +1305,7 @@
         async function addMove(move) {
             console.log("-------------------------------");
             console.log("¡OJO! USANDO URL: " + var_url);
+            console.log(" Añadiendo: " + JSON.stringify(move));
             console.log("-------------------------------");
 
             let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
