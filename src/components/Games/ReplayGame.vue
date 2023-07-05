@@ -1,5 +1,5 @@
 <template>
-   <div class="flex flex-column p-3">
+   <div class="flex flex-row pl-5 p-5 align-items-center" :style="'height:' + (this.showDesc ? '239px' : '375px')">
       <table>
          <tbody>
             <tr>
@@ -65,6 +65,12 @@ export default defineComponent({
          solved: false,
          considerPositions: true,
          var_coor_test: []
+      }
+   },
+   props: {
+      showDesc: {
+         type: Boolean,
+         default: false
       }
    },
    watch: {
