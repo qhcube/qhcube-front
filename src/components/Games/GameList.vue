@@ -92,6 +92,7 @@
 <script>
 import {defineComponent} from 'vue'
 import gameUtils from "../../assets/js/gameUtils.js";
+import activeGame from "@/components/Games/ActiveGame.vue";
 
 export default defineComponent({
    name: "GameList",
@@ -99,8 +100,7 @@ export default defineComponent({
    data() {
       return {
          loading: false,
-
-         games: null
+         games: null,
       }
    },
 
@@ -130,18 +130,18 @@ export default defineComponent({
             group: "gameList",
             accept: async () => {
                await gameUtils.deleteGame(gameId);
-               this.$toast.add({severity: 'info', summary: 'Juego eliminado.', group: 'cc', life: 1500 });
+               this.$toast.add({severity: 'info', summary: 'Juego eliminado.', group: 'cc', life: 1500});
                await this.getGamesByPlayer();
             },
             reject: () => {
-               this.$toast.add({ severity: 'info', summary: 'Cancelado. No se borra el juego', group: 'cc', life: 1500 });
+               this.$toast.add({severity: 'info', summary: 'Cancelado. No se borra el juego', group: 'cc', life: 1500});
             }
          });
       },
 
       async loadGame(gameId) {
          let game = await gameUtils.loadRegisteredGame(gameId);
-         if(this.viewStoreQHCube.errorStatus === "") {
+         if (this.viewStoreQHCube.errorStatus === "") {
             gameUtils.resetGame(JSON.parse(game.currentInput));
             this.playerStoreQHCube.setActiveGameMode(1);
             this.$toast.add({severity: 'info', summary: 'Juego cargado...', group: 'cc', life: 1500});
@@ -150,45 +150,12 @@ export default defineComponent({
       },
 
       async replayGame(gameId) {
-         this.$toast.add({severity: 'info', summary: 'Reproduciendo juego...' + gameId, group: 'cc', life: 1500 });
+         this.$toast.add({severity: 'info', summary: 'Reproduciendo juego...' + gameId, group: 'cc', life: 1500});
 
-         const game = await gameUtils.loadRegisteredGame(gameId);
-         const movsList = JSON.parse('[' + game.movsList + ']');
-
-         gameUtils.resetGame(JSON.parse(game.input));
-
-         console.log("AAA");
-         for (let i = 0; i < movsList.length; i++) {
-            setTimeout(() => {
-               console.log("MOV: " + i );
-               this.makeMov(movsList[i]);
-            }, 1000 * i);
-         }
-         console.log("BBB");
+         this.playerStoreQHCube.gameId = gameId;
+         this.playerStoreQHCube.setActiveGameMode(3);
+         this.viewStoreQHCube.setRegisteredPlayerComponent("replay-game");
       },
-
-      makeMov(mov) {
-         switch (mov[0]) {
-            case 0:
-               Permutar(mov[1], mov[2], mov[3]);
-               break;
-            case 1:
-               Intercambiar(mov[1], mov[2]);
-               break;
-            case 2:
-               Reducir(mov[1]);
-               break;
-            case 3:
-               Rotar(mov[1], mov[2]);
-               break;
-            case 4:
-               gameUtils.setQHCUbePosition(mov);
-               SistemaReferencia();
-               CalcularVista();
-               RepresentacionVista();
-               break;
-         }
-      }
    }
 })
 
