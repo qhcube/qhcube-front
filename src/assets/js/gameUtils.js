@@ -163,7 +163,6 @@ export default {
         }).then((response) => {
             response.data.forEach((game) => {
                 const state = this.getState(game.movsList);
-                console.log("GAME: " + JSON.stringify(game, undefined, 4));
                 result.push({
                     gameId: game.id,
                     initialDate: this.getDate(game.initialTime),
@@ -175,7 +174,6 @@ export default {
                     state: state
                 });
             });
-            // console.log("JUEGOS DEL JUGADOR: " + JSON.stringify(result, undefined, 4));
         }).catch((error) => {
             console.log("ERROR in gameUtils.getGamesByPlayer: " + error.message + " - " + error.response.status);
         });

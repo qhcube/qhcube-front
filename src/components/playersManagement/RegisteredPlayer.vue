@@ -44,6 +44,7 @@
                />
                <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'replay-game'"
                        label="Continuar desde aquí"
+                       disabled
                        @click="this.continueFromReplay()"
                        size="small"
                        severity="warning"

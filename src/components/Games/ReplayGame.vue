@@ -11,8 +11,12 @@
                <td class="second-td">{{ this.lastMov }} de {{ this.movs.length}}</td>
             </tr>
             <tr>
-               <td class="first-td"></td>
-               <td class="second-td"></td>
+               <td class="first-td">Girar cubo: </td>
+               <td class="flex flew-row second-td align-items-center gap-3">
+                  <input-switch v-model="this.considerPositions" />
+                  <span v-if="this.considerPositions">(El cubo sigue las posiciones de la partida original)</span>
+                  <span v-else>(El cubo mantendrá la posición que se le asigne manualmente)</span>
+               </td>
             </tr>
          </tbody>
       </table>
@@ -50,7 +54,15 @@ export default defineComponent({
          positions: [],
          lastMov: 0,
          solved: false,
+         considerPositions: true,
          var_coor_test: []
+      }
+   },
+   watch: {
+      considerPositions: function (val) {
+         if (val) {
+            this.makeMov(this.positions[this.positions.length - 1]);
+         }
       }
    },
    async mounted() {
@@ -70,8 +82,13 @@ export default defineComponent({
          if (this.lastMov < this.movs.length) {
             if (this.movs[this.lastMov][0] === 4) {
                this.positions.push(this.movs[this.lastMov]);
+               if (this.considerPositions) {
+                  this.makeMov(this.movs[this.lastMov]);
+               }
+            } else {
+               this.makeMov(this.movs[this.lastMov]);
             }
-            this.makeMov(this.movs[this.lastMov++]);
+            this.lastMov++;
          } else {
             console.log("No hay más movimientos hacia adelante.");
          }
@@ -100,7 +117,10 @@ export default defineComponent({
                   if (this.positions.length > 1) {
                      this.positions.pop();
                   }
-                  this.makeMov(this.positions[this.positions.length - 1]);
+                  if (this.considerPositions) {
+                     this.makeMov(this.positions[this.positions.length - 1]);
+                  }
+                  break;
             }
          } else {
             console.log("No hay más movimientos hacia atrás.");
@@ -153,4 +173,5 @@ export default defineComponent({
       text-align: left;
       border: 1px solid #888;
    }
+
 </style>
