@@ -2,6 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 
 import PrimeVue from 'primevue/config';
+
 import Button from 'primevue/button';
 import Card from 'primevue/card';
 import Column from "primevue/column";
@@ -31,6 +32,8 @@ import { usePlayerStoreQHCube } from "./assets/js/playerSotorageQHCube.js";
 import {router} from "./assets/js/router.js";
 import {useViewStoreQHCube} from "./assets/js/viewStoreQHCube.js";
 import axios from "axios";
+import { VueClipboard } from '@soerenmartius/vue3-clipboard'
+
 
 const app = createApp(App);
 
@@ -48,6 +51,7 @@ app.use(PrimeVue, {
 
 app.use(createPinia().use(piniaPersist));
 app.use(router);
+app.use(VueClipboard);
 
 app.component('Button', Button);
 app.component('Card', Card);
