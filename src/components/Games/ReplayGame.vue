@@ -11,30 +11,39 @@
                <td class="second-td">{{ this.lastMov }} de {{ this.movs.length}}</td>
             </tr>
             <tr>
+               <td class="first-td">Acciones: </td>
+               <td class="second-td">
+                  <div class="flex flex-row gap-2 align-content-center">
+                     <Button text rounded raised icon="pi pi-angle-double-left" @click="this.makePrevTenMoves()" />
+                     <Button text rounded raised label="" icon="pi pi-angle-left" @click="this.makePrevMove()" />
+                     <Button text rounded raised label="" icon="pi pi-angle-right"  @click="this.makeNextMove()" />
+                     <Button text rounded raised label="" icon="pi pi-angle-double-right" @click="this.makeNextTenMoves()" />
+                  </div>
+               </td>
+            </tr>
+            <tr>
                <td class="first-td">Girar cubo: </td>
-               <td class="flex flew-row second-td align-items-center gap-3">
-                  <input-switch v-model="this.considerPositions" />
-                  <span v-if="this.considerPositions">(El cubo sigue las posiciones de la partida original)</span>
-                  <span v-else>(El cubo mantendrá la posición que se le asigne manualmente)</span>
+               <td class="second-td">
+                  <div class="flex flew-row align-items-center gap-3">
+                     <input-switch v-model="this.considerPositions" />
+                     <span v-if="this.considerPositions">(El cubo sigue las posiciones de la partida original)</span>
+                     <span v-else>(El cubo mantendrá la posición que se le asigne manualmente)</span>
+                  </div>
                </td>
             </tr>
          </tbody>
       </table>
-
+<!--
       <ul>
          <li>Input inicial: {{ this.game.input }}</li>
-         <li>Número de movs: {{ this.movs.length }}</li>
-         <li>Último movimiento realizado: {{ this.lastMov - 1 }} --> {{ this.movs[this.lastMov - 1] }}</li>
+         <li>Último movimiento realizado: {{ this.lastMov - 1 }} --&gt; {{ this.movs[this.lastMov - 1] }}</li>
          <li>
-            Ahora: {{ this.var_coor_test }}
+            Input Actual: {{ this.var_coor_test }}
             <Button text size="small" icon="pi pi-copy" @click="toClipboard(var_coor_test)" />
          </li>
-         <li>Posiciones: {{ this.positions.length }}</li>
+         <li>Posiciones almacenadas: {{ this.positions.length }}</li>
       </ul>
-      <div class="flex flex-row gap-2">
-         <Button :label="'< Prev. mov.: ' + (this.lastMov - 1)" @click="this.makePrevMove()" />
-         <Button :label="'Sig. mov.: ' + (this.lastMov) + ' >'"  @click="this.makeNextMove()" />
-      </div>
+-->
    </div>
 </template>
 
@@ -78,6 +87,11 @@ export default defineComponent({
    },
    methods: {
       toClipboard,
+      makeNextTenMoves() {
+         for (let i = 0; i < 10; i++) {
+            this.makeNextMove();
+         }
+      },
       makeNextMove() {
          if (this.lastMov < this.movs.length) {
             if (this.movs[this.lastMov][0] === 4) {
@@ -94,6 +108,11 @@ export default defineComponent({
          }
       },
 
+      makePrevTenMoves() {
+         for (let i = 0; i < 10; i++) {
+            this.makePrevMove();
+         }
+      },
       makePrevMove() {
          if(this.lastMov > 1) {
             this.lastMov--;
@@ -158,20 +177,20 @@ export default defineComponent({
       border-collapse: collapse;
       border-spacing: 0;
       width: 100%;
-      border: 1px solid #000;
+      border: 1px solid #ddd;
    }
 
    .first-td {
       width: 15%;
-      padding: 8px;
+      padding: 10px;
       text-align: left;
-      border: 1px solid #888;
+      border: 1px solid #ddd;
    }
 
    .second-td {
-      padding: 8px;
+      padding: 10px;
       text-align: left;
-      border: 1px solid #888;
+      border: 1px solid #ddd;
    }
 
 </style>
