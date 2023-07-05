@@ -11,7 +11,7 @@
                     @click="this.viewStoreQHCube.setGameInfoComponent('game-meaning')"/>
             <Button ref="minimizeButton"
                     :icon="this.minOrMaxIcon" rounded outlined
-                    severity="danger"
+                    severity="info" size="small"
                     @click="this.$emit('updateShowDesc')"
                     class="min-button" />
 
@@ -39,7 +39,7 @@ export default {
    inject: ["playerStoreQHCube", "viewStoreQHCube"],
    data() {
       return {
-         minOrMaxIcon: "pi pi-window-minimize"
+         minOrMaxIcon: "pi pi-chevron-down"
       }
    },
    props: {
@@ -51,9 +51,9 @@ export default {
    watch: {
       showDesc: function (newVal, oldVal) {
          if (newVal) {
-            this.minOrMaxIcon = "pi pi-window-minimize";
+            this.minOrMaxIcon = "pi pi-chevron-down";
          } else {
-            this.minOrMaxIcon = "pi pi-window-maximize";
+            this.minOrMaxIcon = "pi pi-chevron-up";
          }
       }
    },

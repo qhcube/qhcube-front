@@ -4,7 +4,7 @@
               scrollable
               sortField="initialDate"
               :sortOrder="1"
-              :scroll-height="this.showDesc ? '218px' : '378px'"
+              :scroll-height="this.showDesc ? '206px' : '342px'"
               class="p-datatable-sm p-2 py-3"
               style="min-width: 860px">
       <template #empty>
