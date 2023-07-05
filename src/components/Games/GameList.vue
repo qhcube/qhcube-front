@@ -26,7 +26,7 @@
          <Row>
             <Column header="Inicio" :colspan="2" style="background-color: var(--teal-200)"/>
             <Column header="Fin" :colspan="2" style="background-color: var(--red-200)"/>
-            <Column header="" :colspan="3"/>
+            <Column header="" :colspan="4"/>
          </Row>
          <Row>
             <Column header="Fecha" sortable field="initialDate" style="color: #495057; background-color: var(--teal-200)"/>
@@ -34,6 +34,7 @@
             <Column header="Fecha" sortable field="endDate" style="color: #495057; background-color: var(--red-200)"/>
             <Column header="Hora" field="endTime" style="background-color: var(--red-200)"/>
             <Column header="Tiempo de juego" field="diffTime" style="background-color: var(--orange-200)"/>
+            <Column header="Movs." field="moves" style="background-color: var(--cyan-100)"/>
             <Column header="Estado" class="w-fit" field="state" style="background-color: var(--yellow-200)"/>
             <Column header="" />
          </Row>
@@ -43,6 +44,7 @@
       <Column field="endDate" style="background-color: var(--red-100)"/>
       <Column field="endTime" style="background-color: var(--red-100)"/>
       <Column field="diffTime" style="background-color: var(--orange-100)"/>
+      <Column field="moves" style="background-color: var(--cyan-50)"/>
       <Column field="state" bodyStyle="height: 1px; width: 1px; background-color: var(--yellow-100)" >
          <template #body="slotProps">
             <div :class="['game-state',
@@ -92,7 +94,6 @@
 <script>
 import {defineComponent} from 'vue'
 import gameUtils from "../../assets/js/gameUtils.js";
-import activeGame from "@/components/Games/ActiveGame.vue";
 
 export default defineComponent({
    name: "GameList",

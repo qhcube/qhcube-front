@@ -170,6 +170,7 @@ export default {
                     endDate: state === "Abierto" ? " - " : this.getDate(game.endTime),
                     endTime: state === "Abierto" ? " - " : this.getHour(game.endTime),
                     diffTime: this.getDiffTime(game.totalGameTime),
+                    moves: JSON.parse('[' + game.movsList + ']').length,
                     state: state
                 });
             });
