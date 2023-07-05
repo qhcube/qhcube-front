@@ -38,6 +38,7 @@ import NewRecord from "./playersManagement/NewRecord.vue";
 import RegisteredPlayer from "./playersManagement/RegisteredPlayer.vue";
 import GeneralError from "./errors/GeneralError.vue";
 import PlayerProfile from "./playersManagement/PlayerProfile.vue";
+import RegisteredGameInfo from "@/components/gameInfo/RegisteredGameInfo.vue";
 
 export default {
    name: "MainHome",
@@ -45,7 +46,7 @@ export default {
    components: {
       ErrorLayout, PlayerLayout, GameInfoLayout, MainGame, BriefGameDescription,
       LearnToPlay, GameMeaning, LoginAndRegister, NewRecord, RegisteredPlayer,
-      PlayerProfile, GeneralError
+      PlayerProfile, GeneralError, RegisteredGameInfo
    },
   data() {
      return {

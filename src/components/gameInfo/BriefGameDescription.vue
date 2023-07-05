@@ -9,6 +9,8 @@
                     @click="this.viewStoreQHCube.setGameInfoComponent('learn-to-play')"/>
             <Button label="Significado del juego" rounded outlined
                     @click="this.viewStoreQHCube.setGameInfoComponent('game-meaning')"/>
+            <Button label="Juego registrado" rounded outlined
+                    @click="this.viewStoreQHCube.setGameInfoComponent('registered-game-info')"/>
             <Button ref="minimizeButton"
                     :icon="this.minOrMaxIcon" rounded outlined
                     severity="info" size="small"
@@ -49,7 +51,7 @@ export default {
       }
    },
    watch: {
-      showDesc: function (newVal, oldVal) {
+      showDesc: function (newVal) {
          if (newVal) {
             this.minOrMaxIcon = "pi pi-chevron-down";
          } else {

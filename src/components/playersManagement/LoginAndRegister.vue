@@ -1,5 +1,5 @@
 <template>
-   <div class="flex flex-column bg-indigo-50 shadow-6">
+   <div class="flex flex-column bg-indigo-50 shadow-6 h-19rem">
       <div class="flex flex-row flex-nowrap three px-2">
          <div class="flex">
             <h1>Registro de jugador</h1>
@@ -41,7 +41,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="flex p-inputgroup w-fit gap-3">
+                  <div class="flex p-inputgroup w-fit gap-3 mt-3">
                      <Button label="Login" type="submit" @click="this.performLogin() "/>
                      <Button v-if="this.playerStoreQHCube.email"
                            label="Reenviar correo de activación" type="submit" @click="this.resendEmail()"/>
