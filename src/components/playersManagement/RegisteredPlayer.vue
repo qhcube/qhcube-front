@@ -1,7 +1,7 @@
 <template>
    <div class="flex flex-column bg-indigo-50 shadow-6"
         :class="this.getShowDesc"
-        style="min-width: 860px">
+        style="min-width: 895px">
       <div class="flex flex-row flex-nowrap three pl-2 h-4rem"  style="height: 75px">
          <div class="flex flex-row gap-6 align-items-center flex-grow-1">
             <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>

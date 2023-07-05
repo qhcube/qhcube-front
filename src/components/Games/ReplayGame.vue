@@ -129,7 +129,7 @@ export default defineComponent({
    }
 
    .first-td {
-      width: 30%;
+      width: 15%;
       padding: 8px;
       text-align: left;
       border: 1px solid #888;
