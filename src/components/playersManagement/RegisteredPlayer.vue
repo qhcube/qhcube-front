@@ -61,7 +61,7 @@
 
       <Toast position="center" group="luck"/>
 
-      <div class="z-1">
+      <div class="flex z-1">
          <registered-player-layout>
             <component ref="activeComponent" :is="this.viewStoreQHCube.getRegisteredPlayerComponent"/>
          </registered-player-layout>

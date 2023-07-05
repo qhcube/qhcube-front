@@ -1,18 +1,29 @@
 <template>
-   <ul>
-      <li>Id: {{ this.game.id}} </li>
-      <li>Input inicial: {{ this.game.input }}</li>
-      <li>Número de movs: {{ this.movs.length }}</li>
-      <li>Último movimiento realizado: {{ this.lastMov - 1 }} --> {{ this.movs[this.lastMov - 1] }}</li>
-      <li>
-         Ahora: {{ this.var_coor_test }}
-         <Button text size="small" icon="pi pi-copy" @click="toClipboard(var_coor_test)" />
-      </li>
-      <li>Posiciones: {{ this.positions.length }}</li>
-   </ul>
+   <div class="flex flex-column p-3">
+      <table>
+         <tbody>
+            <tr>
+               <td class="first-td">Id:</td>
+               <td class="second-td">{{ this.game.id }}</td>
+            </tr>
+         </tbody>
+      </table>
 
-   <Button :label="'Sig. mov.: ' + (this.lastMov)" @click="this.makeNextMove()" />
-   <Button :label="'Prev. mov.: ' + (this.lastMov - 1)" @click="this.makePrevMove()" />
+      <ul>
+         <li>Input inicial: {{ this.game.input }}</li>
+         <li>Número de movs: {{ this.movs.length }}</li>
+         <li>Último movimiento realizado: {{ this.lastMov - 1 }} --> {{ this.movs[this.lastMov - 1] }}</li>
+         <li>
+            Ahora: {{ this.var_coor_test }}
+            <Button text size="small" icon="pi pi-copy" @click="toClipboard(var_coor_test)" />
+         </li>
+         <li>Posiciones: {{ this.positions.length }}</li>
+      </ul>
+      <div class="flex flex-row gap-2">
+         <Button :label="'< Prev. mov.: ' + (this.lastMov - 1)" @click="this.makePrevMove()" />
+         <Button :label="'Sig. mov.: ' + (this.lastMov) + ' >'"  @click="this.makeNextMove()" />
+      </div>
+   </div>
 </template>
 
 <script>
@@ -110,5 +121,23 @@ export default defineComponent({
 </script>
 
 <style scoped>
+   table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #000;
+   }
 
+   .first-td {
+      width: 30%;
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #888;
+   }
+
+   .second-td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #888;
+   }
 </style>
