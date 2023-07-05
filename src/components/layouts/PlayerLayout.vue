@@ -1,5 +1,5 @@
 <template>
-   <slot />
+   <slot class="h-18rem"/>
 </template>
 
 <script>

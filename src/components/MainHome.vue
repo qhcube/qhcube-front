@@ -7,11 +7,11 @@
 
       <div v-if="this.viewStoreQHCube.getErrorStatus.length === 0" class="flex flex-nowrap flex-column gap-3 w-full">
          <game-info-layout v-if="this.viewStoreQHCube.getPlayerComponent !== 'new-record'">
-            <component :is="this.viewStoreQHCube.getGameInfoComponent"/>
+            <component :is="this.viewStoreQHCube.getGameInfoComponent" :showDesc="this.showDesc" @updateShowDesc="this.updateShowDesc()"/>
          </game-info-layout>
 
          <player-layout v-if="this.viewStoreQHCube.getGameInfoComponent === 'brief-game-description'">
-            <component :is="this.viewStoreQHCube.getPlayerComponent"/>
+            <component :is="this.viewStoreQHCube.getPlayerComponent" :showDesc="this.showDesc"/>
          </player-layout>
       </div>
 
@@ -46,6 +46,16 @@ export default {
       ErrorLayout, PlayerLayout, GameInfoLayout, MainGame, BriefGameDescription,
       LearnToPlay, GameMeaning, LoginAndRegister, NewRecord, RegisteredPlayer,
       PlayerProfile, GeneralError
+   },
+  data() {
+     return {
+        showDesc: true
+     }
+   },
+   methods: {
+      updateShowDesc() {
+         this.showDesc = !this.showDesc;
+      }
    },
    mounted() {
       if (this.playerStoreQHCube.isAuthenticated) {

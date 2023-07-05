@@ -4,7 +4,7 @@
               scrollable
               sortField="initialDate"
               :sortOrder="1"
-              scroll-height="218px"
+              :scroll-height="this.showDesc ? '218px' : '378px'"
               class="p-datatable-sm p-2 py-3"
               style="min-width: 860px">
       <template #empty>
@@ -103,7 +103,12 @@ export default defineComponent({
          games: null,
       }
    },
-
+   props: {
+      showDesc: {
+         type: Boolean,
+         default: false
+      }
+   },
    async mounted() {
       await this.getGamesByPlayer();
    },

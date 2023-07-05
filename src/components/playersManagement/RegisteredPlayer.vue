@@ -1,5 +1,6 @@
 <template>
-   <div class="flex flex-column bg-indigo-50 shadow-6 h-20rem"
+   <div class="flex flex-column bg-indigo-50 shadow-6"
+        :class="this.getShowDesc"
         style="min-width: 860px">
       <div class="flex flex-row flex-nowrap three pl-2 h-4rem"  style="height: 75px">
          <div class="flex flex-row gap-6 align-items-center flex-grow-1">
@@ -63,7 +64,7 @@
 
       <div class="flex z-1">
          <registered-player-layout>
-            <component ref="activeComponent" :is="this.viewStoreQHCube.getRegisteredPlayerComponent"/>
+            <component ref="activeComponent" :is="this.viewStoreQHCube.getRegisteredPlayerComponent" :showDesc="this.showDesc"/>
          </registered-player-layout>
       </div>
 
@@ -86,7 +87,19 @@ export default {
    inject: ['playerStoreQHCube', 'viewStoreQHCube'],
    data() {
       return {
-
+         heightClass: 'h-20rem'
+      }
+   },
+   props: {
+      showDesc: {
+         type: Boolean,
+         default: true
+      }
+   },
+   computed: {
+      getShowDesc() {
+         this.showDesc ? this.heightClass = 'h-20rem' : this.heightClass = 'h-30rem';
+         return this.showDesc;
       }
    },
 

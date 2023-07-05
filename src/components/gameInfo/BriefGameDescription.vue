@@ -9,11 +9,16 @@
                     @click="this.viewStoreQHCube.setGameInfoComponent('learn-to-play')"/>
             <Button label="Significado del juego" rounded outlined
                     @click="this.viewStoreQHCube.setGameInfoComponent('game-meaning')"/>
+            <Button ref="minimizeButton"
+                    :icon="this.minOrMaxIcon" rounded outlined
+                    severity="danger"
+                    @click="this.$emit('updateShowDesc')"
+                    class="min-button" />
 
          </div>
       </div>
 
-      <div class="flex flex-column">
+      <div v-if="this.showDesc" class="flex flex-column">
          <p>
             El hipercubo cuántico representa una <i>puerta cuántica discreta de dos cúbits</i>,
             es decir, una matriz 4x4
@@ -31,10 +36,33 @@
 
 export default {
    nombre: "BriefGameDescription",
-   inject: ["playerStoreQHCube", "viewStoreQHCube"]
+   inject: ["playerStoreQHCube", "viewStoreQHCube"],
+   data() {
+      return {
+         minOrMaxIcon: "pi pi-window-minimize"
+      }
+   },
+   props: {
+      showDesc: {
+         type: Boolean,
+         default: true
+      }
+   },
+   watch: {
+      showDesc: function (newVal, oldVal) {
+         if (newVal) {
+            this.minOrMaxIcon = "pi pi-window-minimize";
+         } else {
+            this.minOrMaxIcon = "pi pi-window-maximize";
+         }
+      }
+   },
+   emits: ["updateShowDesc"]
 }
 </script>
 
 <style scoped>
-
+.min-button:focus {
+   box-shadow: none !important;
+}
 </style>
