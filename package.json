@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@soerenmartius/vue3-clipboard": "^0.1.2",
     "axios": "^1.4.0",
     "pinia": "^2.0.35",
     "pinia-plugin-persist": "^1.0.0",
