@@ -6,6 +6,14 @@
                <td class="first-td">Id:</td>
                <td class="second-td">{{ this.game.id }}</td>
             </tr>
+            <tr>
+               <td class="first-td">Último movimiento:</td>
+               <td class="second-td">{{ this.lastMov }} de {{ this.movs.length}}</td>
+            </tr>
+            <tr>
+               <td class="first-td"></td>
+               <td class="second-td"></td>
+            </tr>
          </tbody>
       </table>
 
@@ -41,6 +49,7 @@ export default defineComponent({
          movs: [],
          positions: [],
          lastMov: 0,
+         solved: false,
          var_coor_test: []
       }
    },
@@ -48,6 +57,10 @@ export default defineComponent({
       this.game = await gameUtils.loadRegisteredGame(this.playerStoreQHCube.gameId);
       gameUtils.resetGame(JSON.parse(this.game.input));
       this.movs = JSON.parse('[' + this.game.movsList + ']');
+      if (this.movs[this.movs.length - 1][0] === 5) {
+         this.movs.pop();
+         this.solved = true;
+      }
       this.makeNextMove();
       this.var_coor_test = var_coor;
    },

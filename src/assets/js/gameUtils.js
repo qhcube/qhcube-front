@@ -163,6 +163,7 @@ export default {
         }).then((response) => {
             response.data.forEach((game) => {
                 const state = this.getState(game.movsList);
+                console.log("GAME: " + JSON.stringify(game, undefined, 4));
                 result.push({
                     gameId: game.id,
                     initialDate: this.getDate(game.initialTime),
@@ -170,7 +171,7 @@ export default {
                     endDate: state === "Abierto" ? " - " : this.getDate(game.endTime),
                     endTime: state === "Abierto" ? " - " : this.getHour(game.endTime),
                     diffTime: this.getDiffTime(game.totalGameTime),
-                    moves: JSON.parse('[' + game.movsList + ']').length,
+                    moves: game.movsList.endsWith('[5,1,1,1]') ? JSON.parse('[' + game.movsList + ']').length -1 : JSON.parse('[' + game.movsList + ']').length,
                     state: state
                 });
             });
