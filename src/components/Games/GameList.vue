@@ -118,11 +118,12 @@ export default defineComponent({
       async getGamesByPlayer() {
          this.loading = true;
          this.games = await gameUtils.getGamesByPlayer();
-         this.games.map(game => {
+         /*this.games.map(game => {
             if (game.state === 'Abierto') {
-               game.diffTime = "-";
+               console.log("game.totalGameTime", game.diffTime);
+               //game.diffTime = "-";
             }
-         });
+         });*/
          this.loading = false;
       },
 
