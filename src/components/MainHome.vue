@@ -1,7 +1,7 @@
 <template>
    <div class="flex gap-3 py-4">
 
-      <main-game/>
+      <main-game class="z-5"/>
 
       <confirm-dialog id="confirmDialog" class="w-30rem"/>
 
