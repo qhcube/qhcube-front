@@ -1296,17 +1296,13 @@
         /*************************/
         /* BEGIN PROD ENVIROMENT */
         /*************************/
-        // const var_url = "http://localhost:9000/api/game/add-move";
+        // const var_url = "https://qhcube.etsisi.upm.es/api/game/add-move";
         /*************************/
         /* END PROD ENVIROMENT   */
         /*************************/
 
-        // const var_url = "https://qhcube.etsisi.upm.es:9000/api/game/add-move";
+
         async function addMove(move) {
-            console.log("-------------------------------");
-            console.log("¡OJO! USANDO URL: " + var_url);
-            console.log(" Añadiendo: " + JSON.stringify(move));
-            console.log("-------------------------------");
 
             let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
             if (playerStored) {

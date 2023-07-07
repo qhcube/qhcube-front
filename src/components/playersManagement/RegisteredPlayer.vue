@@ -36,7 +36,7 @@
                        class="button"
                />
                <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'active-game'"
-                       label="Cancelar Juego Actual"
+                       label="Salir y Guardar"
                        @click="this.cancelGame()"
                        size="small"
                        severity="warning"
