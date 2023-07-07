@@ -8,7 +8,10 @@
             </tr>
             <tr>
                <td class="first-td">Último movimiento:</td>
-               <td class="second-td">{{ this.lastMov }} de {{ this.movs.length}}</td>
+               <td class="second-td">
+                  {{ this.lastMov }} de {{ this.movs.length}} <span class="font-bold mr-2">&rArr;</span>
+                  <span v-if="this.lastMov > 0" style="color: var(--blue-700)">{{ this.getMovString(this.movs[this.lastMov - 1]) }}</span>
+               </td>
             </tr>
             <tr>
                <td class="first-td">Acciones: </td>
@@ -119,6 +122,7 @@ export default defineComponent({
             this.makePrevMove();
          }
       },
+
       makePrevMove() {
          if(this.lastMov > 1) {
             this.lastMov--;
@@ -173,7 +177,23 @@ export default defineComponent({
          SistemaReferencia();
          CalcularVista();
          RepresentacionVista();
-      }
+      },
+
+      getMovString(mov) {
+         switch (mov[0]) {
+            case 0:
+               return "Permutación de " + (mov[1] === 1 ? "filas" : "columnas") + " " + (mov[2] + 1) + " y " + (mov[3] + 1) + ".";
+            case 1:
+               return "Intercambio en " + (mov[1] === 1 ? "fila" : "columna" ) + " " + (mov[2] + 1) + ".";
+            case 2:
+               return "Reducción por " + (mov[1] === 1 ? "filas" : "columnas") + ".";
+            case 3:
+               return "Rotación de " + (mov[1] === 1 ? "filas" : "columnas") + " " + mov[2] + 1 + " y " + (mov[2] + 2) % 4 + ".";
+            case 4:
+               return "Cambio de perpectiva.";
+         }
+      },
+
    }
 })
 </script>
