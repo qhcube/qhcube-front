@@ -13,11 +13,73 @@
       <div class="flex flex-auto">
          <scroll-panel class="custombar1" style="width: 100%; height: 460px">
             <div class="two -mt-2">
-               <h3>Presentación</h3>
+               <h3>¿Por qué registrarse?</h3>
             </div>
             <p>
-               Aquí se explicará la diferencia entre el modo de práctica y el modo de juego registrado.
+               Esta aplicación admite dos modos de juego: <span class="font-semibold">Práctica</span> y
+               <span class="font-semibold">Registrado</span>. En el modo <span class="font-semibold">Práctica</span> se
+               puede jugar sin necesidad de registrarse. En el modo
+               <span class="font-semibold">Registrado</span> tendrás acceso a múltiples opciones como guardar tus
+               partidas para continuarlas en otro momento, o reproducir tus partidas anteriores.
             </p>
+            <p>
+               No se piden muchos datos para registrarse, y <span class="underline">en cualquier momento podrás borrar
+               tus datos </span>accediendo a tu perfil de usuario <span class="underline">con un solo click</span>. La
+               información que facilites sólo será utilizada para asociar
+               tus partidas a tu perfil de usuario. Una vez finalizado el proceso de registro, en ningún momento se
+               enviarán correos electrónicos a tu dirección ni se utilizará tu información para otros fines. Y, por
+               supuesto, <span class="underline">no se cederá a terceros</span>.
+            </p>
+            <p>
+               Para registrarse se pide <strong>nombre y apellidos</strong>, un <strong>correo electrónico</strong> y
+               una <strong>contraseña</strong>. El correo electrónico se validará mediante un mensaje que se enviará.
+               (Este será el único correo que recibas por nuestra parte).
+            </p>
+
+            <div class="two -mt-2">
+               <h3>Modo práctica</h3>
+            </div>
+            <p>
+               En este modo <span class="underline">siempre se comienza desde un mismo estado inicial del juego</span>.
+               <span class="underline">Para reiniciarlo, basta con que recargues la página</span>. De hecho, cada vez
+               que lo hagas, perderás tu progreso y volverá a comenzar.
+            </p>
+
+            <div class="two -mt-2">
+               <h3>Modo registrado</h3>
+            </div>
+            <p>
+               Al visitar la web, estarás en modo práctica y puedes jugarla. Una vez introduzcas tu usuario y
+               contraseña, seguirás jugando en modo práctica, pero verás un botón para iniciar un
+               <span class="font-semibold">Nuevo Juego Registrado</span>. Al pulsarlo, se generará un estado inicial
+               del juego aleatorio de nivel 6. A partir de ese momento, podrás jugar en modo registrado. Esto significa
+               que cada vez que actúes sobre el juego, se guardará lo que hayas hecho en un servidor. Así, tu partida
+               quedará registrada.
+            </p>
+            <p>
+               Al principio, y minetras te encuentres en modo pŕactica, verás una tabla con las partidas anteriores
+               registradas. Puedes tener abiertas un máximo de 10 partidas (para las resueltas no hay límite). En la
+               tabla verás la fecha y hora de inicio de cada una, si está resuelto la fecha y hora de resolución, el
+               tiempo transcurrido desde que iniciaste la partida, el número de movimientos que has realizado en ella
+               y su estado (abierta o resuelta).
+            </p>
+            <p>
+               Sobre cada partida puedes hacer una de estas tres acciones:
+            </p>
+            <ul>
+               <li>
+                  <span class="font-semibold">Continuar juego</span>: si la partida está abierta, puedes continuarla
+                  desde donde la dejaste.
+               </li>
+               <li>
+                  <span class="font-semibold">Reproducir juego</span>: podrás reproducir paso a paso todos los
+                  movimientos que realizaste en la partida hasta su estado actual.
+               </li>
+               <li>
+                  <span class="font-semibold">Eliminar juego</span>: borrará esa partida de manera definitiva del
+                  servidor (no se puede recuperar).
+               </li>
+            </ul>
          </scroll-panel>
       </div>
    </div>

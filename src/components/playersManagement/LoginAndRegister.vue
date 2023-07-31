@@ -58,8 +58,12 @@
          <div class="col-6 pl-3 pr-3">
             <div class="flex flex-column h-full">
                <p class="text-justify">
-                  Puedes jugar sin registrarte, pero si te registras, podremos medir el tiempo que tardas en resolver
-                  el juego y registrarlo en la tabla de puntuaciones.
+                  Puedes jugar sin registrarte y el estado inicial del juego siempre será el mismo.
+                  <span class="underline">Para reiciniar, simplemente recarga la página</span>.
+               </p>
+               <p class="mt-0">
+                  Si te registras, podrás guardar tus partidas, continuarlas, reproducirlas, obtener el tiempo de cada
+                  juego...
                </p>
                <div class="flex h-full align-content-end">
                   <Button label="Resgistrarse" severity="info"
