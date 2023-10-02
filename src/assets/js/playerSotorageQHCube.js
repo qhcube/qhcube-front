@@ -8,6 +8,7 @@ export const usePlayerStoreQHCube = defineStore('playerStoreQHCube', {
         jwttoken: '',
         gameId: 0,
         movsList: '',
+        lastMoveReplayed: 0,
         activeGameMode: 0
     }),
 

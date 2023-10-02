@@ -92,6 +92,35 @@ export default {
         return result;
     },
 
+    async replayGameFromMovsList(gameId, movsList) {
+        const playerStoreQHCube = usePlayerStoreQHCube();
+        const viewStoreQHCube = useViewStoreQHCube();
+
+        let result = {};
+
+        await axios({
+            method: "post",
+            url: import.meta.env.VITE_APP_API + "/game/replay-game-from-movs-list",
+            data: {id: gameId, movsList: JSON.stringify(movsList), player: {email: playerStoreQHCube.email}},
+            headers: {"Content-Type": "application/json"}
+        }).then((response) => {
+            console.log("DATOS RECIBIDOS: " + response.data);
+            /*
+            if (response.data.player["respStatus"] === "OK") {
+                playerStoreQHCube.gameId = response.data.id;
+                playerStoreQHCube.movsList = movsList;
+                result = response.data;
+            } else {
+                viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
+            }*/
+        }).catch((error) => {
+            console.log("ERROR in gameUtils.replayGameFromMovsList: " + error.message + " - " + error.response.status);
+        });
+
+        return result;
+
+    },
+
     async reinitRegisteredGame() {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();

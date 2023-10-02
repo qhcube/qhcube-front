@@ -9,8 +9,8 @@
             <tr>
                <td class="first-td">Último movimiento:</td>
                <td class="second-td">
-                  {{ this.lastMov }} de {{ this.movs.length}} <span class="font-bold mr-2">&rArr;</span>
-                  <span v-if="this.lastMov > 0" style="color: var(--blue-700)">{{ this.getMovString(this.movs[this.lastMov - 1]) }}</span>
+                  {{ this.playerStoreQHCube.lastMoveReplayed }} de {{ this.movs.length}} <span class="font-bold mr-2">&rArr;</span>
+                  <span v-if="this.playerStoreQHCube.lastMoveReplayed > 0" style="color: var(--blue-700)">{{ this.getMovString(this.movs[this.playerStoreQHCube.lastMoveReplayed - 1]) }}</span>
                </td>
             </tr>
             <tr>
@@ -64,7 +64,7 @@ export default defineComponent({
          game: {},
          movs: [],
          positions: [],
-         lastMov: 0,
+         //lastMov: 0,
          solved: false,
          considerPositions: true,
          var_coor_test: []
@@ -93,6 +93,7 @@ export default defineComponent({
       }
       this.makeNextMove();
       this.var_coor_test = var_coor;
+      this.playerStoreQHCube.lastMoveReplayed = 0;
    },
    methods: {
       toClipboard,
@@ -102,16 +103,16 @@ export default defineComponent({
          }
       },
       makeNextMove() {
-         if (this.lastMov < this.movs.length) {
-            if (this.movs[this.lastMov][0] === 4) {
-               this.positions.push(this.movs[this.lastMov]);
+         if (this.playerStoreQHCube.lastMoveReplayed < this.movs.length) {
+            if (this.movs[this.playerStoreQHCube.lastMoveReplayed][0] === 4) {
+               this.positions.push(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                if (this.considerPositions) {
-                  this.makeMov(this.movs[this.lastMov]);
+                  this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                }
             } else {
-               this.makeMov(this.movs[this.lastMov]);
+               this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
             }
-            this.lastMov++;
+            this.playerStoreQHCube.lastMoveReplayed++;
          } else {
             console.log("No hay más movimientos hacia adelante.");
          }
@@ -124,22 +125,22 @@ export default defineComponent({
       },
 
       makePrevMove() {
-         if(this.lastMov > 1) {
-            this.lastMov--;
-            switch (this.movs[this.lastMov][0]) {
+         if(this.playerStoreQHCube.lastMoveReplayed > 1) {
+            this.playerStoreQHCube.lastMoveReplayed--;
+            switch (this.movs[this.playerStoreQHCube.lastMoveReplayed][0]) {
                case 0:
                case 2:
-                  this.makeMov(this.movs[this.lastMov]);
+                  this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                   break;
                case 1:
                   for (let i = 0; i < 3; i++) {
-                     this.makeMov(this.movs[this.lastMov]);
+                     this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                   }
                   break;
                case 3:
                   console.log("Probando rotar")
                   for (let i = 0; i < 11; i++) {
-                     this.makeMov(this.movs[this.lastMov]);
+                     this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                   }
                   break;
                case 4:

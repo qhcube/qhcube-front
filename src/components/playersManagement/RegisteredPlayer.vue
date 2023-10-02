@@ -44,7 +44,6 @@
                />
                <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'replay-game'"
                        label="Continuar desde aquí"
-                       disabled
                        @click="this.continueFromReplay()"
                        size="small"
                        severity="warning"
@@ -116,9 +115,14 @@ export default {
 
    methods: {
       continueFromReplay() {
+         const movs = (JSON.parse('[' + this.playerStoreQHCube.movsList + ']')).slice(0, this.playerStoreQHCube.lastMoveReplayed);
+
+         gameUtils.replayGameFromMovsList(this.playerStoreQHCube.gameId, movs);
+
+
          this.$toast.add({
             severity: 'info',
-            summary: 'Has pulsado continuar desde aquí...',
+            summary: 'Has pulsado continuar desde el movimiento: ' + this.playerStoreQHCube.lastMoveReplayed,
             detail: '(Por implementar)',
             life: 1500,
             group: 'luck',

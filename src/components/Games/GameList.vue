@@ -157,6 +157,7 @@ export default defineComponent({
       },
 
       async replayGame(gameId) {
+         this.playerStoreQHCube.lastMoveReplayed = 0;
          this.$toast.add({severity: 'info', summary: 'Reproduciendo juego...' + gameId, group: 'cc', life: 1500});
 
          this.playerStoreQHCube.gameId = gameId;
