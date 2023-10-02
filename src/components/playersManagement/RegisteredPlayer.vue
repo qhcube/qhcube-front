@@ -115,29 +115,30 @@ export default {
 
    methods: {
       continueFromReplay() {
-         const movs = (JSON.parse('[' + this.playerStoreQHCube.movsList + ']')).slice(0, this.playerStoreQHCube.lastMoveReplayed);
+         this.$confirm.require({
+            header: "Continuar desde aquí...",
+            message: "¿Realmente quieres borrar los movimientos anteriores?",
+            icon: "pi pi-info-circle",
+            acceptClass: "p-button-danger",
+            acceptLabel: "Sí",
+            accept: () => {
+               this.$toast.add({
+                  severity: 'info',
+                  summary: 'Continuando partida desde punto anterior...',
+                  life: 1500,
+                  group: 'luck',
+               });
 
-         gameUtils.replayGameFromMovsList(this.playerStoreQHCube.gameId, movs);
+               const movs = (JSON.parse('[' + this.playerStoreQHCube.movsList + ']')).slice(0, this.playerStoreQHCube.lastMoveReplayed);
 
+               gameUtils.replayGameFromMovsList(this.playerStoreQHCube.gameId, movs);
 
-         this.$toast.add({
-            severity: 'info',
-            summary: 'Has pulsado continuar desde el movimiento: ' + this.playerStoreQHCube.lastMoveReplayed,
-            detail: '(Por implementar)',
-            life: 1500,
-            group: 'luck',
+               this.playerStoreQHCube.setActiveGameMode(1);
+               this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
+            },
+            reject: () => {
+            }
          });
-         /* TODO:
-         1.- Enviar al servidor el juego con la lista de moviemientos desde la 0 hasta la
-               posición que indique el índice del replay.
-         2.- El servidor comprueba que ese juego le pertenece a ese jugador y que la
-               lista de movimientos se corresponde con los N primeros movimientos del
-               juego que tiene almacenado.
-         3.- Si es correcto, el servidor graba en la base de datos el juego con la lista
-               de movimientos cortada y devuelve el mismo juego con dicho corte y el
-               currentInput actualizado. No se altera el timestamp inicial del juego.
-         4.- El cliente recibe el juego y pasa a juego registrado con ese juego.
-          */
       },
 
       exitReplay() {

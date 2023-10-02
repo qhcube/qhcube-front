@@ -104,15 +104,12 @@ export default {
             data: {id: gameId, movsList: JSON.stringify(movsList), player: {email: playerStoreQHCube.email}},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
-            console.log("DATOS RECIBIDOS: " + response.data);
-            /*
             if (response.data.player["respStatus"] === "OK") {
-                playerStoreQHCube.gameId = response.data.id;
                 playerStoreQHCube.movsList = movsList;
                 result = response.data;
             } else {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
-            }*/
+            }
         }).catch((error) => {
             console.log("ERROR in gameUtils.replayGameFromMovsList: " + error.message + " - " + error.response.status);
         });
