@@ -57,14 +57,19 @@
                quedará registrada.
             </p>
             <p>
-               Al principio, y minetras te encuentres en modo pŕactica, verás una tabla con las partidas anteriores
+               Al principio, y mientras te encuentres en modo pŕactica, verás una tabla con las partidas anteriores
                registradas. Puedes tener abiertas un máximo de 10 partidas (para las resueltas no hay límite). En la
-               tabla verás la fecha y hora de inicio de cada una, si está resuelto la fecha y hora de resolución, el
-               tiempo transcurrido desde que iniciaste la partida, el número de movimientos que has realizado en ella
-               y su estado (abierta o resuelta).
+               tabla verás lo siguiente de cada partida:
             </p>
+            <ul>
+               <li>la fecha y hora en la que la iniciaste,</li>
+               <li>la fecha y hora de resolución,</li>
+               <li>tiempo transcurrido desde que la iniciaste,</li>
+               <li>el número de movimientos que tiene realizados</li>
+               <li>y su estado (resuelta o abierta),</li>
+            </ul>
             <p>
-               Sobre cada partida puedes hacer una de estas tres acciones:
+               A continuación de cada partida verás tres botones para realizar alguna de estas tres acciones:
             </p>
             <ul>
                <li>
@@ -80,6 +85,44 @@
                   servidor (no se puede recuperar).
                </li>
             </ul>
+            <div class="two -mt-2">
+               <h3>Reproducir juego</h3>
+            </div>
+            <p>
+               Al pulsar el botón <span class="font-semibold">Reproducir juego (<span class="pi pi-replay text-blue-600" />)</span>,
+               podrás ver la evolución de tu partida en el cubo de la izquierda.
+            </p>
+            <p>
+               En la tabla se indica el número de movimento que muestra el cubo con respecto el número total de
+               movimientos realizados para que puedas ubicarte.
+            </p>
+            <p>
+               Con los botones de la siguiente fila podrás <span class="underline">avanzar y retroceder paso a
+               paso</span> (<span class="pi pi-angle-left text-blue-600"/> y <span class="pi pi-angle-right text-blue-600" />),
+               o de 10 en 10 movimientos (<span class="pi pi-angle-double-left text-blue-600"/> y
+               <span class="pi pi-angle-double-right text-blue-600" />).
+               También podrás avanzar hasta el útimo movimento directamente (<span class="pi pi-step-forward text-blue-600" />) o
+               retroceder hasta el primero (<span class="pi pi-step-backward text-blue-600" />). En cualquier momento podrás salir de la
+               reproducción y volver a la tabla con tus juegos registrados .
+            </p>
+            <p>
+               El interruptor que hay debajo de la tabla te permite elegir si quieres que el cubo siga las posiciones
+               originales con las que jugaste la partida, o si quieres que el cubo mantenga la posición que le estés
+               asignando mientras reproduces la partida.
+            </p>
+
+            <div class="two -mt-2">
+               <h3>¿Dudas? ¿Sugerencias?</h3>
+            </div>
+            <p>
+               En caso de que estés interesado en conocer más detalles sobre el funcionamiento del juego o la web, ya
+               sea para resolver dudas, sugerirnos alguna mejora o avisarnos de algún error, puedes ponerte en contacto
+               con nosotros a través de correo electrónico <a href="mailto:jesus.glopezdelacalle@upm.es">
+               jesus.glopezdelacalle@upm.es</a>.
+            </p>
+            <p>
+               Agradecemos mucho tu visita y esperamos que disfrutes con nuestro trabajo.
+            </p>
          </scroll-panel>
       </div>
    </div>
@@ -159,3 +202,5 @@ tr {
    background-color: var(--primary-400);
 }
 </style>
+<script setup>
+</script>
