@@ -7,6 +7,7 @@ export default {
     resetGame(input) {
         var_coor = input;
         var_mensaje = "Bienvenidos al juego del QHCube";
+        replayMode = false;
         this.setQHCubeLastPosition();
         pageLoaded();
     },

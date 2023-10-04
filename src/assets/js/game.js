@@ -26,6 +26,7 @@ var var_mensaje2 = "";
 var var_modo_tutorial = true;
 var var_nivel_cero = false;
 var var_final_partida = false;
+var replayMode = false;
 var var_p = [[var_escala * var_l, var_escala * (var_l - Math.sqrt(2.0))],
     [var_escala * (var_l - 1.0 / Math.sqrt(2.0)), var_escala * (var_l - 1.0 / Math.sqrt(2.0))],
     [var_escala * (var_l - Math.sqrt(2.0)), var_escala * var_l],

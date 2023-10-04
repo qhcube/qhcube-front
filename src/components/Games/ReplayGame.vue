@@ -17,10 +17,42 @@
                <td class="first-td">Acciones: </td>
                <td class="second-td">
                   <div class="flex flex-row gap-2 align-content-center">
-                     <Button text rounded raised icon="pi pi-angle-double-left" @click="this.makePrevTenMoves()" />
-                     <Button text rounded raised label="" icon="pi pi-angle-left" @click="this.makePrevMove()" />
-                     <Button text rounded raised label="" icon="pi pi-angle-right"  @click="this.makeNextMove()" />
-                     <Button text rounded raised label="" icon="pi pi-angle-double-right" @click="this.makeNextTenMoves()" />
+                     <table style="border: 0; max-width: 50%">
+                        <tr style="padding-top: 6px">
+                           <td class="text-center">
+                              <Button text rounded raised label="" icon="pi pi-step-backward"
+                                      @click="this.goToBeginning()"/>
+                           </td>
+                           <td class="text-center pl-4">
+                              <Button text rounded raised icon="pi pi-angle-double-left"
+                                      @click="this.makePrevTenMoves()"/>
+                           </td>
+                           <td class="text-center pl-2">
+                              <Button text rounded raised label="" icon="pi pi-angle-left"
+                                      @click="this.makePrevMove()"/>
+                           </td>
+                           <td class="text-center pl-2">
+                              <Button text rounded raised label="" icon="pi pi-angle-right"
+                                      @click="this.makeNextMove()"/>
+                           </td>
+                           <td class="text-center pl-2">
+                              <Button text rounded raised label="" icon="pi pi-angle-double-right"
+                                      @click="this.makeNextTenMoves()"/>
+                           </td>
+                           <td class="text-center pl-4">
+                              <Button text rounded raised label="" icon="pi pi-step-forward"
+                                      @click="this.goToEnd()"/>
+                           </td>
+                        </tr>
+                        <tr>
+                           <td class="text-center text-blue-600 pt-2 text-xs">Inicio</td>
+                           <td  class="text-center text-blue-600 pt-2 pl-4 text-xs">-10</td>
+                           <td  class="text-center text-blue-600 pt-2 pl-2 text-xs">-1</td>
+                           <td  class="text-center text-blue-600 pt-2 pl-2 text-xs">+1</td>
+                           <td  class="text-center text-blue-600 pt-2 pl-2 text-xs">+10</td>
+                           <td  class="text-center text-blue-600 pt-2 pl-4 text-xs">Fin</td>
+                        </tr>
+                     </table>
                   </div>
                </td>
             </tr>
@@ -52,7 +84,7 @@
 
 <script>
 import {defineComponent} from 'vue'
-import gameUtils from "@/assets/js/gameUtils.js";
+import gameUtils from "../../assets/js/gameUtils.js";
 import { toClipboard } from '@soerenmartius/vue3-clipboard'
 
 
@@ -93,7 +125,8 @@ export default defineComponent({
       }
       this.makeNextMove();
       this.var_coor_test = var_coor;
-      this.playerStoreQHCube.lastMoveReplayed = 0;
+      this.playerStoreQHCube.lastMoveReplayed = 1;
+      replayMode = true;
    },
    methods: {
       toClipboard,
@@ -113,8 +146,6 @@ export default defineComponent({
                this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
             }
             this.playerStoreQHCube.lastMoveReplayed++;
-         } else {
-            console.log("No hay más movimientos hacia adelante.");
          }
       },
 
@@ -138,7 +169,6 @@ export default defineComponent({
                   }
                   break;
                case 3:
-                  console.log("Probando rotar")
                   for (let i = 0; i < 11; i++) {
                      this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                   }
@@ -152,9 +182,27 @@ export default defineComponent({
                   }
                   break;
             }
-         } else {
-            console.log("No hay más movimientos hacia atrás.");
          }
+      },
+
+      goToMove(move) {
+         if (move > this.playerStoreQHCube.lastMoveReplayed) {
+            for (let i = this.playerStoreQHCube.lastMoveReplayed; i < move; i++) {
+               this.makeNextMove();
+            }
+         } else {
+            for (let i = this.playerStoreQHCube.lastMoveReplayed; i > move; i--) {
+               this.makePrevMove();
+            }
+         }
+      },
+
+      goToBeginning() {
+         this.goToMove(0);
+      },
+
+      goToEnd() {
+         this.goToMove(this.movs.length);
       },
 
       makeMov(mov) {
@@ -208,7 +256,7 @@ export default defineComponent({
    }
 
    .first-td {
-      width: 15%;
+      min-width: 15%;
       padding: 10px;
       text-align: left;
       border: 1px solid #ddd;

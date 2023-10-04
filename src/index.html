@@ -889,6 +889,7 @@
                     var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
                 }
             }
+
         }
 
         function Intercambiar(elem, j) {
@@ -1109,7 +1110,7 @@
         }
 
         function mouse_down_function() {
-            if (var_final_partida === false) {
+            if (var_final_partida === false && !replayMode) {
                 if (var_t_c[var_cara_clicked][0] === const_cara_cubo) {
                     if (var_cara_clicked % 2 === 0) {
                         if (var_cara_clicked === 8 || var_cara_clicked === 10 || var_cara_clicked === 12 || var_cara_clicked === 14) {
@@ -1215,7 +1216,7 @@
         }
 
         function mouse_dblclick_function() {
-            if (var_final_partida === false) {
+            if (var_final_partida === false && !replayMode) {
                 if (var_t_c[var_cara_clicked][0] === const_cara_cubo) {
                     if (var_cara_clicked % 2 === 0) {
                         if (var_cara_clicked === 8 || var_cara_clicked === 10 || var_cara_clicked === 12 || var_cara_clicked === 14) {
@@ -1301,6 +1302,7 @@
         /* END PROD ENVIROMENT   */
         /*************************/
 
+        let replayMode = false;
 
         async function addMove(move) {
 
