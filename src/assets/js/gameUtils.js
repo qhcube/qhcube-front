@@ -108,6 +108,7 @@ export default {
             if (response.data.player["respStatus"] === "OK") {
                 playerStoreQHCube.movsList = movsList;
                 result = response.data;
+                replayMode = false;
             } else {
                 viewStoreQHCube.setError(response.data.player["respStatus"], response.data.player["respMessage"], "");
             }
