@@ -117,7 +117,7 @@ export default {
       continueFromReplay() {
          this.$confirm.require({
             header: "Continuar desde aquí...",
-            message: "¿Realmente quieres borrar los movimientos anteriores?",
+            message: "¿Realmente quieres borrar los movimientos siguientes a este?",
             icon: "pi pi-info-circle",
             acceptClass: "p-button-danger",
             acceptLabel: "Sí",
