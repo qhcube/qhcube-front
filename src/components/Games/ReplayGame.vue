@@ -237,7 +237,7 @@ export default defineComponent({
             case 2:
                return "Reducción por " + (mov[1] === 1 ? "filas" : "columnas") + ".";
             case 3:
-               return "Rotación de " + (mov[1] === 1 ? "filas" : "columnas") + " " + mov[2] + 1 + " y " + (mov[2] + 2) % 4 + ".";
+               return "Rotación de " + (mov[1] === 1 ? "filas" : "columnas") + " " + (mov[2] + 1) + " y " + (mov[2] + 2) % 4 + ".";
             case 4:
                return "Cambio de perpectiva.";
          }
