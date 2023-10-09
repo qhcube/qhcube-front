@@ -130,11 +130,13 @@ export default defineComponent({
    },
    methods: {
       toClipboard,
+
       makeNextTenMoves() {
          for (let i = 0; i < 10; i++) {
             this.makeNextMove();
          }
       },
+
       makeNextMove() {
          if (this.playerStoreQHCube.lastMoveReplayed < this.movs.length) {
             if (this.movs[this.playerStoreQHCube.lastMoveReplayed][0] === 4) {
@@ -169,9 +171,7 @@ export default defineComponent({
                   }
                   break;
                case 3:
-                  for (let i = 0; i < 11; i++) {
-                     this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
-                  }
+                  inversa_Rotar(this.movs[this.playerStoreQHCube.lastMoveReplayed][1], this.movs[this.playerStoreQHCube.lastMoveReplayed][2]);
                   break;
                case 4:
                   if (this.positions.length > 1) {

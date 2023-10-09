@@ -916,6 +916,10 @@ function Rotar_columnas_1_y_2() {
     }
 }
 
+function inversa_Rotar(elem, j) {
+    return 0;
+}
+
 function Rotar(elem, j, k) {
     var var_k, x0, y0, x1, y1;
 
