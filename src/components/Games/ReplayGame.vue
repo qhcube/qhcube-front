@@ -171,7 +171,9 @@ export default defineComponent({
                   }
                   break;
                case 3:
-                  inversa_Rotar(this.movs[this.playerStoreQHCube.lastMoveReplayed][1], this.movs[this.playerStoreQHCube.lastMoveReplayed][2]);
+                  for (let i = 0; i< 12; i++) {
+                     this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
+                  }
                   break;
                case 4:
                   if (this.positions.length > 1) {
@@ -217,6 +219,7 @@ export default defineComponent({
                Reducir(mov[1]);
                break;
             case 3:
+               console.log("Rotar", mov[1], mov[2]);
                Rotar(mov[1], mov[2]);
                break;
             case 4:
