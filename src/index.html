@@ -421,38 +421,44 @@
         function Ajustar_nivel() {
             let reducible, nivel, nivel_reducido;
 
+            var_nivel_cero = false;
+            var_final_partida = false;
+            nivel = var_nivel;
             reducible = QHCube_reducible();
-            if (reducible) {
+            while (reducible) {
                 nivel = Reducir_nivel();
-                nivel_reducido = Math.round(Math.log2(nivel));
-                if (nivel_reducido === 0) {
-                    var_nivel_cero = true;
-                    var_final_partida = Comprobar_final();
-                    if (var_final_partida) {
-                        if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
-                        var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
-                    } else {
-                        if (var_modo_tutorial) alert("¡Enhorabuena! Ya está en el nivel 0.");
-                        var_mensaje2 = "¡Enhorabuena! Ya está en el nivel 0.";
-                    }
+                reducible = QHCube_reducible();
+            }
+            nivel_reducido = Math.round(Math.log2(nivel));
+            if (nivel_reducido === 0)
+            {
+                var_nivel_cero = true;
+                var_final_partida = Comprobar_final();
+                if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
                 } else {
-                    if (nivel_reducido === var_nivel_reducido - 1) {
-                        if (var_modo_tutorial) alert("¡Buena jugada! Ha reducido el nivel.");
-                        var_mensaje2 = "¡Buena jugada! Ha reducido el nivel.";
-                    }
-                    if (nivel_reducido === var_nivel_reducido) {
-                        if (var_modo_tutorial) alert("¡Buena jugada! Ha mantenido el nivel.");
-                        var_mensaje2 = "¡Buena jugada! Ha mantenido el nivel.";
-                    }
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya está en el nivel 0.");
+                    var_mensaje2 = "¡Enhorabuena! Ya está en el nivel 0.";
                 }
-                var_nivel = nivel;
-                var_nivel_reducido = nivel_reducido;
-            } else {
-                var_nivel_cero = false;
+            }
+            else if (nivel_reducido < var_nivel_reducido)
+            {
+                if (var_modo_tutorial) alert("¡Buena jugada! Ha reducido el nivel.");
+                var_mensaje2 = "¡Buena jugada! Ha reducido el nivel.";
+            }
+            else if (nivel_reducido === var_nivel_reducido)
+            {
+                if (var_modo_tutorial) alert("¡Buena jugada! Ha mantenido el nivel.");
+                var_mensaje2 = "¡Buena jugada! Ha mantenido el nivel.";
+            }
+            else
+            {
                 if (var_modo_tutorial) alert("¡Mala suerte! Ha aumentado el nivel.");
                 var_mensaje2 = "¡Mala suerte! Ha aumentado el nivel.";
-                Calcular_nivel();
             }
+            var_nivel = nivel;
+            var_nivel_reducido = nivel_reducido;
         }
 
         function Comprobacion_QHCube() {
@@ -942,6 +948,29 @@
             }
         }
 
+        function Inversa_Rotar_filas_1_y_2() {
+            let var_k, x0, y0, x1, y1;
+
+            for (var_k = 0; var_k < 4; ++var_k) {
+                x0 =   var_coor[0][0][var_k] + var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                y0 = - var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                x1 =   var_coor[0][0][var_k] - var_coor[0][1][var_k] - var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                y1 =   var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] - var_coor[1][1][var_k];
+                var_coor[0][0][var_k] = x0;
+                var_coor[1][0][var_k] = y0;
+                var_coor[0][1][var_k] = x1;
+                var_coor[1][1][var_k] = y1;
+                x0 = 2 * var_coor[0][2][var_k];
+                y0 = 2 * var_coor[1][2][var_k];
+                x1 = 2 * var_coor[0][3][var_k];
+                y1 = 2 * var_coor[1][3][var_k];
+                var_coor[0][2][var_k] = x0;
+                var_coor[1][2][var_k] = y0;
+                var_coor[0][3][var_k] = x1;
+                var_coor[1][3][var_k] = y1;
+            }
+        }
+
         function Rotar_columnas_1_y_2() {
             let var_k, x0, y0, x1, y1;
 
@@ -954,7 +983,8 @@
                 var_coor[1][var_k][0] = y0;
                 var_coor[0][var_k][1] = x1;
                 var_coor[1][var_k][1] = y1;
-               cn0 = 2 * var_coor[1][var_k][2];
+                x0 = 2 * var_coor[0][var_k][2];
+                y0 = 2 * var_coor[1][var_k][2];
                 x1 = 2 * var_coor[0][var_k][3];
                 y1 = 2 * var_coor[1][var_k][3];
                 var_coor[0][var_k][2] = x0;
@@ -964,7 +994,30 @@
             }
         }
 
-        async function Rotar(elem, j) {
+        function Inversa_Rotar_columnas_1_y_2() {
+            let var_k, x0, y0, x1, y1;
+
+            for (var_k = 0; var_k < 4; ++var_k) {
+                x0 =   var_coor[0][var_k][0] + var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                y0 = - var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                x1 =   var_coor[0][var_k][0] - var_coor[0][var_k][1] - var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                y1 =   var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] - var_coor[1][var_k][1];
+                var_coor[0][var_k][0] = x0;
+                var_coor[1][var_k][0] = y0;
+                var_coor[0][var_k][1] = x1;
+                var_coor[1][var_k][1] = y1;
+                x0 = 2 * var_coor[0][var_k][2];
+                y0 = 2 * var_coor[1][var_k][2];
+                x1 = 2 * var_coor[0][var_k][3];
+                y1 = 2 * var_coor[1][var_k][3];
+                var_coor[0][var_k][2] = x0;
+                var_coor[1][var_k][2] = y0;
+                var_coor[0][var_k][3] = x1;
+                var_coor[1][var_k][3] = y1;
+            }
+        }
+
+        async function Rotar(elem, j, inversa = false) {
             // let var_k, x0, y0, x1, y1;
             savingRotation = true;
             console.log("INPUT: \n" + JSON.stringify(var_coor));
@@ -978,7 +1031,12 @@
                     await Permutar(const_fila, 0, 2);
                     await Permutar(const_fila, 1, 3);
                 }
-                Rotar_filas_1_y_2();
+
+                if (inversa)
+                    Inversa_Rotar_filas_1_y_2();
+                else
+                    Rotar_filas_1_y_2();
+
                 if (j === 1) {
                     await Permutar(const_fila, 1, 2);
                     await Permutar(const_fila, 0, 1);
@@ -1000,7 +1058,12 @@
                     await Permutar(const_columna, 0, 3);
                     await Permutar(const_columna, 1, 3);
                 }
-                Rotar_columnas_1_y_2();
+
+                if (inversa)
+                    Inversa_Rotar_columnas_1_y_2();
+                else
+                    Rotar_columnas_1_y_2();
+
                 if (j === 1) {
                     await Permutar(const_columna, 1, 2);
                     await Permutar(const_columna, 0, 1);

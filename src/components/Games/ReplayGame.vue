@@ -171,9 +171,7 @@ export default defineComponent({
                   }
                   break;
                case 3:
-                  for (let i = 0; i< 12; i++) {
-                     this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
-                  }
+                  this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed], true);
                   break;
                case 4:
                   if (this.positions.length > 1) {
@@ -207,7 +205,7 @@ export default defineComponent({
          this.goToMove(this.movs.length);
       },
 
-      makeMov(mov) {
+      makeMov(mov, inverse = false) {
          switch (mov[0]) {
             case 0:
                Permutar(mov[1], mov[2], mov[3]);
@@ -219,8 +217,11 @@ export default defineComponent({
                Reducir(mov[1]);
                break;
             case 3:
-               console.log("Rotar", mov[1], mov[2]);
-               Rotar(mov[1], mov[2]);
+                  if (inverse) {
+                     Rotar(mov[2], mov[1], true);
+                  } else {
+                     Rotar(mov[1], mov[2], false);
+                  }
                break;
             case 4:
                gameUtils.setQHCUbePosition(mov);
