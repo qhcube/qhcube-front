@@ -39,9 +39,9 @@
             <Column header="" />
          </Row>
       </ColumnGroup>
-      <Column field="initialDate" style="background-color: var(--teal-100)"/>
+      <Column field="initialDate" sort-field="initialDateObject" style="background-color: var(--teal-100)"/>
       <Column field="initialTime" style="background-color: var(--teal-100)"/>
-      <Column field="endDate" style="background-color: var(--red-100)"/>
+      <Column field="endDate" sort-field="endDateObject" style="background-color: var(--red-100)"/>
       <Column field="endTime" style="background-color: var(--red-100)"/>
       <Column field="diffTime" style="background-color: var(--orange-100)"/>
       <Column field="moves" style="background-color: var(--cyan-50)"/>
@@ -118,12 +118,6 @@ export default defineComponent({
       async getGamesByPlayer() {
          this.loading = true;
          this.games = await gameUtils.getGamesByPlayer();
-         /*this.games.map(game => {
-            if (game.state === 'Abierto') {
-               console.log("game.totalGameTime", game.diffTime);
-               //game.diffTime = "-";
-            }
-         });*/
          this.loading = false;
       },
 

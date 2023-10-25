@@ -1377,7 +1377,7 @@
                 await axios({
                     method: "post",
                     url: var_url,
-                    data: JSON.stringify(move) + " " + playerStored.gameId,
+                    data: { movsList: JSON.stringify(move), id: playerStored.gameId, player: {email: playerStored.email}},
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + playerStored.jwttoken
@@ -1393,6 +1393,9 @@
                     })
                     .catch((error) => {
                         console.log("index.enviarInputTest(input) error: " + error);
+                        localStorage.removeItem("playerStoreQHCube");
+                        alert("¡¡¡ ERROR !!!. ¿Tienes otra sesión abierta con el mismo juego?. Por favor, vuelva a iniciar sesión.");
+                        location.reload();
                     });
             } else {
                 // TODO: No tiene token, hay que hacer algo.

@@ -194,8 +194,10 @@ export default {
                 result.push({
                     gameId: game.id,
                     initialDate: this.getDate(game.initialTime),
+                    initialDateObject: new Date(game.initialTime),
                     initialTime: this.getHour(game.initialTime),
                     endDate: state === "Abierto" ? " - " : this.getDate(game.endTime),
+                    endDateObject: state === "Abierto" ? new Date() : new Date(game.endTime),
                     endTime: state === "Abierto" ? " - " : this.getHour(game.endTime),
                     diffTime: this.getDiffTime(game.totalGameTime),
                     moves: game.movsList.endsWith('[5,1,1,1]') ? JSON.parse('[' + game.movsList + ']').length -1 : JSON.parse('[' + game.movsList + ']').length,
