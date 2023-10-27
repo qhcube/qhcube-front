@@ -32,13 +32,14 @@ import PlayerLayout from "./layouts/PlayerLayout.vue";
 import ErrorLayout from "./layouts/ErrorLayout.vue";
 import LearnToPlay from "./gameInfo/LearnToPlay.vue";
 import GameMeaning from "./gameInfo/GameMeaning.vue";
+import RegisteredGameInfo from "./gameInfo/RegisteredGameInfo.vue";
 import BriefGameDescription from "./gameInfo/BriefGameDescription.vue";
 import LoginAndRegister from "./playersManagement/LoginAndRegister.vue";
 import NewRecord from "./playersManagement/NewRecord.vue";
 import RegisteredPlayer from "./playersManagement/RegisteredPlayer.vue";
 import GeneralError from "./errors/GeneralError.vue";
 import PlayerProfile from "./playersManagement/PlayerProfile.vue";
-import RegisteredGameInfo from "@/components/gameInfo/RegisteredGameInfo.vue";
+
 
 export default {
    name: "MainHome",

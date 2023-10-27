@@ -64,7 +64,7 @@
 
       <div class="flex z-1">
          <registered-player-layout>
-            <component ref="activeComponent" :is="this.viewStoreQHCube.getRegisteredPlayerComponent" :showDesc="this.showDesc"/>
+            <component ref="activeComponent" :is="this.viewStoreQHCube.getRegisteredPlayerComponent" :showDesc="this.showDesc" />
          </registered-player-layout>
       </div>
 
@@ -79,7 +79,7 @@ import GameList from "../Games/GameList.vue";
 import PlayerLayout from "../layouts/PlayerLayout.vue";
 import RegisteredPlayerLayout from "../layouts/RegisteredPlayerLayout.vue";
 import ActiveGame from "../Games/ActiveGame.vue";
-import ReplayGame from "@/components/Games/ReplayGame.vue";
+import ReplayGame from "../Games/ReplayGame.vue";
 
 export default {
    name: "RegisteredPlayer",
@@ -105,11 +105,17 @@ export default {
 
    mounted() {
       if (this.playerStoreQHCube.gameId !== 0) {
-         this.playerStoreQHCube.setActiveGameMode(1);
-         this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
-      } else {
-         this.playerStoreQHCube.setActiveGameMode(0);
-         this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
+         switch (this.playerStoreQHCube.activeGameMode) {
+            case 1:
+               this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
+               break;
+            case 3:
+               this.viewStoreQHCube.setRegisteredPlayerComponent("replay-game");
+               break;
+            default:
+               this.playerStoreQHCube.setActiveGameMode(0);
+               this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
+         }
       }
    },
 
@@ -139,17 +145,6 @@ export default {
             reject: () => {
             }
          });
-      },
-
-      exitReplay() {
-         this.$toast.add({
-            severity: 'info',
-            summary: 'Saliendo de reproducción...',
-            life: 1500,
-            group: 'luck',
-         });
-
-         this.initPractice();
       },
 
       async initPractice() {
@@ -187,6 +182,17 @@ export default {
             reject: () => {
             }
          });
+      },
+
+      exitReplay() {
+         this.$toast.add({
+            severity: 'info',
+            summary: 'Saliendo de reproducción...',
+            life: 1500,
+            group: 'luck',
+         });
+
+         this.initPractice();
       },
 
       reinitRegisteredGame() {

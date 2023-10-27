@@ -46,11 +46,11 @@
                         </tr>
                         <tr>
                            <td class="text-center text-blue-600 pt-2 text-xs">Inicio</td>
-                           <td  class="text-center text-blue-600 pt-2 pl-4 text-xs">-10</td>
-                           <td  class="text-center text-blue-600 pt-2 pl-2 text-xs">-1</td>
-                           <td  class="text-center text-blue-600 pt-2 pl-2 text-xs">+1</td>
-                           <td  class="text-center text-blue-600 pt-2 pl-2 text-xs">+10</td>
-                           <td  class="text-center text-blue-600 pt-2 pl-4 text-xs">Fin</td>
+                           <td class="text-center text-blue-600 pt-2 pl-4 text-xs">-10</td>
+                           <td class="text-center text-blue-600 pt-2 pl-2 text-xs">-1</td>
+                           <td class="text-center text-blue-600 pt-2 pl-2 text-xs">+1</td>
+                           <td class="text-center text-blue-600 pt-2 pl-2 text-xs">+10</td>
+                           <td class="text-center text-blue-600 pt-2 pl-4 text-xs">Fin</td>
                         </tr>
                      </table>
                   </div>
@@ -108,6 +108,7 @@ export default defineComponent({
          default: false
       }
    },
+
    watch: {
       considerPositions: function (val) {
          if (val) {
@@ -115,6 +116,7 @@ export default defineComponent({
          }
       }
    },
+
    async mounted() {
       this.game = await gameUtils.loadRegisteredGame(this.playerStoreQHCube.gameId);
       gameUtils.resetGame(JSON.parse(this.game.input));
@@ -128,6 +130,7 @@ export default defineComponent({
       this.playerStoreQHCube.lastMoveReplayed = 1;
       replayMode = true;
    },
+
    methods: {
       toClipboard,
 
@@ -233,11 +236,14 @@ export default defineComponent({
       },
 
       getMovString(mov) {
+         if (mov === undefined)
+            mov = [4,0,0,0];
+
          switch (mov[0]) {
             case 0:
                return "Permutación de " + (mov[1] === 1 ? "filas" : "columnas") + " " + (mov[2] + 1) + " y " + (mov[3] + 1) + ".";
             case 1:
-               return "Intercambio en " + (mov[1] === 1 ? "fila" : "columna" ) + " " + (mov[2] + 1) + ".";
+               return "Intercambio en " + (mov[1] === 1 ? "fila" : "columna") + " " + (mov[2] + 1) + ".";
             case 2:
                return "Reducción por " + (mov[1] === 1 ? "filas" : "columnas") + ".";
             case 3:

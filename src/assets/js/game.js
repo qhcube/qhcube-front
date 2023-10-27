@@ -1260,16 +1260,9 @@ function mouse_dblclick_function() {
 }
 
 function pageLoaded() {
-    canvas = document.getElementById("myCanvas");
-    context = canvas.getContext("2d");
-    var_clicks = 0;
-    var_rect_canvas = canvas.getBoundingClientRect();
-    canvas.addEventListener("mousedown", on_mouse_down, false);
-    canvas.addEventListener("mousemove", on_mouse_move, false);
-    canvas.addEventListener("mouseup", on_mouse_up, false);
+    return 0;
+}
 
-    Chequeo();
-    SistemaReferencia();
-    CalcularVista();
-    RepresentacionVista();
+async function checkPrevGame() {
+    return 0;
 }

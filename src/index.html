@@ -274,7 +274,7 @@
         let canvas;
         let context;
         let canv_oculto = document.createElement("canvas");
-        let context_oculto = canv_oculto.getContext("2d");
+        let context_oculto = canv_oculto.getContext("2d", { willReadFrequently: true });
         canv_oculto.width = var_width;
         canv_oculto.height = var_height;
         context_oculto.font = "24pt Roboto";
@@ -999,7 +999,7 @@
 
             for (var_k = 0; var_k < 4; ++var_k) {
                 x0 =   var_coor[0][var_k][0] + var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
-                y0 = - var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                y0 =   - var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
                 x1 =   var_coor[0][var_k][0] - var_coor[0][var_k][1] - var_coor[1][var_k][0] + var_coor[1][var_k][1];
                 y1 =   var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] - var_coor[1][var_k][1];
                 var_coor[0][var_k][0] = x0;
@@ -1020,7 +1020,6 @@
         async function Rotar(elem, j, inversa = false) {
             // let var_k, x0, y0, x1, y1;
             savingRotation = true;
-            console.log("INPUT: \n" + JSON.stringify(var_coor));
 
             if (elem === const_fila) {
                 if (j === 1) {
@@ -1176,7 +1175,6 @@
 
         async function mouse_down_function() {
             if (var_final_partida === false && replayMode === false) {
-                console.log("Llegué");
                 if (var_t_c[var_cara_clicked][0] === const_cara_cubo) {
                     if (var_cara_clicked % 2 === 0) {
                         if (var_cara_clicked === 8 || var_cara_clicked === 10 || var_cara_clicked === 12 || var_cara_clicked === 14) {
@@ -1335,7 +1333,7 @@
 
         function pageLoaded() {
             canvas = document.getElementById("myCanvas");
-            context = canvas.getContext("2d");
+            context = canvas.getContext("2d", { willReadFrequently: true });
             var_clicks = 0;
             var_rect_canvas = canvas.getBoundingClientRect();
             canvas.addEventListener("mousedown", on_mouse_down, false);
@@ -1354,6 +1352,7 @@
         /* BEGIN DEV ENVIROMENT */
         /************************/
         const var_url = "http://localhost:9000/api/game/add-move";
+        const var_url_prev_game = "http://localhost:9000/api/game/get-game";
         //var_origen_y = var_width / 1.0;
         //var_origen_text_x = ((3.0*var_width)/8.0);
         /************************/
@@ -1363,13 +1362,39 @@
         /*************************/
         /* BEGIN PROD ENVIROMENT */
         /*************************/
-        // const var_url = "https://qhcube.etsisi.upm.es/api/game/add-move";
+         //const var_url = "https://qhcube.etsisi.upm.es/api/game/add-move";
+         //const var_url_prev_game = "https://qhcube.etsisi.upm.es/api/game/get-game";
         /*************************/
         /* END PROD ENVIROMENT   */
         /*************************/
 
         let replayMode = false;
         let savingRotation = false;
+
+        async function loadPrevGame(playerStored) {
+            let result = {};
+
+            await axios({
+                method: "post",
+                url: var_url_prev_game,
+                data: {email: playerStored.email, games: [{id: playerStored.gameId}]},
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + playerStored.jwttoken
+                },
+            }).then((response) => {
+                if (response.data.player["respStatus"] === "OK") {
+                    result = response.data;
+                } else {
+                    console.log("ERROR Trayendo el juego: " + response.data.player["respStatus"] + "\n" +
+                        response.data.player["respMessage"]);
+                }
+            }).catch((error) => {
+                console.log("ERROR in gameUtils.createNewRegisteredGame: " + error.message + " - " + error.response.status);
+            });
+
+            return result;
+        }
 
         async function addMove(move) {
             let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
@@ -1402,6 +1427,33 @@
                 console.log("axios.addMove(move) --> El jugador no tiene token en localStorage");
             }
         }
+
+        async function checkPrevGame() {
+            let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
+
+            if (playerStored) {
+                if (playerStored.gameId !== 0 && playerStored.activeGameMode === 1) {
+                    let game = await loadPrevGame(playerStored);
+                    var_coor = JSON.parse(game.currentInput);
+                    replayMode = false;
+                    gameType = 1;
+                    pageLoaded();
+                } else {
+                    // Volver a práctica
+                    playerStored.gameId = 0;
+                    playerStored.movsList =  "[4,0.7483314773547882,0.6324555320336759,0.2]";
+                    playerStored.activeGameMode = 0;
+                    gameType = 0;
+                    // TODO: Esta parte del else debe tratar de dejar el tema con los componentes como reiniciar práctica.
+                    localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
+                }
+            }
+        }
+
+        /*document.addEventListener("DOMContentLoaded", () => {
+            checkPrevGame();
+        });*/
+
     </script>
 </head>
 <body>

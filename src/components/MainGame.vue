@@ -11,6 +11,7 @@
 export default {
    name: "MainGame",
    mounted() {
+      checkPrevGame();
       pageLoaded();
    }
    // TODO: On Mounted, it can be called a function to check if session is expired or not

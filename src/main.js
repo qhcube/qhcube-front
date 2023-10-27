@@ -35,7 +35,6 @@ import {useViewStoreQHCube} from "./assets/js/viewStoreQHCube.js";
 import axios from "axios";
 import { VueClipboard } from '@soerenmartius/vue3-clipboard'
 
-
 const app = createApp(App);
 
 app.use(PrimeVue, {
@@ -48,7 +47,6 @@ app.use(PrimeVue, {
         tooltip: 1100       //tooltip
     }
 });
-
 
 app.use(createPinia().use(piniaPersist));
 app.use(router);
