@@ -274,7 +274,7 @@
         let canvas;
         let context;
         let canv_oculto = document.createElement("canvas");
-        let context_oculto = canv_oculto.getContext("2d");
+        let context_oculto = canv_oculto.getContext("2d", { willReadFrequently: true });
         canv_oculto.width = var_width;
         canv_oculto.height = var_height;
         context_oculto.font = "24pt Roboto";
@@ -421,38 +421,44 @@
         function Ajustar_nivel() {
             let reducible, nivel, nivel_reducido;
 
+            var_nivel_cero = false;
+            var_final_partida = false;
+            nivel = var_nivel;
             reducible = QHCube_reducible();
-            if (reducible) {
+            while (reducible) {
                 nivel = Reducir_nivel();
-                nivel_reducido = Math.round(Math.log2(nivel));
-                if (nivel_reducido === 0) {
-                    var_nivel_cero = true;
-                    var_final_partida = Comprobar_final();
-                    if (var_final_partida) {
-                        if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
-                        var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
-                    } else {
-                        if (var_modo_tutorial) alert("¡Enhorabuena! Ya está en el nivel 0.");
-                        var_mensaje2 = "¡Enhorabuena! Ya está en el nivel 0.";
-                    }
+                reducible = QHCube_reducible();
+            }
+            nivel_reducido = Math.round(Math.log2(nivel));
+            if (nivel_reducido === 0)
+            {
+                var_nivel_cero = true;
+                var_final_partida = Comprobar_final();
+                if (var_final_partida) {
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya ha alcanzado el objetivo.");
+                    var_mensaje2 = "¡Enhorabuena! Ya ha alcanzado el objetivo.";
                 } else {
-                    if (nivel_reducido === var_nivel_reducido - 1) {
-                        if (var_modo_tutorial) alert("¡Buena jugada! Ha reducido el nivel.");
-                        var_mensaje2 = "¡Buena jugada! Ha reducido el nivel.";
-                    }
-                    if (nivel_reducido === var_nivel_reducido) {
-                        if (var_modo_tutorial) alert("¡Buena jugada! Ha mantenido el nivel.");
-                        var_mensaje2 = "¡Buena jugada! Ha mantenido el nivel.";
-                    }
+                    if (var_modo_tutorial) alert("¡Enhorabuena! Ya está en el nivel 0.");
+                    var_mensaje2 = "¡Enhorabuena! Ya está en el nivel 0.";
                 }
-                var_nivel = nivel;
-                var_nivel_reducido = nivel_reducido;
-            } else {
-                var_nivel_cero = false;
+            }
+            else if (nivel_reducido < var_nivel_reducido)
+            {
+                if (var_modo_tutorial) alert("¡Buena jugada! Ha reducido el nivel.");
+                var_mensaje2 = "¡Buena jugada! Ha reducido el nivel.";
+            }
+            else if (nivel_reducido === var_nivel_reducido)
+            {
+                if (var_modo_tutorial) alert("¡Buena jugada! Ha mantenido el nivel.");
+                var_mensaje2 = "¡Buena jugada! Ha mantenido el nivel.";
+            }
+            else
+            {
                 if (var_modo_tutorial) alert("¡Mala suerte! Ha aumentado el nivel.");
                 var_mensaje2 = "¡Mala suerte! Ha aumentado el nivel.";
-                Calcular_nivel();
             }
+            var_nivel = nivel;
+            var_nivel_reducido = nivel_reducido;
         }
 
         function Comprobacion_QHCube() {
@@ -919,31 +925,7 @@
             }
         }
 
-        function inversa_Rotar_filas_1_y_2() {
-            let var_k, x0, y0, x1, y1;
-
-            for (var_k = 0; var_k < 4; ++var_k) {
-                x0 = var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] - var_coor[1][1][var_k];
-                y0 = var_coor[0][0][var_k] + var_coor[0][1][var_k] - var_coor[1][0][var_k] - var_coor[1][1][var_k];
-                x1 = var_coor[0][0][var_k] + var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
-                y1 = var_coor[0][0][var_k] - var_coor[0][1][var_k] - var_coor[1][0][var_k] + var_coor[1][1][var_k];
-                var_coor[0][0][var_k] = x0;
-                var_coor[1][0][var_k] = y0;
-                var_coor[0][1][var_k] = x1;
-                var_coor[1][1][var_k] = y1;
-                x0 = Math.trunc(var_coor[0][2][var_k] / 2);
-                y0 = Math.trunc(var_coor[1][2][var_k] / 2);
-                x1 = Math.trunc(var_coor[0][3][var_k] / 2);
-                y1 = Math.trunc(var_coor[1][3][var_k] / 2);
-                var_coor[0][2][var_k] = x0;
-                var_coor[1][2][var_k] = y0;
-                var_coor[0][3][var_k] = x1;
-                var_coor[1][3][var_k] = y1;
-                console.log("inversa_Rotar_filas_1_y_2: " + x0 + ", " + y0 + ", " + x1 + ", " + y1);
-            }
-        }
-
-        function Rotar_filas_1_y_2() {
+         function Rotar_filas_1_y_2() {
             let var_k, x0, y0, x1, y1;
 
             for (var_k = 0; var_k < 4; ++var_k) {
@@ -963,31 +945,29 @@
                 var_coor[1][2][var_k] = y0;
                 var_coor[0][3][var_k] = x1;
                 var_coor[1][3][var_k] = y1;
-                console.log("Rotar_filas_1_y_2: " + x0 + ", " + y0 + ", " + x1 + ", " + y1);
             }
         }
 
-        function inversa_Rotar_columnas_1_y_2() {
+        function Inversa_Rotar_filas_1_y_2() {
             let var_k, x0, y0, x1, y1;
 
             for (var_k = 0; var_k < 4; ++var_k) {
-                x0 = var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] - var_coor[1][var_k][1];
-                y0 = var_coor[0][var_k][0] + var_coor[0][var_k][1] - var_coor[1][var_k][0] - var_coor[1][var_k][1];
-                x1 = var_coor[0][var_k][0] + var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
-                y1 = var_coor[0][var_k][0] - var_coor[0][var_k][1] - var_coor[1][var_k][0] + var_coor[1][var_k][1];
-                var_coor[0][var_k][0] = x0;
-                var_coor[1][var_k][0] = y0;
-                var_coor[0][var_k][1] = x1;
-                var_coor[1][var_k][1] = y1;
-                x0 = var_coor[0][var_k][2] / 2;
-                y0 = var_coor[1][var_k][2] / 2;
-                x1 = var_coor[0][var_k][3] / 2;
-                y1 = var_coor[1][var_k][3] / 2;
-                var_coor[0][var_k][2] = x0;
-                var_coor[1][var_k][2] = y0;
-                var_coor[0][var_k][3] = x1;
-                var_coor[1][var_k][3] = y1;
-                console.log("inversa_Rotar_columnas_1_y_2: " + x0 + ", " + y0 + ", " + x1 + ", " + y1);
+                x0 =   var_coor[0][0][var_k] + var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                y0 = - var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                x1 =   var_coor[0][0][var_k] - var_coor[0][1][var_k] - var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                y1 =   var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] - var_coor[1][1][var_k];
+                var_coor[0][0][var_k] = x0;
+                var_coor[1][0][var_k] = y0;
+                var_coor[0][1][var_k] = x1;
+                var_coor[1][1][var_k] = y1;
+                x0 = 2 * var_coor[0][2][var_k];
+                y0 = 2 * var_coor[1][2][var_k];
+                x1 = 2 * var_coor[0][3][var_k];
+                y1 = 2 * var_coor[1][3][var_k];
+                var_coor[0][2][var_k] = x0;
+                var_coor[1][2][var_k] = y0;
+                var_coor[0][3][var_k] = x1;
+                var_coor[1][3][var_k] = y1;
             }
         }
 
@@ -1011,67 +991,35 @@
                 var_coor[1][var_k][2] = y0;
                 var_coor[0][var_k][3] = x1;
                 var_coor[1][var_k][3] = y1;
-                console.log("Rotar_columnas_1_y_2: " + x0 + ", " + y0 + ", " + x1 + ", " + y1);
             }
         }
 
-        async function inversa_Rotar(elem, j) {
-            console.log("INPUT: \n" + JSON.stringify(var_coor));
-            if (elem === const_fila) {
-                if (j === 1) {
-                    await Permutar(const_fila, 0, 1);
-                    await Permutar(const_fila, 1, 2);
-                }
-                if (j === 2) {
-                    await Permutar(const_fila, 0, 2);
-                    await Permutar(const_fila, 1, 3);
-                }
-                inversa_Rotar_filas_1_y_2();
-                if (j === 1) {
-                    await Permutar(const_fila, 1, 2);
-                    await Permutar(const_fila, 0, 1);
-                }
-                if (j === 2) {
-                    await Permutar(const_fila, 1, 3);
-                    await Permutar(const_fila, 0, 2);
-                }
-            } else {
-                if (j === 1) {
-                    await Permutar(const_columna, 0, 1);
-                    await Permutar(const_columna, 1, 2);
-                }
-                if (j === 2) {
-                    await Permutar(const_columna, 0, 2);
-                    await Permutar(const_columna, 1, 3);
-                }
-                if (j === 3) {
-                    await Permutar(const_columna, 0, 3);
-                    await Permutar(const_columna, 1, 3);
-                }
-                inversa_Rotar_columnas_1_y_2();
-                if (j === 1) {
-                    await Permutar(const_columna, 1, 2);
-                    await Permutar(const_columna, 0, 1);
-                }
-                if (j === 2) {
-                    await Permutar(const_columna, 1, 3);
-                    await Permutar(const_columna, 0, 2);
-                }
-                if (j === 3) {
-                    await Permutar(const_columna, 1, 3);
-                    await Permutar(const_columna, 0, 3);
-                }
-            }
+        function Inversa_Rotar_columnas_1_y_2() {
+            let var_k, x0, y0, x1, y1;
 
-            Ajustar_nivel();
-            Chequeo();
-            RepresentacionVista();
+            for (var_k = 0; var_k < 4; ++var_k) {
+                x0 =   var_coor[0][var_k][0] + var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                y0 =   - var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                x1 =   var_coor[0][var_k][0] - var_coor[0][var_k][1] - var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                y1 =   var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] - var_coor[1][var_k][1];
+                var_coor[0][var_k][0] = x0;
+                var_coor[1][var_k][0] = y0;
+                var_coor[0][var_k][1] = x1;
+                var_coor[1][var_k][1] = y1;
+                x0 = 2 * var_coor[0][var_k][2];
+                y0 = 2 * var_coor[1][var_k][2];
+                x1 = 2 * var_coor[0][var_k][3];
+                y1 = 2 * var_coor[1][var_k][3];
+                var_coor[0][var_k][2] = x0;
+                var_coor[1][var_k][2] = y0;
+                var_coor[0][var_k][3] = x1;
+                var_coor[1][var_k][3] = y1;
+            }
         }
 
-        async function Rotar(elem, j) {
+        async function Rotar(elem, j, inversa = false) {
             // let var_k, x0, y0, x1, y1;
             savingRotation = true;
-            console.log("INPUT: \n" + JSON.stringify(var_coor));
 
             if (elem === const_fila) {
                 if (j === 1) {
@@ -1082,7 +1030,12 @@
                     await Permutar(const_fila, 0, 2);
                     await Permutar(const_fila, 1, 3);
                 }
-                Rotar_filas_1_y_2();
+
+                if (inversa)
+                    Inversa_Rotar_filas_1_y_2();
+                else
+                    Rotar_filas_1_y_2();
+
                 if (j === 1) {
                     await Permutar(const_fila, 1, 2);
                     await Permutar(const_fila, 0, 1);
@@ -1104,7 +1057,12 @@
                     await Permutar(const_columna, 0, 3);
                     await Permutar(const_columna, 1, 3);
                 }
-                Rotar_columnas_1_y_2();
+
+                if (inversa)
+                    Inversa_Rotar_columnas_1_y_2();
+                else
+                    Rotar_columnas_1_y_2();
+
                 if (j === 1) {
                     await Permutar(const_columna, 1, 2);
                     await Permutar(const_columna, 0, 1);
@@ -1217,7 +1175,6 @@
 
         async function mouse_down_function() {
             if (var_final_partida === false && replayMode === false) {
-                console.log("Llegué");
                 if (var_t_c[var_cara_clicked][0] === const_cara_cubo) {
                     if (var_cara_clicked % 2 === 0) {
                         if (var_cara_clicked === 8 || var_cara_clicked === 10 || var_cara_clicked === 12 || var_cara_clicked === 14) {
@@ -1376,7 +1333,7 @@
 
         function pageLoaded() {
             canvas = document.getElementById("myCanvas");
-            context = canvas.getContext("2d");
+            context = canvas.getContext("2d", { willReadFrequently: true });
             var_clicks = 0;
             var_rect_canvas = canvas.getBoundingClientRect();
             canvas.addEventListener("mousedown", on_mouse_down, false);
@@ -1395,6 +1352,7 @@
         /* BEGIN DEV ENVIROMENT */
         /************************/
         const var_url = "http://localhost:9000/api/game/add-move";
+        const var_url_prev_game = "http://localhost:9000/api/game/get-game";
         //var_origen_y = var_width / 1.0;
         //var_origen_text_x = ((3.0*var_width)/8.0);
         /************************/
@@ -1404,7 +1362,8 @@
         /*************************/
         /* BEGIN PROD ENVIROMENT */
         /*************************/
-        // const var_url = "https://qhcube.etsisi.upm.es/api/game/add-move";
+         //const var_url = "https://qhcube.etsisi.upm.es/api/game/add-move";
+         //const var_url_prev_game = "https://qhcube.etsisi.upm.es/api/game/get-game";
         /*************************/
         /* END PROD ENVIROMENT   */
         /*************************/
@@ -1412,13 +1371,39 @@
         let replayMode = false;
         let savingRotation = false;
 
+        async function loadPrevGame(playerStored) {
+            let result = {};
+
+            await axios({
+                method: "post",
+                url: var_url_prev_game,
+                data: {email: playerStored.email, games: [{id: playerStored.gameId}]},
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + playerStored.jwttoken
+                },
+            }).then((response) => {
+                if (response.data.player["respStatus"] === "OK") {
+                    result = response.data;
+                } else {
+                    console.log("ERROR Trayendo el juego: " + response.data.player["respStatus"] + "\n" +
+                        response.data.player["respMessage"]);
+                }
+            }).catch((error) => {
+                console.log("ERROR in gameUtils.createNewRegisteredGame: " + error.message + " - " + error.response.status);
+            });
+
+            return result;
+        }
+
         async function addMove(move) {
             let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
             if (playerStored) {
+                console.log(playerStored.jwttoken);
                 await axios({
                     method: "post",
                     url: var_url,
-                    data: JSON.stringify(move) + " " + playerStored.gameId,
+                    data: { movsList: JSON.stringify(move), id: playerStored.gameId, player: {email: playerStored.email}},
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + playerStored.jwttoken
@@ -1434,12 +1419,42 @@
                     })
                     .catch((error) => {
                         console.log("index.enviarInputTest(input) error: " + error);
+                        localStorage.removeItem("playerStoreQHCube");
+                        alert("¡¡¡ ERROR !!!. ¿Tienes otra sesión abierta con el mismo juego?. Por favor, vuelva a iniciar sesión.");
+                        location.reload();
                     });
             } else {
                 // TODO: No tiene token, hay que hacer algo.
                 console.log("axios.addMove(move) --> El jugador no tiene token en localStorage");
             }
         }
+
+        async function checkPrevGame() {
+            let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
+
+            if (playerStored) {
+                if (playerStored.gameId !== 0 && playerStored.activeGameMode === 1) {
+                    let game = await loadPrevGame(playerStored);
+                    var_coor = JSON.parse(game.currentInput);
+                    replayMode = false;
+                    gameType = 1;
+                    pageLoaded();
+                } else {
+                    // Volver a práctica
+                    playerStored.gameId = 0;
+                    playerStored.movsList =  "[4,0.7483314773547882,0.6324555320336759,0.2]";
+                    playerStored.activeGameMode = 0;
+                    gameType = 0;
+                    // TODO: Esta parte del else debe tratar de dejar el tema con los componentes como reiniciar práctica.
+                    localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
+                }
+            }
+        }
+
+        /*document.addEventListener("DOMContentLoaded", () => {
+            checkPrevGame();
+        });*/
+
     </script>
 </head>
 <body>
