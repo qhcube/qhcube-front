@@ -1399,6 +1399,7 @@
         async function addMove(move) {
             let playerStored = JSON.parse(localStorage.getItem("playerStoreQHCube"));
             if (playerStored) {
+                console.log(playerStored.jwttoken);
                 await axios({
                     method: "post",
                     url: var_url,
