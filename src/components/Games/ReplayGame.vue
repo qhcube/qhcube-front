@@ -110,9 +110,9 @@ export default defineComponent({
    },
 
    watch: {
-      considerPositions: function (val) {
+      considerPositions: async function (val) {
          if (val) {
-            this.makeMov(this.positions[this.positions.length - 1]);
+            await this.makeMov(this.positions[this.positions.length - 1]);
          }
       }
    },
@@ -125,7 +125,7 @@ export default defineComponent({
          this.movs.pop();
          this.solved = true;
       }
-      this.makeNextMove();
+      await this.makeNextMove();
       this.var_coor_test = var_coor;
       this.playerStoreQHCube.lastMoveReplayed = 1;
       replayMode = true;
@@ -134,105 +134,111 @@ export default defineComponent({
    methods: {
       toClipboard,
 
-      makeNextTenMoves() {
-         for (let i = 0; i < 10; i++) {
-            this.makeNextMove();
-         }
-      },
-
-      makeNextMove() {
+      async makeNextMove() {
          if (this.playerStoreQHCube.lastMoveReplayed < this.movs.length) {
             if (this.movs[this.playerStoreQHCube.lastMoveReplayed][0] === 4) {
                this.positions.push(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                if (this.considerPositions) {
-                  this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
+                  await this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                }
             } else {
-               this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
+               await this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
             }
             this.playerStoreQHCube.lastMoveReplayed++;
          }
       },
 
-      makePrevTenMoves() {
-         for (let i = 0; i < 10; i++) {
-            this.makePrevMove();
-         }
-      },
-
-      makePrevMove() {
+      async makePrevMove() {
          if(this.playerStoreQHCube.lastMoveReplayed > 1) {
             this.playerStoreQHCube.lastMoveReplayed--;
+
             switch (this.movs[this.playerStoreQHCube.lastMoveReplayed][0]) {
                case 0:
                case 2:
-                  this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
+                  await this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                   break;
                case 1:
                   for (let i = 0; i < 3; i++) {
-                     this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
+                     await this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed]);
                   }
                   break;
                case 3:
-                  this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed], true);
+                  await this.makeMov(this.movs[this.playerStoreQHCube.lastMoveReplayed], true);
                   break;
                case 4:
                   if (this.positions.length > 1) {
                      this.positions.pop();
                   }
                   if (this.considerPositions) {
-                     this.makeMov(this.positions[this.positions.length - 1]);
+                     await this.makeMov(this.positions[this.positions.length - 1]);
                   }
                   break;
             }
          }
       },
 
-      goToMove(move) {
-         if (move > this.playerStoreQHCube.lastMoveReplayed) {
-            for (let i = this.playerStoreQHCube.lastMoveReplayed; i < move; i++) {
-               this.makeNextMove();
-            }
-         } else {
-            for (let i = this.playerStoreQHCube.lastMoveReplayed; i > move; i--) {
-               this.makePrevMove();
-            }
-         }
-      },
-
-      goToBeginning() {
-         this.goToMove(0);
-      },
-
-      goToEnd() {
-         this.goToMove(this.movs.length);
-      },
-
-      makeMov(mov, inverse = false) {
+      async makeMov(mov, inverse = false) {
          switch (mov[0]) {
             case 0:
-               Permutar(mov[1], mov[2], mov[3]);
+               await Permutar(mov[1], mov[2], mov[3]);
                break;
             case 1:
-               Intercambiar(mov[1], mov[2]);
+               await Intercambiar(mov[1], mov[2]);
                break;
             case 2:
-               Reducir(mov[1]);
+               await Reducir(mov[1]);
                break;
             case 3:
-                  if (inverse) {
-                     Rotar(mov[2], mov[1], true);
-                  } else {
-                     Rotar(mov[1], mov[2], false);
-                  }
+               if (inverse) {
+                  await Rotar(mov[1], mov[2], mov[3], true);
+               } else {
+                  await Rotar(mov[1], mov[2], mov[3], false);
+               }
                break;
             case 4:
                gameUtils.setQHCUbePosition(mov);
                break;
          }
+
+         if (mov[0] !== 4) {
+            this.positions.push(var_coor);
+         }
+
          SistemaReferencia();
          CalcularVista();
          RepresentacionVista();
+      },
+
+      async makeNextTenMoves() {
+         for (let i = 0; i < 10; i++) {
+            await this.makeNextMove();
+         }
+      },
+
+      async makePrevTenMoves() {
+         for (let i = 0; i < 10; i++) {
+            await this.makePrevMove();
+         }
+      },
+
+      async goToBeginning() {
+         await this.goToMove(0);
+      },
+
+      async goToEnd() {
+         await this.goToMove(this.movs.length);
+      },
+
+      async goToMove(move) {
+         if (move > this.playerStoreQHCube.lastMoveReplayed) {
+            for (let i = this.playerStoreQHCube.lastMoveReplayed; i < move; i++) {
+               await this.makeNextMove();
+            }
+         } else {
+            for (let i = this.playerStoreQHCube.lastMoveReplayed; i > move; i--) {
+               await this.makePrevMove();
+            }
+         }
       },
 
       getMovString(mov) {
