@@ -928,6 +928,8 @@
          function Rotar_filas_1_y_2() {
             let var_k, x0, y0, x1, y1;
 
+            console.log("Rotar filas 1 y 2 varcoor: " + var_coor);
+
             for (var_k = 0; var_k < 4; ++var_k) {
                 x0 = var_coor[0][0][var_k] + var_coor[0][1][var_k] - var_coor[1][0][var_k] + var_coor[1][1][var_k];
                 y0 = var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
@@ -946,6 +948,8 @@
                 var_coor[0][3][var_k] = x1;
                 var_coor[1][3][var_k] = y1;
             }
+
+            console.log("Rotar filas 1 y 2 varcoor END: " + JSON.stringify(var_coor));
         }
 
         function Inversa_Rotar_filas_1_y_2() {
@@ -1017,7 +1021,7 @@
             }
         }
 
-        async function Rotar(elem, j, inversa = false) {
+        async function Rotar(elem, j, k, inversa = false) {
             // let var_k, x0, y0, x1, y1;
             savingRotation = true;
 
