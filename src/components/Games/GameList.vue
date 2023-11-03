@@ -1,4 +1,5 @@
 <template>
+   <div class="flex flex-column align-items-center w-full" :style="'height:' + (this.showDesc ? '239px' : '375px')">
    <DataTable :value="this.games"
               :loading="this.loading"
               scrollable
@@ -84,6 +85,7 @@
          </template>
       </Column>
    </DataTable>
+   </div>
 
    <Toast position="center" group="cc"/>
 
