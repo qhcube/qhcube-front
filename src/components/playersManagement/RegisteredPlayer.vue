@@ -4,13 +4,13 @@
         style="min-width: 895px">
       <div class="flex flex-row flex-nowrap three pl-2 h-4rem"  style="height: 75px">
          <div class="flex flex-row gap-6 align-items-center flex-grow-1">
-            <h1 class="flex">Usuario: {{ this.playerStoreQHCube.nombre }} {{ this.playerStoreQHCube.apellidos }}</h1>
+            <h1 class="flex">Usuario:&nbsp;<span class="text-lg"> {{ this.getUserNameForTitle() }} </span></h1>
             <h4 class="flex font-light" style="padding-bottom: 12px">
                (Modo <span class="ml-1 font-semibold">{{ this.playerStoreQHCube.getactiveGameModeAsString() }}</span>)
             </h4>
          </div>
 
-         <div class="flex flex-row-reverse align-items-center gap-6 pr-6 z-2">
+         <div class="flex flex-row-reverse align-items-center gap-6 pr-6 z-2 ml-4">
             <registered-player-menu />
 
             <div class="flex flex-nowrap gap-2 self">
@@ -120,6 +120,14 @@ export default {
    },
 
    methods: {
+      getUserNameForTitle() {
+         let name = this.playerStoreQHCube.nombre + " " + this.playerStoreQHCube.apellidos;
+         if (name.length > 15) {
+            name = name.substring(0, 15) + "...";
+         }
+         return name;
+      },
+
       continueFromReplay() {
          this.$confirm.require({
             header: "Continuar desde aquí...",

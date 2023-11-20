@@ -25,7 +25,7 @@
                            <span class="p-inputgroup-addon">
                               <i class="pi pi-user"></i>
                            </span>
-                           <InputText placeholder="eMail" type="email" v-model="this.player.email" autocomplete="on"/>
+                           <InputText placeholder="eMail" type="email" v-model="this.player.email" autocomplete="off"/>
                         </div>
                      </div>
                   </div>
@@ -104,6 +104,9 @@ export default {
             this.playerStoreQHCube.email = "";
          }
       }
+   },
+   mounted() {
+      this.player.email = this.playerStoreQHCube.email;
    },
    methods: {
       async performLogin() {
