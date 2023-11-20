@@ -117,7 +117,7 @@
             <p>
                En caso de que estés interesado en conocer más detalles sobre el funcionamiento del juego o la web, ya
                sea para resolver dudas, sugerirnos alguna mejora o avisarnos de algún error, puedes ponerte en contacto
-               con nosotros a través de correo electrónico <a href="mailto:jesus.glopezdelacalle@upm.es">
+               con nosotros a través de correo electrónico <a href="mailto:jesus.glopezdelacalle@upm.es" target="_blank">
                jesus.glopezdelacalle@upm.es</a>.
             </p>
             <p>

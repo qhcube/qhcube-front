@@ -26,7 +26,7 @@
             </tbody>
          </table>
          <p>Si quieres modificarlos, escribe un correo a
-            <a :href="'mailto:' + this.systemEmail">{{ this.systemEmail }}</a>.
+            <a :href="'mailto:' + this.systemEmail" target="_blank">{{ this.systemEmail }}</a>.
          </p>
          <p>
             Si te das de baja, borraremos todos tus datos de nuestra base de datos, incluyendo partidas y puntuaciones.

@@ -10,7 +10,7 @@
             <span v-if="this.result.status !== 'OK'" class="text-xs m-3">
                Si crees que hay algún error, puedes ponerte en <br />
                contacto con nosotros a través de correo electrónico:<br />
-               <a :href="'mailto:' + this.systemEmail">{{ this.systemEmail }}</a>
+               <a :href="'mailto:' + this.systemEmail" target="_blank">{{ this.systemEmail }}</a>
             </span>
          </div>
       </div>
