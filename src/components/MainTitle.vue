@@ -6,7 +6,7 @@
            </div>
           <div class="two">
               <h1>Juego del Hipercubo Cuántico
-                  <span>By Jesús García López de la Calle</span>
+                  <span>By Jesús Lacalle</span>
               </h1>
           </div>
        </div>
@@ -44,9 +44,6 @@ h1 em {
     font-weight: 600;
 }
 
-.two h1 {
-    text-transform: capitalize;
-}
 .two h1:before {
     position: absolute;
     left: 0;

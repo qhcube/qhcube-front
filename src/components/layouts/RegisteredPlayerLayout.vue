@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: "UserLayout"
+   name: "RegisteredPlayerLayout"
 }
 </script>
 

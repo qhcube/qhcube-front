@@ -26,6 +26,7 @@ var var_mensaje2 = "";
 var var_modo_tutorial = true;
 var var_nivel_cero = false;
 var var_final_partida = false;
+var replayMode = false;
 var var_p = [[var_escala * var_l, var_escala * (var_l - Math.sqrt(2.0))],
     [var_escala * (var_l - 1.0 / Math.sqrt(2.0)), var_escala * (var_l - 1.0 / Math.sqrt(2.0))],
     [var_escala * (var_l - Math.sqrt(2.0)), var_escala * var_l],
@@ -915,6 +916,10 @@ function Rotar_columnas_1_y_2() {
     }
 }
 
+function inversa_Rotar(elem, j) {
+    return 0;
+}
+
 function Rotar(elem, j, k) {
     var var_k, x0, y0, x1, y1;
 
@@ -1255,16 +1260,9 @@ function mouse_dblclick_function() {
 }
 
 function pageLoaded() {
-    canvas = document.getElementById("myCanvas");
-    context = canvas.getContext("2d");
-    var_clicks = 0;
-    var_rect_canvas = canvas.getBoundingClientRect();
-    canvas.addEventListener("mousedown", on_mouse_down, false);
-    canvas.addEventListener("mousemove", on_mouse_move, false);
-    canvas.addEventListener("mouseup", on_mouse_up, false);
+    return 0;
+}
 
-    Chequeo();
-    SistemaReferencia();
-    CalcularVista();
-    RepresentacionVista();
+async function checkPrevGame() {
+    return 0;
 }

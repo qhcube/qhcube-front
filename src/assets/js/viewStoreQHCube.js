@@ -3,26 +3,34 @@ import { defineStore } from 'pinia';
 export const useViewStoreQHCube = defineStore('viewStoreQHCube', {
     state: () => ({
         gameInfoComponent: 'brief-game-description',
-        userComponent: 'login-and-register',
+        playerComponent: 'login-and-register',
+        registeredPlayerComponent: 'game-list',
         errorStatus: '',
-        errorMessage: ''
+        errorMessage: '',
+        optionalErrorMessage: ''
     }),
     getters: {
         getGameInfoComponent: (state) => state.gameInfoComponent,
-        getUserComponent: (state) => state.userComponent,
+        getPlayerComponent: (state) => state.playerComponent,
+        getRegisteredPlayerComponent: (state) => state.registeredPlayerComponent,
         getErrorStatus: (state) => state.errorStatus,
-        getErrorMessage: (state) => state.errorMessage
+        getErrorMessage: (state) => state.errorMessage,
+        getOptionalErrorMessage: (state) => state.optionalErrorMessage
     },
     actions: {
         setGameInfoComponent(component) {
             this.gameInfoComponent = component;
         },
-        setUserComponent(component) {
-            this.userComponent = component;
+        setPlayerComponent(component) {
+            this.playerComponent = component;
         },
-        setError(errorStatus, errorMessage) {
+        setRegisteredPlayerComponent(component) {
+            this.registeredPlayerComponent = component;
+        },
+        setError(errorStatus, errorMessage, optionalErrorMessage) {
             this.errorStatus = errorStatus;
             this.errorMessage = errorMessage;
+            this.optionalErrorMessage = optionalErrorMessage;
         }
     },
     persist: {
