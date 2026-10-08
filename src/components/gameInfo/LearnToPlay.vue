@@ -75,104 +75,106 @@
                 </div>
 
                 <table class="mb-3">
-                    <tr>
-                        <td class="movimiento">Mover el hipercubo</td>
-                        <td class="descripcion">
-                            Pinchar fuera del hipercubo y arrastar
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_4.png"
-                                 alt="Figura tabla 1" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="movimiento">Permutar dos filas</td>
-                        <td class="descripcion">
-                            Pinchar una de las caras que separa las dos filas (hay 4 caras posibles). Se puden permutar
-                            las filas 1-2, 2-3 y 3-4.
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_permutacion-rotacion_filas.png"
-                                 alt="Figura tabla 2" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="movimiento">Permutar dos columnas</td>
-                        <td class="descripcion">
-                            Pinchar una de las caras que separa las dos columnas (hay 3 caras posibles). Se puden
-                            permutar las columnas 1-2, 2-3, 3-4 y 4-1.
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_permutacion-rotacion_columnas.png"
-                                 alt="Figura tabla 3" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="movimiento">Intercambio en una fila</td>
-                        <td class="descripcion">
-                            Pinchar en una de las caras correspondiente a la parte real de un vértice de la fila (hay 4
-                            caras posibles).
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_intercambio_fila.png"
-                                 alt="Figura tabla 4" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="movimiento">Intercambio en una columna</td>
-                        <td class="descripcion">
-                            Pinchar en una de las caras correspondiente a la parte imaginaria de un vértice de la
-                            columna (hay 4 caras posibles).
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_intercambio_columna.png"
-                                 alt="Figura tabla 5" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="movimiento">Rotar dos filas</td>
-                        <td class="descripcion">
-                            Hacer doble click en una de las caras que separa las dos filas (hay 4 caras posibles). Se
-                            puden rotar las filas 1-2, 2-3 y 3-4.
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_permutacion-rotacion_filas.png"
-                                 alt="Figura tabla 6" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="movimiento">Rotar dos columnas</td>
-                        <td class="descripcion">
-                            Hacer doble click en una de las caras que separa las dos columnas (hay 3 caras posibles). Se
-                            puden rotar las columnas 1-2, 2-3, 3-4 y 4-1.
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_permutacion-rotacion_columnas.png"
-                                 alt="Figura tabla 7" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="movimiento">Reducción por filas</td>
-                        <td class="descripcion">
-                            Hacer doble click en una de las caras correspondiente a la parte real de un vértice (hay 16
-                            caras posibles).
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_reduccion_filas.png"
-                                 alt="Figura tabla 8" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="movimiento">Reducción por columnas</td>
-                        <td class="descripcion">
-                            Hacer doble click en una de las caras correspondiente a la parte imaginaria de un vértice
-                            (hay 16 caras posibles).
-                        </td>
-                        <td>
-                            <img src="../../assets/images/figura_reduccion_columnas.png"
-                                 alt="Figura tabla 9" style="max-width: 100%; margin: auto"/>
-                        </td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                          <td class="movimiento">Mover el hipercubo</td>
+                          <td class="descripcion">
+                              Pinchar fuera del hipercubo y arrastar
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_4.png"
+                                   alt="Figura tabla 1" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="movimiento">Permutar dos filas</td>
+                          <td class="descripcion">
+                              Pinchar una de las caras que separa las dos filas (hay 4 caras posibles). Se puden permutar
+                              las filas 1-2, 2-3 y 3-4.
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_permutacion-rotacion_filas.png"
+                                   alt="Figura tabla 2" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="movimiento">Permutar dos columnas</td>
+                          <td class="descripcion">
+                              Pinchar una de las caras que separa las dos columnas (hay 3 caras posibles). Se puden
+                              permutar las columnas 1-2, 2-3, 3-4 y 4-1.
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_permutacion-rotacion_columnas.png"
+                                   alt="Figura tabla 3" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="movimiento">Intercambio en una fila</td>
+                          <td class="descripcion">
+                              Pinchar en una de las caras correspondiente a la parte real de un vértice de la fila (hay 4
+                              caras posibles).
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_intercambio_fila.png"
+                                   alt="Figura tabla 4" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="movimiento">Intercambio en una columna</td>
+                          <td class="descripcion">
+                              Pinchar en una de las caras correspondiente a la parte imaginaria de un vértice de la
+                              columna (hay 4 caras posibles).
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_intercambio_columna.png"
+                                   alt="Figura tabla 5" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="movimiento">Rotar dos filas</td>
+                          <td class="descripcion">
+                              Hacer doble click en una de las caras que separa las dos filas (hay 4 caras posibles). Se
+                              puden rotar las filas 1-2, 2-3 y 3-4.
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_permutacion-rotacion_filas.png"
+                                   alt="Figura tabla 6" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="movimiento">Rotar dos columnas</td>
+                          <td class="descripcion">
+                              Hacer doble click en una de las caras que separa las dos columnas (hay 3 caras posibles). Se
+                              puden rotar las columnas 1-2, 2-3, 3-4 y 4-1.
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_permutacion-rotacion_columnas.png"
+                                   alt="Figura tabla 7" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="movimiento">Reducción por filas</td>
+                          <td class="descripcion">
+                              Hacer doble click en una de las caras correspondiente a la parte real de un vértice (hay 16
+                              caras posibles).
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_reduccion_filas.png"
+                                   alt="Figura tabla 8" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="movimiento">Reducción por columnas</td>
+                          <td class="descripcion">
+                              Hacer doble click en una de las caras correspondiente a la parte imaginaria de un vértice
+                              (hay 16 caras posibles).
+                          </td>
+                          <td>
+                              <img src="../../assets/images/figura_reduccion_columnas.png"
+                                   alt="Figura tabla 9" style="max-width: 100%; margin: auto"/>
+                          </td>
+                      </tr>
+                    </tbody>
                 </table>
             </scroll-panel>
         </div>

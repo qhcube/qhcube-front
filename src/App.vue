@@ -12,7 +12,7 @@ import MainHome from "@/components/MainHome.vue";
 import MainTitle from "@/components/MainTitle.vue";
 import MainFooter from "@/components/MainFooter.vue";
 
-export default ({
+export default {
     name: "App",
     inject: ["playerStoreQHCube", "viewStoreQHCube"],
     components: {
@@ -23,7 +23,7 @@ export default ({
    mounted() {
        this.viewStoreQHCube.$reset();
    }
-})
+}
 </script>
 
 <style scoped>
