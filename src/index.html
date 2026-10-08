@@ -9,7 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <link rel='icon' href="assets/images/favicon.ico">
     <link rel="stylesheet" href="assets/css/default.css">
-    <script lang="javascript" type="module" src="assets/js/dist_axios.min.js"></script>
+    <script type="module">
+        import axios from "axios";
+        window.axios = axios.create();
+    </script>
     <script type="text/javascript">
         // Variables globales
         /*
