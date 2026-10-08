@@ -220,6 +220,8 @@ export default {
         var_e3[0] = mov[1];
         var_e3[1] = mov[2];
         var_e3[2] = mov[3];
+        // Evita que el siguiente clic envíe como movimiento nuevo una posición que no ha cambiado el jugador
+        var_e3_before = var_e3.slice();
     },
 
     setQHCubeLastPosition() {
