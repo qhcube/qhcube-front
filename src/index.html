@@ -1439,6 +1439,13 @@
                 if (playerStored.gameId !== 0 && playerStored.activeGameMode === 1) {
                     let game = await loadPrevGame(playerStored);
                     var_coor = JSON.parse(game.currentInput);
+                    // Restaurar la última posición de la figura (último movimiento de tipo [4, x, y, z])
+                    const lastPosition = JSON.parse("[" + game.movsList + "]").findLast(mov => mov[0] === 4);
+                    if (lastPosition) {
+                        var_e3[0] = lastPosition[1];
+                        var_e3[1] = lastPosition[2];
+                        var_e3[2] = lastPosition[3];
+                    }
                     replayMode = false;
                     gameType = 1;
                     pageLoaded();
