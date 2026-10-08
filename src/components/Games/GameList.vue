@@ -58,7 +58,6 @@
          </template>
       </Column>
 
-
       <Column header="Opciones" style="max-width: 85px">
          <template #body="slotProps">
             <div class="flex flex-nowrap">
@@ -80,7 +79,6 @@
                      text
                      v-tooltip.top="'Reproducir juego'"
                      class="p-button-sm btn-no-focus" />
-               &nbsp;
             </div>
          </template>
       </Column>
