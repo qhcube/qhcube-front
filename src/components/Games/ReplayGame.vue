@@ -205,10 +205,6 @@ export default defineComponent({
                     break;
             }
 
-            if (mov[0] !== 4) {
-                this.positions.push(var_coor);
-            }
-
             SistemaReferencia();
             CalcularVista();
             RepresentacionVista();
