@@ -90,7 +90,6 @@
 <script>
 import {defineComponent} from 'vue'
 import gameUtils from "../../assets/js/gameUtils.js";
-import {toClipboard} from '@soerenmartius/vue3-clipboard'
 
 
 export default defineComponent({
@@ -137,7 +136,9 @@ export default defineComponent({
     },
 
     methods: {
-        toClipboard,
+        async toClipboard(text) {
+            await navigator.clipboard.writeText(typeof text === "string" ? text : JSON.stringify(text));
+        },
 
         async makeNextMove() {
             if (this.playerStoreQHCube.lastMoveReplayed < this.movs.length) {
