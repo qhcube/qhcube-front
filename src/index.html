@@ -1352,25 +1352,10 @@
         }
 
 
-        /************************/
-        /* BEGIN DEV ENVIROMENT */
-        /************************/
-        const var_url = "http://localhost:9000/api/game/add-move";
-        const var_url_prev_game = "http://localhost:9000/api/game/get-game";
-        //var_origen_y = var_width / 1.0;
-        //var_origen_text_x = ((3.0*var_width)/8.0);
-        /************************/
-        /* END DEV ENVIROMENT   */
-        /************************/
-
-        /*************************/
-        /* BEGIN PROD ENVIROMENT */
-        /*************************/
-         //const var_url = "https://qhcube.etsisi.upm.es/api/game/add-move";
-         //const var_url_prev_game = "https://qhcube.etsisi.upm.es/api/game/get-game";
-        /*************************/
-        /* END PROD ENVIROMENT   */
-        /*************************/
+        // URLs del backend: Vite sustituye %VITE_APP_API% al compilar, con el valor de
+        // .env.development (npm run dev) o .env.production (npm run build).
+        const var_url = "%VITE_APP_API%/game/add-move";
+        const var_url_prev_game = "%VITE_APP_API%/game/get-game";
 
         let replayMode = false;
         let savingRotation = false;
