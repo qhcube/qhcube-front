@@ -4,12 +4,20 @@
             © Copyright 2023 Jesús Lacalle
             <a href="mailto:jesus.glopezdelacalle@upm.es" class="pi pi-envelope ml-2" target="_blank"/>
         </p>
+        <p>
+            front: {{ versionFront }}
+        </p>
     </div>
 </template>
 
 <script>
 export default {
-    nombre: "MainFooter"
+    name: "MainFooter",
+    data() {
+        return {
+            versionFront: __APP_VERSION__
+        }
+    }
 }
 </script>
 
