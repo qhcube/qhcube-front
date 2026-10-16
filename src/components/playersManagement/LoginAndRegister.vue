@@ -17,7 +17,7 @@
                   Si ya estás registrado, puedes iniciar sesión.
                </p>
 
-               <div class="flex flex-column">
+               <form class="flex flex-column" @submit.prevent="performLogin()">
                   <div class="grid p-inputgroup align-items-center">
                      <label for="email" class="col-3">E-Mail:</label>
                      <div class="col-9">
@@ -25,7 +25,7 @@
                            <span class="p-inputgroup-addon">
                               <i class="pi pi-user"></i>
                            </span>
-                           <InputText placeholder="eMail" type="email" v-model="this.player.email" autocomplete="off"/>
+                           <InputText autofocus placeholder="eMail" type="email" v-model="this.player.email" autocomplete="off"/>
                         </div>
                      </div>
                   </div>
@@ -42,11 +42,11 @@
                      </div>
                   </div>
                   <div class="flex p-inputgroup w-fit gap-3 mt-3">
-                     <Button label="Login" type="submit" @click="this.performLogin() "/>
+                     <Button label="Login" type="submit"/>
                      <Button v-if="this.playerStoreQHCube.email"
-                           label="Reenviar correo de activación" type="submit" @click="this.resendEmail()"/>
+                           label="Reenviar correo de activación" type="button" @click="this.resendEmail()"/>
                   </div>
-               </div>
+               </form>
             </div>
 
             <Message v-else severity="info" @close="this.resentEmailMessageVisible=false"
@@ -66,7 +66,7 @@
                   juego...
                </p>
                <div class="flex h-full align-content-end">
-                  <Button label="Resgistrarse" severity="info"
+                  <Button label="Registrarse" severity="info"
                           @click="this.viewStoreQHCube.setPlayerComponent('new-record')"
                           class="align-self-end w-fit"></Button>
                </div>
