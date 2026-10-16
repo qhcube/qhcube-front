@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
+import {readFileSync} from 'fs'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+
+const packageJson = JSON.parse(readFileSync('package.json', 'utf8'))
 
 export default defineConfig({
     root: 'src',
@@ -21,5 +24,8 @@ export default defineConfig({
     },
     server: {
         port: 8080
+    },
+    define: {
+        '__APP_VERSION__': JSON.stringify(packageJson.version)
     }
 })
