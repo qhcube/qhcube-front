@@ -5,8 +5,10 @@
             <h1>Nuevo registro de Jugador</h1>
          </div>
       </div>
-      <div v-if="!this.successMessageVisibility"
-           class="flex flex-column px-2 align-items-start">
+      <form v-if="!this.successMessageVisibility"
+            class="flex flex-column px-2 align-items-start"
+            @submit.prevent="this.registrar()"
+            >
             <div v-for="(field, value, key) in this.player" class="flex gap-2">
                <div class="flex flex-column mb-3 gap-2">
                   <label :id="'lbl' + value" :for="value" class="block text-900 font-medium mb-2 mt-2">
@@ -21,11 +23,11 @@
             </div>
 
             <div class="flex flex-row gap-2">
-               <Button label="Registrar" severity="success" @click="this.registrar()" class="mt-4 mb-2"/>
-               <Button label="Reiniciar Formulario" severity="warning" @click="this.reiniciar()" class="mt-4 mb-2"/>
-               <Button label="Cancelar" severity="danger" @click="this.cancel()" class="mt-4 mb-2"/>
+               <Button label="Registrar" type="submit" severity="success" class="mt-4 mb-2"/>
+               <Button label="Reiniciar Formulario" type="button" severity="warning" @click="this.reiniciar()" class="mt-4 mb-2"/>
+               <Button label="Cancelar" type="button" severity="danger" @click="this.cancel()" class="mt-4 mb-2"/>
             </div>
-      </div>
+      </form>
 
 
       <div class="flex" v-if="this.successMessageVisibility">
