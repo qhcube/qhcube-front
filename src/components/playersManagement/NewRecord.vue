@@ -7,8 +7,7 @@
       </div>
       <form v-if="!this.successMessageVisibility"
             class="flex flex-column px-2 align-items-start"
-            @submit.prevent="this.registrar()"
-            >
+            @submit.prevent="this.registrar()">
             <div v-for="(field, value, key) in this.player" class="flex gap-2">
                <div class="flex flex-column mb-3 gap-2">
                   <label :id="'lbl' + value" :for="value" class="block text-900 font-medium mb-2 mt-2">
