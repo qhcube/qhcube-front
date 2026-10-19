@@ -1,15 +1,16 @@
 <template>
     <header>
         <div class="flex flex-nowrap max-w-fit align-items-center gap-6 py-4 px-4" style="margin: auto">
-           <div>
-               <img src="@/assets/images/etsisi-logo-100-sombra.png" alt="ETSISI logo" style="width: calc(100%); opacity: 0.5"/>
-           </div>
-          <div class="two">
-              <h1>Juego del Hipercubo Cuántico
-                  <span>By Jesús Lacalle</span>
-              </h1>
-          </div>
-       </div>
+            <div>
+                <img src="@/assets/images/etsisi-logo-100-sombra.png" alt="ETSISI logo"
+                     style="width: calc(100%); opacity: 0.5"/>
+            </div>
+            <div class="two">
+                <h1>Juego del Hipercubo Cuántico
+                    <span>By Jesús Lacalle</span>
+                </h1>
+            </div>
+        </div>
     </header>
 </template>
 
@@ -66,11 +67,12 @@ h1 em {
 }
 
 .alt-two h1 {
-    text-align:center;
+    text-align: center;
 }
 
 .alt-two h1:before {
-    left:50%; margin-left:-30px;
+    left: 50%;
+    margin-left: -30px;
 }
 
 </style>

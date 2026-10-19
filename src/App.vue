@@ -1,8 +1,8 @@
 <template>
     <router-view name="MainTitle"/>
-    <router-view />
+    <router-view/>
     <div class="flex gap-3">
-        <router-view name="MainFooter" />
+        <router-view name="MainFooter"/>
     </div>
 </template>
 
@@ -10,9 +10,9 @@
 export default {
     name: "App",
     inject: ["playerStoreQHCube", "viewStoreQHCube"],
-   mounted() {
-       this.viewStoreQHCube.$reset();
-   }
+    mounted() {
+        this.viewStoreQHCube.$reset();
+    }
 }
 </script>
 

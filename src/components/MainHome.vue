@@ -1,27 +1,28 @@
 <template>
-   <div class="flex gap-3 py-4">
+    <div class="flex gap-3 py-4">
 
-      <main-game class="z-5"/>
+        <main-game class="z-5"/>
 
-      <confirm-dialog id="confirmDialog" class="w-30rem"/>
+        <confirm-dialog id="confirmDialog" class="w-30rem"/>
 
-      <div v-if="this.viewStoreQHCube.getErrorStatus.length === 0" class="flex flex-nowrap flex-column gap-3 w-full">
-         <game-info-layout v-if="this.viewStoreQHCube.getPlayerComponent !== 'new-record'">
-            <component :is="this.viewStoreQHCube.getGameInfoComponent" :showDesc="this.showDesc" @updateShowDesc="this.updateShowDesc()"/>
-         </game-info-layout>
+        <div v-if="this.viewStoreQHCube.getErrorStatus.length === 0" class="flex flex-nowrap flex-column gap-3 w-full">
+            <game-info-layout v-if="this.viewStoreQHCube.getPlayerComponent !== 'new-record'">
+                <component :is="this.viewStoreQHCube.getGameInfoComponent" :showDesc="this.showDesc"
+                           @updateShowDesc="this.updateShowDesc()"/>
+            </game-info-layout>
 
-         <player-layout v-if="this.viewStoreQHCube.getGameInfoComponent === 'brief-game-description'">
-            <component :is="this.viewStoreQHCube.getPlayerComponent" :showDesc="this.showDesc"/>
-         </player-layout>
-      </div>
+            <player-layout v-if="this.viewStoreQHCube.getGameInfoComponent === 'brief-game-description'">
+                <component :is="this.viewStoreQHCube.getPlayerComponent" :showDesc="this.showDesc"/>
+            </player-layout>
+        </div>
 
-      <div v-else class="flex flex-nowrap flex-column gap-3 w-full">
-         <error-layout>
-            <component is="general-error"/>
-         </error-layout>
-      </div>
+        <div v-else class="flex flex-nowrap flex-column gap-3 w-full">
+            <error-layout>
+                <component is="general-error"/>
+            </error-layout>
+        </div>
 
-   </div>
+    </div>
 </template>
 
 <script>
@@ -42,28 +43,28 @@ import PlayerProfile from "./playersManagement/PlayerProfile.vue";
 
 
 export default {
-   name: "MainHome",
-   inject: ["playerStoreQHCube", "viewStoreQHCube"],
-   components: {
-      ErrorLayout, PlayerLayout, GameInfoLayout, MainGame, BriefGameDescription,
-      LearnToPlay, GameMeaning, LoginAndRegister, NewRecord, RegisteredPlayer,
-      PlayerProfile, GeneralError, RegisteredGameInfo
-   },
-  data() {
-     return {
-        showDesc: true
-     }
-   },
-   methods: {
-      updateShowDesc() {
-         this.showDesc = !this.showDesc;
-      }
-   },
-   mounted() {
-      if (this.playerStoreQHCube.isAuthenticated) {
-         this.viewStoreQHCube.setPlayerComponent("registered-player");
-      }
-   }
+    name: "MainHome",
+    inject: ["playerStoreQHCube", "viewStoreQHCube"],
+    components: {
+        ErrorLayout, PlayerLayout, GameInfoLayout, MainGame, BriefGameDescription,
+        LearnToPlay, GameMeaning, LoginAndRegister, NewRecord, RegisteredPlayer,
+        PlayerProfile, GeneralError, RegisteredGameInfo
+    },
+    data() {
+        return {
+            showDesc: true
+        }
+    },
+    methods: {
+        updateShowDesc() {
+            this.showDesc = !this.showDesc;
+        }
+    },
+    mounted() {
+        if (this.playerStoreQHCube.isAuthenticated) {
+            this.viewStoreQHCube.setPlayerComponent("registered-player");
+        }
+    }
 }
 </script>
 
