@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="assets/css/default.css">
     <script type="module">
         import axios from "axios";
+
         window.axios = axios.create();
     </script>
     <script type="text/javascript">
@@ -34,8 +35,8 @@
         let var_escala = 30.0;
         let var_origen_x = ((var_height - 100) / 2.0) + 50.0;
         let var_origen_y = var_width / 4.0;
-        let var_origen_text_x = ((3.0*var_width)/4.0);
-        let var_origen_text_y = ((var_height-100)/2.0)+50.0;
+        let var_origen_text_x = ((3.0 * var_width) / 4.0);
+        let var_origen_text_y = ((var_height - 100) / 2.0) + 50.0;
         let var_anchura_text = 75.0;
         let var_altura_text = 20.0;
         let var_espacio_text = 18.0;
@@ -277,7 +278,7 @@
         let canvas;
         let context;
         let canv_oculto = document.createElement("canvas");
-        let context_oculto = canv_oculto.getContext("2d", { willReadFrequently: true });
+        let context_oculto = canv_oculto.getContext("2d", {willReadFrequently: true});
         canv_oculto.width = var_width;
         canv_oculto.height = var_height;
         context_oculto.font = "24pt Roboto";
@@ -357,14 +358,12 @@
             let var_k, nivel;
 
             nivel = 0;
-            for(var_k=0; var_k<4; ++var_k)
-            {
-                nivel += var_coor[0][0][var_k]*var_coor[0][0][var_k] + var_coor[1][0][var_k]*var_coor[1][0][var_k];
+            for (var_k = 0; var_k < 4; ++var_k) {
+                nivel += var_coor[0][0][var_k] * var_coor[0][0][var_k] + var_coor[1][0][var_k] * var_coor[1][0][var_k];
             }
             var_nivel = nivel;
             var_nivel_reducido = Math.round(Math.log2(var_nivel));
-            if (var_nivel_reducido === 0)
-            {
+            if (var_nivel_reducido === 0) {
                 var_nivel_cero = true;
                 Comprobar_final();
             }
@@ -433,8 +432,7 @@
                 reducible = QHCube_reducible();
             }
             nivel_reducido = Math.round(Math.log2(nivel));
-            if (nivel_reducido === 0)
-            {
+            if (nivel_reducido === 0) {
                 var_nivel_cero = true;
                 var_final_partida = Comprobar_final();
                 if (var_final_partida) {
@@ -444,19 +442,13 @@
                     if (var_modo_tutorial) alert("¡Enhorabuena! Ya está en el nivel 0.");
                     var_mensaje2 = "¡Enhorabuena! Ya está en el nivel 0.";
                 }
-            }
-            else if (nivel_reducido < var_nivel_reducido)
-            {
+            } else if (nivel_reducido < var_nivel_reducido) {
                 if (var_modo_tutorial) alert("¡Buena jugada! Ha reducido el nivel.");
                 var_mensaje2 = "¡Buena jugada! Ha reducido el nivel.";
-            }
-            else if (nivel_reducido === var_nivel_reducido)
-            {
+            } else if (nivel_reducido === var_nivel_reducido) {
                 if (var_modo_tutorial) alert("¡Buena jugada! Ha mantenido el nivel.");
                 var_mensaje2 = "¡Buena jugada! Ha mantenido el nivel.";
-            }
-            else
-            {
+            } else {
                 if (var_modo_tutorial) alert("¡Mala suerte! Ha aumentado el nivel.");
                 var_mensaje2 = "¡Mala suerte! Ha aumentado el nivel.";
             }
@@ -928,7 +920,7 @@
             }
         }
 
-         function Rotar_filas_1_y_2() {
+        function Rotar_filas_1_y_2() {
             let var_k, x0, y0, x1, y1;
             for (var_k = 0; var_k < 4; ++var_k) {
                 x0 = var_coor[0][0][var_k] + var_coor[0][1][var_k] - var_coor[1][0][var_k] + var_coor[1][1][var_k];
@@ -954,10 +946,10 @@
             let var_k, x0, y0, x1, y1;
 
             for (var_k = 0; var_k < 4; ++var_k) {
-                x0 =   var_coor[0][0][var_k] + var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
-                y0 = - var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
-                x1 =   var_coor[0][0][var_k] - var_coor[0][1][var_k] - var_coor[1][0][var_k] + var_coor[1][1][var_k];
-                y1 =   var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] - var_coor[1][1][var_k];
+                x0 = var_coor[0][0][var_k] + var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                y0 = -var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                x1 = var_coor[0][0][var_k] - var_coor[0][1][var_k] - var_coor[1][0][var_k] + var_coor[1][1][var_k];
+                y1 = var_coor[0][0][var_k] - var_coor[0][1][var_k] + var_coor[1][0][var_k] - var_coor[1][1][var_k];
                 var_coor[0][0][var_k] = x0;
                 var_coor[1][0][var_k] = y0;
                 var_coor[0][1][var_k] = x1;
@@ -1001,10 +993,10 @@
             let var_k, x0, y0, x1, y1;
 
             for (var_k = 0; var_k < 4; ++var_k) {
-                x0 =   var_coor[0][var_k][0] + var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
-                y0 =   - var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
-                x1 =   var_coor[0][var_k][0] - var_coor[0][var_k][1] - var_coor[1][var_k][0] + var_coor[1][var_k][1];
-                y1 =   var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] - var_coor[1][var_k][1];
+                x0 = var_coor[0][var_k][0] + var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                y0 = -var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                x1 = var_coor[0][var_k][0] - var_coor[0][var_k][1] - var_coor[1][var_k][0] + var_coor[1][var_k][1];
+                y1 = var_coor[0][var_k][0] - var_coor[0][var_k][1] + var_coor[1][var_k][0] - var_coor[1][var_k][1];
                 var_coor[0][var_k][0] = x0;
                 var_coor[1][var_k][0] = y0;
                 var_coor[0][var_k][1] = x1;
@@ -1337,7 +1329,7 @@
 
         function pageLoaded() {
             canvas = document.getElementById("myCanvas");
-            context = canvas.getContext("2d", { willReadFrequently: true });
+            context = canvas.getContext("2d", {willReadFrequently: true});
             var_clicks = 0;
             var_rect_canvas = canvas.getBoundingClientRect();
             canvas.addEventListener("mousedown", on_mouse_down, false);
@@ -1391,7 +1383,11 @@
                 await axios({
                     method: "post",
                     url: var_url,
-                    data: { movsList: JSON.stringify(move), id: playerStored.gameId, player: {email: playerStored.email}},
+                    data: {
+                        movsList: JSON.stringify(move),
+                        id: playerStored.gameId,
+                        player: {email: playerStored.email}
+                    },
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + playerStored.jwttoken
@@ -1438,7 +1434,7 @@
                 } else {
                     // Volver a práctica
                     playerStored.gameId = 0;
-                    playerStored.movsList =  "[4,0.7483314773547882,0.6324555320336759,0.2]";
+                    playerStored.movsList = "[4,0.7483314773547882,0.6324555320336759,0.2]";
                     playerStored.activeGameMode = 0;
                     gameType = 0;
                     // TODO: Esta parte del else debe tratar de dejar el tema con los componentes como reiniciar práctica.

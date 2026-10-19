@@ -200,7 +200,7 @@ export default {
                     endDateObject: state === "Abierto" ? new Date() : new Date(game.endTime),
                     endTime: state === "Abierto" ? " - " : this.getHour(game.endTime),
                     diffTime: this.getDiffTime(game.totalGameTime),
-                    moves: game.movsList.endsWith('[5,1,1,1]') ? JSON.parse('[' + game.movsList + ']').length -1 : JSON.parse('[' + game.movsList + ']').length,
+                    moves: game.movsList.endsWith('[5,1,1,1]') ? JSON.parse('[' + game.movsList + ']').length - 1 : JSON.parse('[' + game.movsList + ']').length,
                     state: state
                 });
             });
@@ -243,11 +243,11 @@ export default {
     async deleteGame(gameId) {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
-        let result = { status: "", respMessage: ""};
+        let result = {status: "", respMessage: ""};
         await axios({
             method: "post",
             url: import.meta.env.VITE_APP_API + "/game/delete",
-            data: { email: playerStoreQHCube.email, games: [{ id: gameId }] },
+            data: {email: playerStoreQHCube.email, games: [{id: gameId}]},
             headers: {"Content-Type": "application/json"}
         }).then((response) => {
             result.status = response.data.player["respStatus"];

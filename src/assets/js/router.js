@@ -10,11 +10,19 @@ const routes = [
             MainFooter: () => import('../../components/MainFooter.vue')
         }
     },
-    { path: '/email-validation', name: 'email-validation', component: () => import('../../components/playersManagement/EmailValidation.vue') },
-    { path: '/:catchAll(.*)*', name: 'page-not-found', component: () => import('../../components/errors/PageNotFound.vue') }
-    ];
+    {
+        path: '/email-validation',
+        name: 'email-validation',
+        component: () => import('../../components/playersManagement/EmailValidation.vue')
+    },
+    {
+        path: '/:catchAll(.*)*',
+        name: 'page-not-found',
+        component: () => import('../../components/errors/PageNotFound.vue')
+    }
+];
 
-export const router =createRouter({
+export const router = createRouter({
     history: createWebHistory(),
     routes
 });

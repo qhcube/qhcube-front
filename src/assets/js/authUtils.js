@@ -1,5 +1,5 @@
 import {usePlayerStoreQHCube} from "./playerSotorageQHCube.js";
-import { useViewStoreQHCube } from "./viewStoreQHCube.js";
+import {useViewStoreQHCube} from "./viewStoreQHCube.js";
 import axios from "axios";
 
 
@@ -62,7 +62,8 @@ export default {
             result.status = "ERROR";
             result.message = "Ha habido un problema con servidor.";
             result.optionalMessage = error.message;
-            console.log("ERROR in authUtils.emailValidation: " + error.message + " - " + error.response.status);        });
+            console.log("ERROR in authUtils.emailValidation: " + error.message + " - " + error.response.status);
+        });
 
         return result;
     },
@@ -87,7 +88,8 @@ export default {
             result.status = "ERROR";
             result.message = "Ha habido un problema con servidor.";
             result.optionalMessage = error.message;
-            console.log("ERROR in authUtils.resendValidationEmail: " + error.message + " - " + error.response.status);        });
+            console.log("ERROR in authUtils.resendValidationEmail: " + error.message + " - " + error.response.status);
+        });
 
         return result;
     },
