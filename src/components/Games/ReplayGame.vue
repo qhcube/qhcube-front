@@ -3,8 +3,10 @@
         <table>
             <tbody>
             <tr>
-                <td class="first-td">Id:</td>
-                <td class="second-td">{{ this.game.id }}</td>
+                <td class="first-td">Inicio del juego:</td>
+                <td class="second-td"><span v-if="this.game.initialTime">{{ gameUtils.getDate(this.game.initialTime) }} &nbsp;
+                    ({{ gameUtils.getHour(this.game.initialTime) }})</span>
+                </td>
             </tr>
             <tr>
                 <td class="first-td">Último movimiento:</td>
@@ -91,7 +93,6 @@
 import {defineComponent} from 'vue'
 import gameUtils from "../../assets/js/gameUtils.js";
 
-
 export default defineComponent({
     name: "ReplayGame",
     inject: ['playerStoreQHCube', 'viewStoreQHCube'],
@@ -110,6 +111,12 @@ export default defineComponent({
         showDesc: {
             type: Boolean,
             default: false
+        }
+    },
+
+    computed: {
+        gameUtils() {
+            return gameUtils;
         }
     },
 

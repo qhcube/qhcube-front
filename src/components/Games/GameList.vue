@@ -161,7 +161,7 @@ export default defineComponent({
             this.playerStoreQHCube.lastMoveReplayed = 0;
             this.playerStoreQHCube.gameId = gameId;
             this.playerStoreQHCube.setActiveGameMode(3);
-            this.$toast.add({severity: 'info', summary: 'Reproduciendo juego...' + gameId, group: 'cc', life: 1500});
+            this.$toast.add({severity: 'info', summary: 'Reproduciendo juego...', group: 'cc', life: 1500});
             this.viewStoreQHCube.setRegisteredPlayerComponent("replay-game");
         },
     }

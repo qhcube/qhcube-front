@@ -4,10 +4,6 @@
         <table>
             <tbody>
             <tr>
-                <td class="first-td">Id:</td>
-                <td class="second-td">{{ this.activeGame.id }}</td>
-            </tr>
-            <tr>
                 <td class="first-td">Inicio del juego:</td>
                 <td class="second-td">{{ gameUtils.getDate(this.activeGame.initialTime) }} &nbsp;
                     ({{ gameUtils.getHour(this.activeGame.initialTime) }})
