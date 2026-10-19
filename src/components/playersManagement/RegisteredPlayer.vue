@@ -128,32 +128,40 @@ export default {
          return name;
       },
 
-      continueFromReplay() {
-         this.$confirm.require({
-            header: "Continuar desde aquí...",
-            message: "¿Realmente quieres borrar los movimientos siguientes a este?",
-            icon: "pi pi-info-circle",
-            acceptClass: "p-button-danger",
-            acceptLabel: "Sí",
-            accept: () => {
-               this.$toast.add({
-                  severity: 'info',
-                  summary: 'Continuando partida desde punto anterior...',
-                  life: 1500,
-                  group: 'luck',
+       continueGame() {
+           const movs = (JSON.parse('[' + this.playerStoreQHCube.movsList + ']')).slice(0, this.playerStoreQHCube.lastMoveReplayed);
+
+           gameUtils.replayGameFromMovsList(this.playerStoreQHCube.gameId, movs);
+
+           this.playerStoreQHCube.setActiveGameMode(1);
+           this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
+
+           this.$toast.add({
+               severity: 'info',
+               summary: 'Continuando partida...',
+               life: 1500,
+               group: 'luck',
+           });
+       },
+
+       continueFromReplay() {
+           const totalMovs = JSON.parse('[' + this.playerStoreQHCube.movsList + ']').length;
+           if (this.playerStoreQHCube.lastMoveReplayed === totalMovs) {
+               this.continueGame();
+           } else {
+
+               this.$confirm.require({
+                   header: "Continuar desde aquí...",
+                   message: "¿Realmente quieres borrar los movimientos siguientes a este?",
+                   icon: "pi pi-info-circle",
+                   acceptClass: "p-button-danger",
+                   acceptLabel: "Sí",
+                   accept: () => {
+                       this.continueGame();
+                   },
                });
-
-               const movs = (JSON.parse('[' + this.playerStoreQHCube.movsList + ']')).slice(0, this.playerStoreQHCube.lastMoveReplayed);
-
-               gameUtils.replayGameFromMovsList(this.playerStoreQHCube.gameId, movs);
-
-               this.playerStoreQHCube.setActiveGameMode(1);
-               this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
-            },
-            reject: () => {
-            }
-         });
-      },
+           }
+       },
 
       async initPractice() {
          this.playerStoreQHCube.setActiveGameMode(0);
