@@ -29,7 +29,7 @@ import "primeflex/primeflex.css"
 
 import {createPinia} from "pinia";
 import piniaPersist from 'pinia-plugin-persist'
-import { usePlayerStoreQHCube } from "./assets/js/playerSotorageQHCube.js";
+import {usePlayerStoreQHCube} from "./assets/js/playerSotorageQHCube.js";
 import {router} from "./assets/js/router.js";
 import {useViewStoreQHCube} from "./assets/js/viewStoreQHCube.js";
 import axios from "axios";
@@ -37,7 +37,7 @@ import axios from "axios";
 const app = createApp(App);
 
 app.use(PrimeVue, {
-    ripple: true ,
+    ripple: true,
     inputStyle: 'filled',
     zIndex: {
         modal: 1100,        //dialog, sidebar

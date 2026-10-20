@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import {defineConfig} from 'vite'
 import {readFileSync} from 'fs'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'

@@ -3,14 +3,16 @@
         <table>
             <tbody>
             <tr>
-                <td class="first-td">Id:</td>
-                <td class="second-td">{{ this.game.id }}</td>
+                <td class="first-td">Inicio del juego:</td>
+                <td class="second-td"><span v-if="this.game.initialTime">{{ gameUtils.getDate(this.game.initialTime) }} &nbsp;
+                    ({{ gameUtils.getHour(this.game.initialTime) }})</span>
+                </td>
             </tr>
             <tr>
                 <td class="first-td">Último movimiento:</td>
                 <td class="second-td">
                     {{ this.playerStoreQHCube.lastMoveReplayed }} de {{ this.movs.length }} <span
-                        class="font-bold mr-2">&rArr;</span>
+                    class="font-bold mr-2">&rArr;</span>
                     <span v-if="this.playerStoreQHCube.lastMoveReplayed > 0" style="color: var(--blue-700)">{{
                             this.getMovString(this.movs[this.playerStoreQHCube.lastMoveReplayed - 1])
                         }}</span>
@@ -22,40 +24,40 @@
                     <div class="flex flex-row gap-2 align-content-center">
                         <table style="border: 0; max-width: 50%">
                             <tbody>
-                                <tr style="padding-top: 6px">
-                                    <td class="text-center">
-                                        <Button text rounded raised label="" icon="pi pi-step-backward"
-                                                @click="this.goToBeginning()"/>
-                                    </td>
-                                    <td class="text-center pl-4">
-                                        <Button text rounded raised icon="pi pi-angle-double-left"
-                                                @click="this.makePrevTenMoves()"/>
-                                    </td>
-                                    <td class="text-center pl-2">
-                                        <Button text rounded raised label="" icon="pi pi-angle-left"
-                                                @click="this.makePrevMove()"/>
-                                    </td>
-                                    <td class="text-center pl-2">
-                                        <Button text rounded raised label="" icon="pi pi-angle-right"
-                                                @click="this.makeNextMove()"/>
-                                    </td>
-                                    <td class="text-center pl-2">
-                                        <Button text rounded raised label="" icon="pi pi-angle-double-right"
-                                                @click="this.makeNextTenMoves()"/>
-                                    </td>
-                                    <td class="text-center pl-4">
-                                        <Button text rounded raised label="" icon="pi pi-step-forward"
-                                                @click="this.goToEnd()"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center text-blue-600 pt-2 text-xs">Inicio</td>
-                                    <td class="text-center text-blue-600 pt-2 pl-4 text-xs">-10</td>
-                                    <td class="text-center text-blue-600 pt-2 pl-2 text-xs">-1</td>
-                                    <td class="text-center text-blue-600 pt-2 pl-2 text-xs">+1</td>
-                                    <td class="text-center text-blue-600 pt-2 pl-2 text-xs">+10</td>
-                                    <td class="text-center text-blue-600 pt-2 pl-4 text-xs">Fin</td>
-                                </tr>
+                            <tr style="padding-top: 6px">
+                                <td class="text-center">
+                                    <Button text rounded raised label="" icon="pi pi-step-backward"
+                                            @click="this.goToBeginning()"/>
+                                </td>
+                                <td class="text-center pl-4">
+                                    <Button text rounded raised icon="pi pi-angle-double-left"
+                                            @click="this.makePrevTenMoves()"/>
+                                </td>
+                                <td class="text-center pl-2">
+                                    <Button text rounded raised label="" icon="pi pi-angle-left"
+                                            @click="this.makePrevMove()"/>
+                                </td>
+                                <td class="text-center pl-2">
+                                    <Button text rounded raised label="" icon="pi pi-angle-right"
+                                            @click="this.makeNextMove()"/>
+                                </td>
+                                <td class="text-center pl-2">
+                                    <Button text rounded raised label="" icon="pi pi-angle-double-right"
+                                            @click="this.makeNextTenMoves()"/>
+                                </td>
+                                <td class="text-center pl-4">
+                                    <Button text rounded raised label="" icon="pi pi-step-forward"
+                                            @click="this.goToEnd()"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center text-blue-600 pt-2 text-xs">Inicio</td>
+                                <td class="text-center text-blue-600 pt-2 pl-4 text-xs">-10</td>
+                                <td class="text-center text-blue-600 pt-2 pl-2 text-xs">-1</td>
+                                <td class="text-center text-blue-600 pt-2 pl-2 text-xs">+1</td>
+                                <td class="text-center text-blue-600 pt-2 pl-2 text-xs">+10</td>
+                                <td class="text-center text-blue-600 pt-2 pl-4 text-xs">Fin</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -91,7 +93,6 @@
 import {defineComponent} from 'vue'
 import gameUtils from "../../assets/js/gameUtils.js";
 
-
 export default defineComponent({
     name: "ReplayGame",
     inject: ['playerStoreQHCube', 'viewStoreQHCube'],
@@ -110,6 +111,12 @@ export default defineComponent({
         showDesc: {
             type: Boolean,
             default: false
+        }
+    },
+
+    computed: {
+        gameUtils() {
+            return gameUtils;
         }
     },
 
