@@ -14,8 +14,8 @@ jobs:
       - name: Descargar el código
         uses: actions/checkout@v4
 
-      - name: Intalar Node
-        run: actions/setup-node@v4
+      - name: Instalar Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
