@@ -1,0 +1,53 @@
+name: Publicar release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    name: publicar
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el código del tag
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Comprobar que la versión del tag coincide con package.json
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          echo "Tag: $VERSION · package.json: $PKG_VERSION"
+          test "$VERSION" = "$PKG_VERSION"
+
+      - name: Compilar
+        run: |
+          npm ci
+          npm run build
+
+      - name: Empaquetar y calcular la suma
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          tar czf "qhcube-front-$VERSION.tar.gz" -C dist .
+          sha256sum "qhcube-front-$VERSION.tar.gz" > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Crear la release (borrador)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          gh release create "$GITHUB_REF_NAME" \
+            --draft \
+            --title "QHCube frontend $VERSION" \
+            --generate-notes \
+            "qhcube-front-$VERSION.tar.gz" SHA256SUMS
