@@ -10,7 +10,7 @@
             <span title="Versión del servidor"><i class="pi pi-server mr-1 text-xs"/>{{ versionBack }}</span>
         </p>
     </div>
-
+</template>
 
 <script>
 import axios from "axios";
