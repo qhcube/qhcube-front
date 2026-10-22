@@ -1397,9 +1397,25 @@
                         if (response.headers["authorization"]) {
                             playerStored.jwttoken = response.headers["authorization"].slice(7);
                         }
-                        // TODO: Si el servidor responde con un error, hay que deshacer el movimiento y avisar al usuario.
+
+                        if (response.data.player.respStatus === "ERROR") {
+                            window.dispatchEvent(new CustomEvent('qhcube:rejected-move', {
+                                detail: { message: response.data.player.respMessage }
+                            }));
+                            return;
+                        }
+
                         playerStored.movsList += ",[" + move + "]";
                         localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
+
+                        if (response.data.solved) {
+                            window.dispatchEvent(new CustomEvent('qhcube:solved-game', {
+                                detail: {
+                                    totalGameTime: response.data.totalGameTime,
+                                    numMovs: JSON.parse('[' + playerStored.movsList + ']').length
+                                }
+                            }));
+                        }
                     })
                     .catch((error) => {
                         console.log("index.enviarInputTest(input) error: " + error);

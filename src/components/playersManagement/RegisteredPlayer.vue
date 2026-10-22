@@ -44,13 +44,16 @@
                             severity="warning"
                             class="button"
                     />
-                    <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'replay-game'"
-                            label="Continuar desde aquí"
-                            @click="this.continueFromReplay()"
-                            size="small"
-                            severity="warning"
-                            class="button"
-                    />
+                    <span v-if="this.viewStoreQHCube.registeredPlayerComponent === 'replay-game'"
+                          v-tooltip.top="this.solvedGame ? 'Partida resuelta: no se puede continuar.' : null">
+                        <Button :disabled="this.solvedGame"
+                                label="Continuar desde aquí"
+                                @click="this.continueFromReplay()"
+                                size="small"
+                                severity="warning"
+                                class="button"
+                        />
+                    </span>
                     <Button v-if="this.viewStoreQHCube.registeredPlayerComponent === 'replay-game'"
                             label="Salir de Reproducción"
                             @click="this.exitReplay()"
@@ -103,6 +106,10 @@ export default {
         getShowDesc() {
             this.showDesc ? this.heightClass = 'h-20rem' : this.heightClass = 'h-30rem';
             return this.showDesc;
+        },
+
+        solvedGame() {
+            return (this.playerStoreQHCube.movsList || '').endsWith('[5,1,1,1]');
         }
     },
 
@@ -131,10 +138,14 @@ export default {
             return name;
         },
 
-        continueGame() {
+        async continueGame() {
             const movs = (JSON.parse('[' + this.playerStoreQHCube.movsList + ']')).slice(0, this.playerStoreQHCube.lastMoveReplayed);
 
-            gameUtils.replayGameFromMovsList(this.playerStoreQHCube.gameId, movs);
+            const result = await gameUtils.replayGameFromMovsList(this.playerStoreQHCube.gameId, movs);
+
+            if (!result.player) {
+                return;
+            }
 
             this.playerStoreQHCube.setActiveGameMode(1);
             this.viewStoreQHCube.setRegisteredPlayerComponent("active-game");
