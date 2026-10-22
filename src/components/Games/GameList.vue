@@ -65,6 +65,7 @@
                     <div class="flex flex-nowrap">
                         <Button
                             @click="this.loadGame(slotProps.data.gameId)"
+                            :disabled="slotProps.data.state === 'Resuelto'"
                             icon="pi pi-download"
                             text
                             v-tooltip.top="'Continuar juego'"
