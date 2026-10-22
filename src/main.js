@@ -67,7 +67,7 @@ app.component('Row', Row);
 app.component('ScrollPanel', ScrollPanel);
 app.component('Toast', Toast);
 app.use(ToastService);
-app.directive('Tooltip', Tooltip);
+app.directive('tooltip', Tooltip);
 
 app.provide('playerStoreQHCube', usePlayerStoreQHCube());
 app.provide('viewStoreQHCube', useViewStoreQHCube());
