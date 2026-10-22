@@ -1397,7 +1397,14 @@
                         if (response.headers["authorization"]) {
                             playerStored.jwttoken = response.headers["authorization"].slice(7);
                         }
-                        // TODO: Si el servidor responde con un error, hay que deshacer el movimiento y avisar al usuario.
+
+                        if (response.data.player.respStatus === "ERROR") {
+                            window.dispatchEvent(new CustomEvent('qhcube:rejected-move', {
+                                detail: { message: response.data.player.respMessage }
+                            }));
+                            return;
+                        }
+
                         playerStored.movsList += ",[" + move + "]";
                         localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
 

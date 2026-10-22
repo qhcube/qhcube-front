@@ -40,6 +40,8 @@
                 </div>
             </template>
         </Toast>
+
+        <Toast position="center" group="rejected-move" @close="this.returnToList()"/>
     </div>
 </template>
 
@@ -90,9 +92,11 @@ export default defineComponent({
         }, 1000);
 
         window.addEventListener('qhcube:solved-game', this.whenSolvedGame);
+        window.addEventListener('qhcube:rejected-move', this.whenRejectedMove);
     },
     unmounted() {
         window.removeEventListener('qhcube:solved-game', this.whenSolvedGame);
+        window.removeEventListener('qhcube:rejected-move', this.whenRejectedMove);
         clearInterval(this.interval);
     },
     methods: {
@@ -113,6 +117,15 @@ export default defineComponent({
                 summary: '¡Enhorabuena!',
                 detail: `Has resuelto la partida en ${this.gameTime} con ${this.movsNumber} movimientos.`,
                 group: 'solved-game'
+            });
+        },
+        whenRejectedMove(event) {
+            clearInterval(this.interval);
+            this.$toast.add({
+                severity: 'error',
+                summary: 'Movimiento no guardado',
+                detail: event.detail.message,
+                group: 'rejected-move'
             });
         },
         returnToList() {
