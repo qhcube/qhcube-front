@@ -26,7 +26,20 @@
            <li>Store Mmovs: {{ this.storeMovs.slice(25) }}</li>
         </ul>
         -->
-
+        <Toast position="center" group="solved-game" @close="this.returnToList()" :style="{ width: '50rem' }">
+            <template #message="slotProps">
+                <div class="flex flex-column align-items-center text-center w-full gap-2">
+                    <div class="flex flex-row gap-8 mb-4">
+                        <i v-for="n in 3" :key="n" class="pi pi-trophy" style="font-size: 2rem"></i>
+                    </div>
+                    <div class="text-3xl font-bold">{{ slotProps.message.summary }}</div>
+                    <div class="flex flex-row gap-8 mt-4">
+                        <i v-for="n in 3" :key="n" class="pi pi-trophy" style="font-size: 2rem"></i>
+                    </div>
+                    <div class="text-2xl" style="margin-top: 2em">{{ slotProps.message.detail }}</div>
+                </div>
+            </template>
+        </Toast>
     </div>
 </template>
 
@@ -51,7 +64,8 @@ export default defineComponent({
                 "input": "",
                 "currentInput": "",
                 "player": {"respStatus": "", "respMessage": ""}
-            }
+            },
+            movsNumber: 0
         }
     },
     props: {
@@ -74,6 +88,12 @@ export default defineComponent({
             this.gameTime = gameUtils.getDiffTime(this.activeGame.totalGameTime);
             this.activeGame.totalGameTime = new Date(this.activeGame.totalGameTime).getTime() + 1000;
         }, 1000);
+
+        window.addEventListener('qhcube:solved-game', this.whenSolvedGame);
+    },
+    unmounted() {
+        window.removeEventListener('qhcube:solved-game', this.whenSolvedGame);
+        clearInterval(this.interval);
     },
     methods: {
         refreshGame(game) {
@@ -84,6 +104,23 @@ export default defineComponent({
                 this.gameTime = gameUtils.getDiffTime(this.activeGame.totalGameTime);
             }, 10);
         },
+        whenSolvedGame(event) {
+            clearInterval(this.interval);
+            this.gameTime = gameUtils.getDiffTime(event.detail.totalGameTime);
+            this.movsNumber = event.detail.numMovs;
+            this.$toast.add({
+                severity: 'success',
+                summary: '¡Enhorabuena!',
+                detail: `Has resuelto la partida en ${this.gameTime} con ${this.movsNumber} movimientos.`,
+                group: 'solved-game'
+            });
+        },
+        returnToList() {
+            this.playerStoreQHCube.setActiveGameMode(0);
+            this.playerStoreQHCube.gameId = 0;
+            gameUtils.resetPracticeGame();
+            this.viewStoreQHCube.setRegisteredPlayerComponent("game-list");
+        }
     }
 })
 </script>
