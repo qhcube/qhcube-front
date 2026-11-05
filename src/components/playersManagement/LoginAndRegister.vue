@@ -128,6 +128,8 @@ export default {
             const resentResult = await authUtils.resendValidationEmail(this.playerStoreQHCube.email);
             if (resentResult.status === "OK") {
                 this.resentEmailMessageVisible = true;
+            } else {
+                this.viewStoreQHCube.setError(resentResult.status, resentResult.message, resentResult.optionalMessage);
             }
         }
     }
