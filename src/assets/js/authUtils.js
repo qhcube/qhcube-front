@@ -39,7 +39,8 @@ export default {
                 }
             })
             .catch((error) => {
-                console.log("ERROR in authUtils.login: " + error.message + " - " + error.response.status);
+                viewStoreQHCube.setError("ERROR", error.response?.data?.respMessage ?? "Ha habido un problema con el servidor.", "");
+                console.log("ERROR in authUtils.login: " + error.message + " - " + error.response?.status);
             });
     },
 
@@ -60,9 +61,9 @@ export default {
             result.message = response.data["respMessage"];
         }).catch((error) => {
             result.status = "ERROR";
-            result.message = "Ha habido un problema con servidor.";
+            result.message = error.response?.data?.respMessage ?? "Ha habido un problema con servidor.";
             result.optionalMessage = error.message;
-            console.log("ERROR in authUtils.emailValidation: " + error.message + " - " + error.response.status);
+            console.log("ERROR in authUtils.emailValidation: " + error.message + " - " + error.response?.status);
         });
 
         return result;
@@ -86,9 +87,9 @@ export default {
 
         }).catch((error) => {
             result.status = "ERROR";
-            result.message = "Ha habido un problema con servidor.";
+            result.message = error.response?.data?.respMessage ?? "Ha habido un problema con servidor.";
             result.optionalMessage = error.message;
-            console.log("ERROR in authUtils.resendValidationEmail: " + error.message + " - " + error.response.status);
+            console.log("ERROR in authUtils.resendValidationEmail: " + error.message + " - " + error.response?.status);
         });
 
         return result;
@@ -118,8 +119,9 @@ export default {
                 }
             })
             .catch((error) => {
-                result = "Error en la petición/respuesta.";
-                console.log("ERROR in authUtils.registerNewPlayer: " + error.message + " - " + error.response.status);
+                result = error.response?.data?.respMessage ?? "Error en la petición/respuesta.";
+                viewStoreQHCube.setError("ERROR", result, "");
+                console.log("ERROR in authUtils.registerNewPlayer: " + error.message + " - " + error.response?.status);
             });
 
         return result;
@@ -140,7 +142,7 @@ export default {
                 return response.data.player["respStatus"] === "OK";
             })
             .catch((error) => {
-                console.log("ERROR in authUtils.checkTokenValidity: " + error.message + " - " + error.response.status);
+                console.log("ERROR in authUtils.checkTokenValidity: " + error.message + " - " + error.response?.status);
             });
 
         return false;
