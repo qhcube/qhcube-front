@@ -13,6 +13,17 @@ export default {
         axios.defaults.headers.common['Authorization'] = '';
     },
 
+    async logoutFromServer() {
+        try {
+            await axios({
+                method: "post",
+                url: import.meta.env.VITE_APP_API + "/player/logout",
+            });
+        } catch (error) {
+            console.log("ERROR in authUtils.logoutFromServer: " + error.message + " - " + error.response?.status);
+        }
+    },
+
     async login(player) {
         const playerStoreQHCube = usePlayerStoreQHCube();
         const viewStoreQHCube = useViewStoreQHCube();
@@ -126,29 +137,6 @@ export default {
 
         return result;
     },
-
-    /*
-    async checkTokenValidity() {
-        const playerStoreQHCube = usePlayerStoreQHCube();
-
-        await axios({
-            method: "post",
-            url: import.meta.env.VITE_APP_FREEAPI + "/check-token-validity",
-            data: {email: playerStoreQHCube.email, jwttoken: playerStoreQHCube.jwttoken},
-            headers: {"Content-Type": "application/json"},
-        })
-            .then((response) => {
-                console.log("checkTokenValidity: " + response.data.player["respStatus"]);
-                return response.data.player["respStatus"] === "OK";
-            })
-            .catch((error) => {
-                console.log("ERROR in authUtils.checkTokenValidity: " + error.message + " - " + error.response?.status);
-            });
-
-        return false;
-    }
-
-    */
 }
 
 
