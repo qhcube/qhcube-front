@@ -85,15 +85,17 @@ axios.interceptors.response.use(
     error => {
         const viewStoreQHCube = useViewStoreQHCube();
 
-        if (error.response.status === 401) {
-            if (JSON.stringify(error.response.data).includes("Token expired")) {
+        if (error.response?.status === 401) {
+            if (JSON.stringify(error.response.data).includes("Session closed")) {
                 viewStoreQHCube.setError("¡ ERROR ! ",
-                    "Tu sesión a expirado. Vuelve a iniciar sesión.", error.message);
+                    "Tu sesión se ha cerrado porque has iniciado sesión en otro sitio. Vuelve a iniciar sesión.", error.message);
+            } else if (JSON.stringify(error.response.data).includes("Token expired")) {
+                viewStoreQHCube.setError("¡ ERROR ! ",
+                    "Tu sesión ha expirado. Vuelve a iniciar sesión.", error.message);
             } else {
                 console.log("Acceso no autorizado");
                 viewStoreQHCube.setError("¡ ERROR ! ", "Acceso NO autorizado.", error.message);
             }
-            //authUtils.logout();
         } else {
             viewStoreQHCube.setError("¡ ERROR !", "Ha habido un problema con servidor.", error.message);
         }

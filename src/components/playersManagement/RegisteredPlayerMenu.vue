@@ -63,6 +63,7 @@ export default defineComponent({
                 acceptLabel: "Sí",
                 group: "pt",
                 accept: async () => {
+                    await authUtils.logoutFromServer();
                     gameUtils.resetPracticeGame();
                     this.$toast.add({severity: 'info', summary: 'Hasta pronto...', group: 'playerMenu', life: 1500});
                     setTimeout(() => {
