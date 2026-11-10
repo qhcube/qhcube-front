@@ -1,8 +1,14 @@
 <template>
     <div class="flex flex-column align-items-center gap-1 text-color-secondary text-lg py-5" style="width: 1000px">
         <p class="m-0">
-            © Copyright 2023 Jesús Lacalle
+            Juego creado por <span class="text-xl">Jesús Lacalle</span>
             <a href="mailto:jesus.glopezdelacalle@upm.es" class="pi pi-envelope ml-2" target="_blank"/>
+        </p>
+        <p class="m-0 text-sm">
+            Software libre con licencia
+            <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="noopener">GPL v3</a>
+            ·
+            <a href="https://github.com/qhcube" target="_blank" rel="noopener">Código fuente</a>
         </p>
         <p class="m-0 text-xs opacity-60 flex align-items-center gap-2">
             <span title="Versión de la interfaz web"><i class="pi pi-desktop mr-1 text-xs"/>{{ versionFront }}</span>
@@ -42,5 +48,9 @@ export default {
 a {
     color: inherit;
     text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 </style>
