@@ -555,8 +555,6 @@
                     }
                     if (producto !== 0) {
                         if (var_modo_tutorial) alert("Error en la unitariedad el QHCube (parte real): filas " + String(var_j) + " y " + String(var_k));
-                        // TODO: CHECK. He cambiado el mensaje de error en dos líneas porque no cabía en el canvas.
-                        //      original --> var_mensaje = "Error en la unitariedad el QHCube (parte real): filas " + String(var_j) + " y " + String(var_k)";
                         var_mensaje = "Error en la unitariedad el QHCube";
                         var_mensaje2 = "(parte real): filas " + String(var_j) + " y " + String(var_k);
                     }
@@ -566,8 +564,6 @@
                     }
                     if (producto !== 0) {
                         if (var_modo_tutorial) alert("Error en la unitariedad el QHCube (parte imaginaria): filas " + String(var_j) + " y " + String(var_k));
-                        // TODO: CHECK. He cambiado el mensaje de error en dos líneas porque no cabía en el canvas.
-                        //      original --> var_mensaje = "Error en la unitariedad el QHCube (parte imaginaria): filas " + String(var_j) + " y " + String(var_k)";
                         var_mensaje = "Error en la unitariedad el QHCube";
                         var_mensaje2 = "(parte imaginaria): filas " + String(var_j) + " y " + String(var_k);
                     }
@@ -1424,8 +1420,9 @@
                         location.reload();
                     });
             } else {
-                // TODO: No tiene token, hay que hacer algo.
-                console.log("axios.addMove(move) --> El jugador no tiene token en localStorage");
+                // Sin datos del jugador en localStorage (por ejemplo, si se han borrado): el movimiento no se puede guardar.
+                alert("No se ha podido guardar el movimiento. Por favor, vuelva a iniciar sesión.");
+                location.reload();
             }
         }
 
@@ -1453,7 +1450,6 @@
                     playerStored.movsList = "[4,0.7483314773547882,0.6324555320336759,0.2]";
                     playerStored.activeGameMode = 0;
                     gameType = 0;
-                    // TODO: Esta parte del else debe tratar de dejar el tema con los componentes como reiniciar práctica.
                     localStorage.setItem("playerStoreQHCube", JSON.stringify(playerStored));
                 }
             }
